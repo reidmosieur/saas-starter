@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from "lucide-react";
 
-import { ResetPassword } from "@/components/reset-password";
+import { ResetPassword } from '@/components/auth/reset-password'
 import { appName } from "@/data/app";
 import Link from "next/link";
 

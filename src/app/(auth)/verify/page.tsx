@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
-import { Verify } from '@/components/verify'
+import { Verify } from '@/components/auth/verify'
 import { appName } from '@/data/app'
 import Link from 'next/link'
 

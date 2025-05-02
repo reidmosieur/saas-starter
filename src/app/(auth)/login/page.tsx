@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
-import { Login } from '@/components/login'
+import { Login } from '@/components/auth/login'
 import Link from 'next/link'
 import { appName } from '@/data/app'
 

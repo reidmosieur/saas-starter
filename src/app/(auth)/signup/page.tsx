@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
-import { Signup } from '@/components/signup'
+import { Signup } from '@/components/auth/signup'
 import Link from 'next/link'
 import { appName } from '@/data/app'
 

@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
-import { Onboarding } from '@/components/onboarding'
+import { Onboarding } from '@/components/auth/onboarding'
 import { appName } from '@/data/app'
 import Link from 'next/link'
 
