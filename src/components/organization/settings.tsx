@@ -8,6 +8,7 @@ import {
 } from '@/schema/account'
 import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { EllipsisVertical, UserPlus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '../ui/button'
@@ -19,6 +20,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../ui/card'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import {
 	Table,
 	TableBody,
@@ -27,8 +29,6 @@ import {
 	TableHeader,
 	TableRow,
 } from '../ui/table'
-import { EllipsisVertical, Plus, UserPlus } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 const organizationSettingsForm = z.object({
 	username: usernameSchema,
