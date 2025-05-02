@@ -14,14 +14,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { SettingsIcon } from "lucide-react";
-import { NavSecondary } from "./nav-secondary";
-import Link from "next/link";
-import { appName } from "@/data/app";
+import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
+import { NavSecondary } from './nav-secondary'
+import Link from 'next/link'
+import { appName } from '@/data/app'
 
 const data = {
 	user: {
-		name: 'reid',
+		name: 'Reid Mosieur',
 		email: 'rmosieur@gmail.com',
 		avatar: '/avatars/reid.jpg',
 		fallback: 'RM',
@@ -35,6 +35,11 @@ const data = {
 	],
 	navSecondary: [
 		{
+			title: 'Organization',
+			url: '/organization',
+			icon: BriefcaseBusiness,
+		},
+		{
 			title: 'Settings',
 			url: '/settings',
 			icon: SettingsIcon,
@@ -43,7 +48,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  return (
+	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
 				<SidebarMenu>
@@ -52,7 +57,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 							asChild
 							className="data-[slot=sidebar-menu-button]:!p-1.5"
 						>
-							<Link href="#" className="text-foreground">
+							<Link href="/" className="text-foreground">
 								<IconInnerShadowTop className="!size-5" />
 								<span className="text-base font-semibold">{appName}</span>
 							</Link>

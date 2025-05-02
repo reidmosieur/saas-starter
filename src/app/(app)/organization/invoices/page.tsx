@@ -45,10 +45,14 @@ export default function Page() {
 										</PopoverTrigger>
 										<PopoverContent
 											align="end"
-											className="flex w-fit flex-col gap-2"
+											className="flex flex-col gap-2 p-1"
 										>
-											<Button variant={'ghost'}>View</Button>
-											<Button variant={'ghost'}>Download</Button>
+											<Button variant={'ghost'} className="justify-start">
+												View
+											</Button>
+											<Button variant={'ghost'} className="justify-start">
+												Download
+											</Button>
 										</PopoverContent>
 									</Popover>
 								</TableCell>
