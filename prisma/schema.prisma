@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_LOCATION")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  username String? @unique
+  firstName String?
+  lastName String?
+
+  password Password? @relation(fields: [passwordId], references: [id])
+  passwordId Int? @unique
+  phoneNumber PhoneNumber? @relation(fields: [phoneNumberId], references: [id])
+  phoneNumberId Int? @unique
+  organization Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int @unique
+  roles Role[]
+}
+
+model Password {
+  id Int @id @default(autoincrement())
+
+  updatedAt DateTime @updatedAt
+
+  hash String
+  
+  user User?
+}
+
+model PhoneNumber {
+  id Int @id @default(autoincrement())
+
+  countryCode String
+  number String
+
+  user User?
+
+  @@unique([countryCode, number])
+}
+
+model Organization {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+
+  users User[]
+  roles Role[]
+}
+
+model Permission {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  action String
+  access String
+  entity String
+
+  roles Role[]
+
+  @@unique([action, access, entity])
+}
+
+model Role {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  permissions Permission[]
+  organization Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int @unique
+  users User[]
+}
