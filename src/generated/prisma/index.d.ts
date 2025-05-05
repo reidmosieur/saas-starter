@@ -1717,7 +1717,7 @@ export namespace Prisma {
     organizationId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
     roles?: boolean | User$rolesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1735,7 +1735,7 @@ export namespace Prisma {
     organizationId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1751,7 +1751,7 @@ export namespace Prisma {
     organizationId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1771,19 +1771,19 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
     roles?: boolean | User$rolesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
   }
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
-    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    organization?: boolean | User$organizationArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1791,7 +1791,7 @@ export namespace Prisma {
     objects: {
       password: Prisma.$PasswordPayload<ExtArgs> | null
       phoneNumber: Prisma.$PhoneNumberPayload<ExtArgs> | null
-      organization: Prisma.$OrganizationPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
       roles: Prisma.$RolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2201,7 +2201,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     password<T extends User$passwordArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordArgs<ExtArgs>>): Prisma__PasswordClient<$Result.GetResult<Prisma.$PasswordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     phoneNumber<T extends User$phoneNumberArgs<ExtArgs> = {}>(args?: Subset<T, User$phoneNumberArgs<ExtArgs>>): Prisma__PhoneNumberClient<$Result.GetResult<Prisma.$PhoneNumberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends User$organizationArgs<ExtArgs> = {}>(args?: Subset<T, User$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2671,6 +2671,25 @@ export namespace Prisma {
      */
     include?: PhoneNumberInclude<ExtArgs> | null
     where?: PhoneNumberWhereInput
+  }
+
+  /**
+   * User.organization
+   */
+  export type User$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Organization
+     */
+    omit?: OrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
   }
 
   /**
@@ -8370,7 +8389,7 @@ export namespace Prisma {
     organizationId?: IntFilter<"User"> | number
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
     phoneNumber?: XOR<PhoneNumberNullableScalarRelationFilter, PhoneNumberWhereInput> | null
-    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
   }
 
@@ -8407,7 +8426,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
     phoneNumber?: XOR<PhoneNumberNullableScalarRelationFilter, PhoneNumberWhereInput> | null
-    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+    organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
   }, "id" | "email" | "username" | "passwordId" | "phoneNumberId" | "organizationId">
 
@@ -8725,7 +8744,7 @@ export namespace Prisma {
     lastName?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
-    organization: OrganizationCreateNestedOneWithoutUsersInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
   }
 
@@ -8752,7 +8771,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
-    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
   }
 
@@ -9133,9 +9152,9 @@ export namespace Prisma {
     isNot?: PhoneNumberWhereInput | null
   }
 
-  export type OrganizationScalarRelationFilter = {
-    is?: OrganizationWhereInput
-    isNot?: OrganizationWhereInput
+  export type OrganizationNullableScalarRelationFilter = {
+    is?: OrganizationWhereInput | null
+    isNot?: OrganizationWhereInput | null
   }
 
   export type RoleListRelationFilter = {
@@ -9434,6 +9453,11 @@ export namespace Prisma {
     none?: PermissionWhereInput
   }
 
+  export type OrganizationScalarRelationFilter = {
+    is?: OrganizationWhereInput
+    isNot?: OrganizationWhereInput
+  }
+
   export type PermissionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9531,10 +9555,12 @@ export namespace Prisma {
     update?: XOR<XOR<PhoneNumberUpdateToOneWithWhereWithoutUserInput, PhoneNumberUpdateWithoutUserInput>, PhoneNumberUncheckedUpdateWithoutUserInput>
   }
 
-  export type OrganizationUpdateOneRequiredWithoutUsersNestedInput = {
+  export type OrganizationUpdateOneWithoutUsersNestedInput = {
     create?: XOR<OrganizationCreateWithoutUsersInput, OrganizationUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutUsersInput
     upsert?: OrganizationUpsertWithoutUsersInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
     connect?: OrganizationWhereUniqueInput
     update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutUsersInput, OrganizationUpdateWithoutUsersInput>, OrganizationUncheckedUpdateWithoutUsersInput>
   }
@@ -10196,7 +10222,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
-    organization: OrganizationCreateNestedOneWithoutUsersInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
   }
 
@@ -10237,7 +10263,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
-    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
   }
 
@@ -10262,7 +10288,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
-    organization: OrganizationCreateNestedOneWithoutUsersInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
   }
 
@@ -10303,7 +10329,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
-    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
   }
 
@@ -10513,7 +10539,7 @@ export namespace Prisma {
     lastName?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
-    organization: OrganizationCreateNestedOneWithoutUsersInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -10759,7 +10785,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
-    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
