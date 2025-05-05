@@ -57,13 +57,21 @@ export function NameField<T extends { firstName: string; lastName: string }>({
 }
 
 type PhoneNumberProps<
-	T extends { phoneNumber: { countryCode: string; number: string } },
+	T extends {
+		phoneNumber?:
+			| { number?: string | undefined; countryCode?: string | undefined }
+			| undefined
+	},
 > = {
 	form: UseFormReturn<T>
 }
 
 export function PhoneNumberField<
-	T extends { phoneNumber: { countryCode: string; number: string } },
+	T extends {
+		phoneNumber?:
+			| { number?: string | undefined; countryCode?: string | undefined }
+			| undefined
+	},
 >({ form }: PhoneNumberProps<T>) {
 	return (
 		<div className="grid grid-cols-2 gap-4">

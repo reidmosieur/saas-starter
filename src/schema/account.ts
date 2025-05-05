@@ -13,14 +13,21 @@ export const usernameSchema = z
 
 export const firstNameSchema = z
 	.string()
-	.min(2, { message: `Please provide a name that's at least 2 characters` })
+	.min(2, { message: `Please provide a first name` })
 	.trim()
 export const lastNameSchema = z
 	.string()
-	.min(2, { message: `Please provide a name that's at least 2 characters` })
+	.min(2, { message: `Please provide a last name` })
 	.trim()
 
 export const phoneNumberSchema = z.object({
-	countryCode: z.string(), // todo: enum for country codes
-	number: z.string(), //todo: phone "number" refinement
+	countryCode: z.string().optional(), // todo: enum for country codes
+	number: z.string().optional(), //todo: phone "number" refinement
+})
+
+export const onboardingSchema = z.object({
+	username: usernameSchema,
+	firstName: firstNameSchema,
+	lastName: lastNameSchema,
+	phoneNumber: phoneNumberSchema.optional(),
 })
