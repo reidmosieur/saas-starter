@@ -1,12 +1,4 @@
-import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { UseFormReturn, FieldValues, Path } from 'react-hook-form'
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form'
 import { FieldProps, LabeledInputField } from '../fields'
 
 type UsernameFieldProps<T extends FieldValues & { username: string }> = {
@@ -17,18 +9,10 @@ export function UsernameField<T extends { username: string }>({
 	form,
 }: UsernameFieldProps<T>) {
 	return (
-		<FormField
-			control={form.control}
+		<LabeledInputField
+			form={form}
 			name={'username' as Path<T>}
-			render={({ field }) => (
-				<FormItem>
-					<FormLabel>Username</FormLabel>
-					<FormControl>
-						<Input {...field} />
-					</FormControl>
-					<FormMessage />
-				</FormItem>
-			)}
+			labelProps={{ children: 'Username' }}
 		/>
 	)
 }
@@ -40,7 +24,7 @@ export function FirstNameField<T extends { firstName: string }>({
 		<LabeledInputField
 			form={form}
 			name={'firstName' as Path<T>}
-			label="First Name"
+			labelProps={{ children: 'First Name' }}
 		/>
 	)
 }
@@ -52,7 +36,7 @@ export function LastNameField<T extends { lastName: string }>({
 		<LabeledInputField
 			form={form}
 			name={'lastName' as Path<T>}
-			label="Last Name"
+			labelProps={{ children: 'Last Name' }}
 		/>
 	)
 }
@@ -86,12 +70,12 @@ export function PhoneNumberField<
 			<LabeledInputField
 				form={form}
 				name={'countryCode' as Path<T>}
-				label="Country Code"
+				labelProps={{ children: 'Country Code' }}
 			/>
 			<LabeledInputField
 				form={form}
 				name={'number' as Path<T>}
-				label="Phone Number"
+				labelProps={{ children: 'Phone Number' }}
 			/>
 		</div>
 	)
