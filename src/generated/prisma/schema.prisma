@@ -25,12 +25,12 @@ model User {
   firstName String?
   lastName  String?
 
-  password       Password?    @relation(fields: [passwordId], references: [id])
-  passwordId     Int?         @unique
-  phoneNumber    PhoneNumber? @relation(fields: [phoneNumberId], references: [id])
-  phoneNumberId  Int?         @unique
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId Int          @unique
+  password       Password?     @relation(fields: [passwordId], references: [id])
+  passwordId     Int?          @unique
+  phoneNumber    PhoneNumber?  @relation(fields: [phoneNumberId], references: [id])
+  phoneNumberId  Int?          @unique
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId Int           @unique
   roles          Role[]
 }
 
