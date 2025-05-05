@@ -6,7 +6,9 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { UseFormReturn, FieldValues, Path } from 'react-hook-form'
+import { LabelProps } from '@radix-ui/react-label'
+import { ComponentProps, ForwardRefExoticComponent, RefAttributes } from 'react'
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form'
 
 export type FieldProps<T extends FieldValues> = {
 	form: UseFormReturn<T>
@@ -15,11 +17,15 @@ export type FieldProps<T extends FieldValues> = {
 export function LabeledInputField<T extends FieldValues, K extends Path<T>>({
 	form,
 	name,
-	label,
+	labelProps,
+	inputProps,
 }: {
 	form: UseFormReturn<T>
 	name: K
-	label: string
+	labelProps?: ComponentProps<
+		ForwardRefExoticComponent<LabelProps & RefAttributes<HTMLLabelElement>>
+	>
+	inputProps?: ComponentProps<'input'>
 }) {
 	return (
 		<FormField
@@ -27,9 +33,9 @@ export function LabeledInputField<T extends FieldValues, K extends Path<T>>({
 			name={name}
 			render={({ field }) => (
 				<FormItem>
-					<FormLabel>{label}</FormLabel>
+					<FormLabel {...labelProps} />
 					<FormControl>
-						<Input {...field} />
+						<Input {...field} {...inputProps} />
 					</FormControl>
 					<FormMessage />
 				</FormItem>
