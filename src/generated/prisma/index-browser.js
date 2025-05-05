@@ -136,6 +136,29 @@ exports.Prisma.PasswordScalarFieldEnum = {
   hash: 'hash'
 };
 
+exports.Prisma.OTPScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  usedAt: 'usedAt',
+  email: 'email',
+  codeHash: 'codeHash',
+  type: 'type',
+  redirectTo: 'redirectTo'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  context: 'context',
+  metadata: 'metadata',
+  userId: 'userId'
+};
+
 exports.Prisma.PhoneNumberScalarFieldEnum = {
   id: 'id',
   countryCode: 'countryCode',
@@ -170,15 +193,33 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 
 exports.Prisma.ModelName = {
   User: 'User',
   Password: 'Password',
+  OTP: 'OTP',
+  Session: 'Session',
   PhoneNumber: 'PhoneNumber',
   Organization: 'Organization',
   Permission: 'Permission',

@@ -30,8 +30,9 @@ model User {
   phoneNumber    PhoneNumber?  @relation(fields: [phoneNumberId], references: [id])
   phoneNumberId  Int?          @unique
   organization   Organization? @relation(fields: [organizationId], references: [id])
-  organizationId Int           @unique
+  organizationId Int?          @unique
   roles          Role[]
+  sessions       Session[]
 }
 
 model Password {
@@ -42,6 +43,36 @@ model Password {
   hash String
 
   user User?
+}
+
+model OTP {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  usedAt    DateTime @updatedAt
+
+  email      String
+  codeHash   String
+  type       String // could opt for an enum if you're using Postgres
+  redirectTo String // could opt for an enum if you're using Postgres
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expiresAt DateTime?
+  revokedAt DateTime?
+
+  ipAddress String?
+  userAgent String?
+  context   String? // could opt for an enum if you're using Postgres
+
+  metadata Json? // additional store if you need something flexibile e.g. AB testing
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model PhoneNumber {
