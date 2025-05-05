@@ -29,13 +29,15 @@ export function EmailField<T extends { email: string }>({
 export function PasswordField<T extends { password: string }>({
 	form,
 	displayForgotPassword,
+	name = 'password',
 }: FieldProps<T> & {
 	displayForgotPassword?: boolean
+	name?: string
 }) {
 	return (
 		<LabeledInputField
 			form={form}
-			name={'password' as Path<T>}
+			name={name as Path<T>}
 			labelProps={{
 				children: displayForgotPassword ? (
 					<>

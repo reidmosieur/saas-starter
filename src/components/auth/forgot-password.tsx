@@ -1,4 +1,5 @@
-import { cn } from '@/lib/utils'
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -7,9 +8,14 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
+import { forgotPasswordSchema } from '@/schema/auth'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Form } from '../ui/form'
+import { EmailField } from './fields'
 
 export function ForgotPassword({
 	className,
@@ -25,30 +31,7 @@ export function ForgotPassword({
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<form>
-						<div className="grid gap-6">
-							<div className="grid gap-6">
-								<div className="grid gap-3">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										type="email"
-										placeholder="m@example.com"
-										required
-									/>
-								</div>
-								<Button type="submit" className="w-full">
-									Send Instructions
-								</Button>
-							</div>
-							<div className="text-center text-sm">
-								Don&apos;t have an account?{' '}
-								<Link href="/signup" className="underline underline-offset-4">
-									Sign up
-								</Link>
-							</div>
-						</div>
-					</form>
+					<ForgotPasswordForm />
 				</CardContent>
 			</Card>
 			<div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
@@ -57,5 +40,43 @@ export function ForgotPassword({
 				<Link href="/privacy">Privacy Policy</Link>.
 			</div>
 		</div>
+	)
+}
+
+export function ForgotPasswordForm() {
+	// 1. Define your form.
+	const form = useForm<z.infer<typeof forgotPasswordSchema>>({
+		resolver: zodResolver(forgotPasswordSchema),
+		defaultValues: {
+			email: '',
+		},
+	})
+
+	// 2. Define a submit handler.
+	async function onSubmit(values: z.infer<typeof forgotPasswordSchema>) {
+		// Do something with the form values.
+		// ✅ This will be type-safe and validated.
+		console.log(values)
+	}
+
+	return (
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)}>
+				<div className="grid gap-6">
+					<div className="grid gap-6">
+						<EmailField form={form} />
+						<Button type="submit" className="w-full">
+							Continue
+						</Button>
+					</div>
+					<div className="text-center text-sm">
+						Don&apos;t have an account?{' '}
+						<Link href="/signup" className="underline underline-offset-4">
+							Sign up
+						</Link>
+					</div>
+				</div>
+			</form>
+		</Form>
 	)
 }
