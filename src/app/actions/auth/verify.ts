@@ -4,10 +4,12 @@ import { hashSalt } from '@/constants/auth'
 import bcrypt from 'bcrypt'
 import { redirect } from 'next/navigation'
 import { verifyEmailSchema } from '@/schema/auth'
-import { RedirectTo } from '@/types/auth'
+import { OtpType, RedirectTo } from '@/types/auth'
 import prisma from '@/lib/prisma'
 import { PrismaClientKnownRequestError } from '@/generated/prisma/runtime/library'
 import { randomInt } from 'crypto'
+import { cookies } from 'next/headers'
+import { completeEmailSignup } from './signup'
 
 const safeError = {
 	errors: {
@@ -27,9 +29,13 @@ export async function handleOTPSetup({
 	redirectTo: RedirectTo
 }) {
 	try {
-		const code = generateCleanOTP()
+		// Step 1:
+		// generate a code and hash it
+		const code = await generateCleanOTP()
 		const codeHash = await bcrypt.hash(code, hashSalt)
 
+		// Step 2:
+		// create the record
 		const otp = await prisma.oTP.create({
 			data: {
 				email,
@@ -43,6 +49,19 @@ export async function handleOTPSetup({
 			return safeError
 		}
 
+		// Step 2:
+		// add the otp id as a server only cookie to reference later
+		const cookieStore = await cookies()
+		cookieStore.set('otp_session', otp.id.toString(), {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'lax',
+			maxAge: 600, // 10 minutes
+			path: '/',
+		})
+
+		// Step 3:
+		// email the code to the user
 		// todo: implement email with resend
 		console.info('The OTP is: ', code)
 	} catch (err) {
@@ -66,17 +85,42 @@ export async function handleOTPSetup({
 
 interface VerifyOTPArgs {
 	code: string
-	email: string
 }
 
-export async function verifyOTP({ code, email }: VerifyOTPArgs) {
+export async function verifyOTP({ code }: VerifyOTPArgs) {
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = verifyEmailSchema.safeParse({
+		code,
+	})
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	// Step 2:
+	// find the users OTP by the OTP cookie
+	const cookieStore = await cookies()
+	const otpIdCookie = cookieStore.get('otp_session')?.value
+
+	if (!otpIdCookie) return safeError
+
+	const otpId = Number(otpIdCookie)
+
 	const otp = await prisma.oTP.findUnique({
 		where: {
-			email,
+			id: otpId,
 		},
 		select: {
 			codeHash: true,
 			redirectTo: true,
+			email: true,
+			type: true,
 		},
 	})
 
@@ -90,37 +134,58 @@ export async function verifyOTP({ code, email }: VerifyOTPArgs) {
 		}
 	}
 
-	const isValid = await bcrypt.compare(code, otp?.codeHash)
+	// Step 3:
+	// compare the code to make sure it matches
+	const { code: validatedCode } = validatedFields.data
+	const isValid = await bcrypt.compare(validatedCode, otp?.codeHash)
 
 	if (!isValid) {
 		// optional: add in limit to OTP compares
 		return safeError
 	}
 
+	// Step 4:
+	// clean up the database
+	// clean ups are also performed every 30 days with cron jobs
 	await prisma.oTP.delete({
 		where: {
 			codeHash: otp.codeHash,
 		},
 	})
 
-	const redirectTo = otp.redirectTo
+	// Step 5:
+	// complete authorization flows based on the OTP type
+	const otpType = otp.type as OtpType
 
-	switch (redirectTo) {
-		case 'onboarding':
-			return redirect(`/onboarding?email=${email}`)
+	switch (otpType) {
+		case 'email-signup':
+			await completeEmailSignup({ email: otp.email })
+			break
 
 		default:
-			console.log('default reached')
+			console.log('default reached in otp type block')
+			break
+	}
+
+	// Step 6:
+	// redirect the user based on the authorization flow
+	const redirectTo = otp.redirectTo as RedirectTo
+	switch (redirectTo) {
+		case 'onboarding':
+			console.log('redirect to onboarding')
+			redirect(`/onboarding`)
+
+		default:
+			console.log('default reached in redirect to block')
 			break
 	}
 }
 
-export async function handleVerifyOTP({ email, code }: VerifyOTPArgs) {
+export async function handleVerifyOTP({ code }: VerifyOTPArgs) {
 	// validate email sign up fields
 	// the form is already validated once on the client but it's good
 	// to validate twice to deter bad actors
 	const validatedFields = verifyEmailSchema.safeParse({
-		email,
 		code,
 	})
 
@@ -140,7 +205,7 @@ export async function handleVerifyOTP({ email, code }: VerifyOTPArgs) {
 	return await verifyOTP(values)
 }
 
-export function generateCleanOTP(length = 6): string {
+export async function generateCleanOTP(length = 6) {
 	// for UX, we'll remove confusing characters and only use uppercase characters
 	// Removes: O (letter), 0 (zero), I (uppercase i), 1 (one), L
 	const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'

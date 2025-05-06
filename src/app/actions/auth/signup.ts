@@ -4,6 +4,8 @@ import { emailSignUpSchema } from '@/schema/auth'
 import { redirect } from 'next/navigation'
 import { checkExistingUser } from '.'
 import { handleOTPSetup } from './verify'
+import prisma from '@/lib/prisma'
+import { createSession } from '@/lib/session'
 
 const safeError = {
 	errors: {
@@ -13,7 +15,7 @@ const safeError = {
 	},
 }
 
-export async function emailSignup({ email }: { email: string }) {
+export async function initializeEmailSignup({ email }: { email: string }) {
 	// Step 1:
 	// validate email sign up fields
 	// the form is already validated once on the client but it's good
@@ -63,4 +65,18 @@ export async function emailSignup({ email }: { email: string }) {
 	// redirect the user to the verification route
 	// the user get's a link emailed as well
 	redirect('/verify')
+}
+
+// triggers after user verifies email with OTP
+export async function completeEmailSignup({ email }: { email: string }) {
+	const user = await prisma.user.create({
+		data: {
+			email,
+		},
+		select: {
+			id: true,
+		},
+	})
+
+	return await createSession({ userId: user.id, context: 'email-signup' })
 }

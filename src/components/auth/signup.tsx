@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormMessage } from '../ui/form'
 import { EmailField } from './fields'
-import { emailSignup } from '@/app/actions/auth/signup'
+import { initializeEmailSignup } from '@/app/actions/auth/signup'
 
 export function Signup({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
@@ -83,7 +83,7 @@ function EmailSignupForm() {
 	})
 
 	async function onSubmit(values: z.infer<typeof emailSignUpSchema>) {
-		const result = await emailSignup(values)
+		const result = await initializeEmailSignup(values)
 		if (result && result.errors) {
 			Object.entries(result.errors).map(([key, value]) =>
 				form.setError(key as 'email' | 'root', value),
