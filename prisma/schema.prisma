@@ -51,7 +51,7 @@ model OTP {
   // this is used to invalidate unused OTPs 
   // rather than having another column "expiresAt"
   // just in case we want to change how frequently
-  // OTPs are removed
+  // OTPs are removed without rewriting in the database
   createdAt DateTime @default(now())
   usedAt    DateTime @updatedAt
 
@@ -70,8 +70,36 @@ model Session {
   revokedAt DateTime?
 
   ipAddress String?
-  userAgent String?
   context   String? // could opt for an enum if you're using Postgres
+
+  // user agent data
+  // extracted from next.js userAgent function
+  // source: https://nextjs.org/docs/app/api-reference/functions/userAgent
+  ua              String?
+  isBot           Boolean?
+  browserName     String?
+  browserVersion  String?
+  browserMajor    String?
+  deviceModel     String?
+  deviceType      String?
+  deviceVendor    String?
+  engineName      String?
+  engineVersion   String?
+  osName          String?
+  osVersion       String?
+  cpuArchitecture String?
+
+  // geo location data
+  // this is typed according to the IPinfo API which gives unlimited, simple requests for free
+  // https://ipinfo.io/
+  hostname String?
+  city     String?
+  region   String?
+  country  String?
+  loc      String?
+  org      String?
+  postal   String?
+  timezone String?
 
   metadata Json? // additional store if you need something flexibile e.g. AB testing
 

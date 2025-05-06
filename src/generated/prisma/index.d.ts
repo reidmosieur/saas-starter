@@ -5105,8 +5105,28 @@ export namespace Prisma {
     expiresAt: Date | null
     revokedAt: Date | null
     ipAddress: string | null
-    userAgent: string | null
     context: string | null
+    ua: string | null
+    isBot: boolean | null
+    browserName: string | null
+    browserVersion: string | null
+    browserMajor: string | null
+    deviceModel: string | null
+    deviceType: string | null
+    deviceVendor: string | null
+    engineName: string | null
+    engineVersion: string | null
+    osName: string | null
+    osVersion: string | null
+    cpuArchitecture: string | null
+    hostname: string | null
+    city: string | null
+    region: string | null
+    country: string | null
+    loc: string | null
+    org: string | null
+    postal: string | null
+    timezone: string | null
     userId: number | null
   }
 
@@ -5117,8 +5137,28 @@ export namespace Prisma {
     expiresAt: Date | null
     revokedAt: Date | null
     ipAddress: string | null
-    userAgent: string | null
     context: string | null
+    ua: string | null
+    isBot: boolean | null
+    browserName: string | null
+    browserVersion: string | null
+    browserMajor: string | null
+    deviceModel: string | null
+    deviceType: string | null
+    deviceVendor: string | null
+    engineName: string | null
+    engineVersion: string | null
+    osName: string | null
+    osVersion: string | null
+    cpuArchitecture: string | null
+    hostname: string | null
+    city: string | null
+    region: string | null
+    country: string | null
+    loc: string | null
+    org: string | null
+    postal: string | null
+    timezone: string | null
     userId: number | null
   }
 
@@ -5129,8 +5169,28 @@ export namespace Prisma {
     expiresAt: number
     revokedAt: number
     ipAddress: number
-    userAgent: number
     context: number
+    ua: number
+    isBot: number
+    browserName: number
+    browserVersion: number
+    browserMajor: number
+    deviceModel: number
+    deviceType: number
+    deviceVendor: number
+    engineName: number
+    engineVersion: number
+    osName: number
+    osVersion: number
+    cpuArchitecture: number
+    hostname: number
+    city: number
+    region: number
+    country: number
+    loc: number
+    org: number
+    postal: number
+    timezone: number
     metadata: number
     userId: number
     _all: number
@@ -5154,8 +5214,28 @@ export namespace Prisma {
     expiresAt?: true
     revokedAt?: true
     ipAddress?: true
-    userAgent?: true
     context?: true
+    ua?: true
+    isBot?: true
+    browserName?: true
+    browserVersion?: true
+    browserMajor?: true
+    deviceModel?: true
+    deviceType?: true
+    deviceVendor?: true
+    engineName?: true
+    engineVersion?: true
+    osName?: true
+    osVersion?: true
+    cpuArchitecture?: true
+    hostname?: true
+    city?: true
+    region?: true
+    country?: true
+    loc?: true
+    org?: true
+    postal?: true
+    timezone?: true
     userId?: true
   }
 
@@ -5166,8 +5246,28 @@ export namespace Prisma {
     expiresAt?: true
     revokedAt?: true
     ipAddress?: true
-    userAgent?: true
     context?: true
+    ua?: true
+    isBot?: true
+    browserName?: true
+    browserVersion?: true
+    browserMajor?: true
+    deviceModel?: true
+    deviceType?: true
+    deviceVendor?: true
+    engineName?: true
+    engineVersion?: true
+    osName?: true
+    osVersion?: true
+    cpuArchitecture?: true
+    hostname?: true
+    city?: true
+    region?: true
+    country?: true
+    loc?: true
+    org?: true
+    postal?: true
+    timezone?: true
     userId?: true
   }
 
@@ -5178,8 +5278,28 @@ export namespace Prisma {
     expiresAt?: true
     revokedAt?: true
     ipAddress?: true
-    userAgent?: true
     context?: true
+    ua?: true
+    isBot?: true
+    browserName?: true
+    browserVersion?: true
+    browserMajor?: true
+    deviceModel?: true
+    deviceType?: true
+    deviceVendor?: true
+    engineName?: true
+    engineVersion?: true
+    osName?: true
+    osVersion?: true
+    cpuArchitecture?: true
+    hostname?: true
+    city?: true
+    region?: true
+    country?: true
+    loc?: true
+    org?: true
+    postal?: true
+    timezone?: true
     metadata?: true
     userId?: true
     _all?: true
@@ -5278,8 +5398,28 @@ export namespace Prisma {
     expiresAt: Date | null
     revokedAt: Date | null
     ipAddress: string | null
-    userAgent: string | null
     context: string | null
+    ua: string | null
+    isBot: boolean | null
+    browserName: string | null
+    browserVersion: string | null
+    browserMajor: string | null
+    deviceModel: string | null
+    deviceType: string | null
+    deviceVendor: string | null
+    engineName: string | null
+    engineVersion: string | null
+    osName: string | null
+    osVersion: string | null
+    cpuArchitecture: string | null
+    hostname: string | null
+    city: string | null
+    region: string | null
+    country: string | null
+    loc: string | null
+    org: string | null
+    postal: string | null
+    timezone: string | null
     metadata: JsonValue | null
     userId: number
     _count: SessionCountAggregateOutputType | null
@@ -5310,8 +5450,28 @@ export namespace Prisma {
     expiresAt?: boolean
     revokedAt?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
     context?: boolean
+    ua?: boolean
+    isBot?: boolean
+    browserName?: boolean
+    browserVersion?: boolean
+    browserMajor?: boolean
+    deviceModel?: boolean
+    deviceType?: boolean
+    deviceVendor?: boolean
+    engineName?: boolean
+    engineVersion?: boolean
+    osName?: boolean
+    osVersion?: boolean
+    cpuArchitecture?: boolean
+    hostname?: boolean
+    city?: boolean
+    region?: boolean
+    country?: boolean
+    loc?: boolean
+    org?: boolean
+    postal?: boolean
+    timezone?: boolean
     metadata?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5324,8 +5484,28 @@ export namespace Prisma {
     expiresAt?: boolean
     revokedAt?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
     context?: boolean
+    ua?: boolean
+    isBot?: boolean
+    browserName?: boolean
+    browserVersion?: boolean
+    browserMajor?: boolean
+    deviceModel?: boolean
+    deviceType?: boolean
+    deviceVendor?: boolean
+    engineName?: boolean
+    engineVersion?: boolean
+    osName?: boolean
+    osVersion?: boolean
+    cpuArchitecture?: boolean
+    hostname?: boolean
+    city?: boolean
+    region?: boolean
+    country?: boolean
+    loc?: boolean
+    org?: boolean
+    postal?: boolean
+    timezone?: boolean
     metadata?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5338,8 +5518,28 @@ export namespace Prisma {
     expiresAt?: boolean
     revokedAt?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
     context?: boolean
+    ua?: boolean
+    isBot?: boolean
+    browserName?: boolean
+    browserVersion?: boolean
+    browserMajor?: boolean
+    deviceModel?: boolean
+    deviceType?: boolean
+    deviceVendor?: boolean
+    engineName?: boolean
+    engineVersion?: boolean
+    osName?: boolean
+    osVersion?: boolean
+    cpuArchitecture?: boolean
+    hostname?: boolean
+    city?: boolean
+    region?: boolean
+    country?: boolean
+    loc?: boolean
+    org?: boolean
+    postal?: boolean
+    timezone?: boolean
     metadata?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5352,13 +5552,33 @@ export namespace Prisma {
     expiresAt?: boolean
     revokedAt?: boolean
     ipAddress?: boolean
-    userAgent?: boolean
     context?: boolean
+    ua?: boolean
+    isBot?: boolean
+    browserName?: boolean
+    browserVersion?: boolean
+    browserMajor?: boolean
+    deviceModel?: boolean
+    deviceType?: boolean
+    deviceVendor?: boolean
+    engineName?: boolean
+    engineVersion?: boolean
+    osName?: boolean
+    osVersion?: boolean
+    cpuArchitecture?: boolean
+    hostname?: boolean
+    city?: boolean
+    region?: boolean
+    country?: boolean
+    loc?: boolean
+    org?: boolean
+    postal?: boolean
+    timezone?: boolean
     metadata?: boolean
     userId?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "expiresAt" | "revokedAt" | "ipAddress" | "userAgent" | "context" | "metadata" | "userId", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "expiresAt" | "revokedAt" | "ipAddress" | "context" | "ua" | "isBot" | "browserName" | "browserVersion" | "browserMajor" | "deviceModel" | "deviceType" | "deviceVendor" | "engineName" | "engineVersion" | "osName" | "osVersion" | "cpuArchitecture" | "hostname" | "city" | "region" | "country" | "loc" | "org" | "postal" | "timezone" | "metadata" | "userId", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5381,8 +5601,28 @@ export namespace Prisma {
       expiresAt: Date | null
       revokedAt: Date | null
       ipAddress: string | null
-      userAgent: string | null
       context: string | null
+      ua: string | null
+      isBot: boolean | null
+      browserName: string | null
+      browserVersion: string | null
+      browserMajor: string | null
+      deviceModel: string | null
+      deviceType: string | null
+      deviceVendor: string | null
+      engineName: string | null
+      engineVersion: string | null
+      osName: string | null
+      osVersion: string | null
+      cpuArchitecture: string | null
+      hostname: string | null
+      city: string | null
+      region: string | null
+      country: string | null
+      loc: string | null
+      org: string | null
+      postal: string | null
+      timezone: string | null
       metadata: Prisma.JsonValue | null
       userId: number
     }, ExtArgs["result"]["session"]>
@@ -5815,8 +6055,28 @@ export namespace Prisma {
     readonly expiresAt: FieldRef<"Session", 'DateTime'>
     readonly revokedAt: FieldRef<"Session", 'DateTime'>
     readonly ipAddress: FieldRef<"Session", 'String'>
-    readonly userAgent: FieldRef<"Session", 'String'>
     readonly context: FieldRef<"Session", 'String'>
+    readonly ua: FieldRef<"Session", 'String'>
+    readonly isBot: FieldRef<"Session", 'Boolean'>
+    readonly browserName: FieldRef<"Session", 'String'>
+    readonly browserVersion: FieldRef<"Session", 'String'>
+    readonly browserMajor: FieldRef<"Session", 'String'>
+    readonly deviceModel: FieldRef<"Session", 'String'>
+    readonly deviceType: FieldRef<"Session", 'String'>
+    readonly deviceVendor: FieldRef<"Session", 'String'>
+    readonly engineName: FieldRef<"Session", 'String'>
+    readonly engineVersion: FieldRef<"Session", 'String'>
+    readonly osName: FieldRef<"Session", 'String'>
+    readonly osVersion: FieldRef<"Session", 'String'>
+    readonly cpuArchitecture: FieldRef<"Session", 'String'>
+    readonly hostname: FieldRef<"Session", 'String'>
+    readonly city: FieldRef<"Session", 'String'>
+    readonly region: FieldRef<"Session", 'String'>
+    readonly country: FieldRef<"Session", 'String'>
+    readonly loc: FieldRef<"Session", 'String'>
+    readonly org: FieldRef<"Session", 'String'>
+    readonly postal: FieldRef<"Session", 'String'>
+    readonly timezone: FieldRef<"Session", 'String'>
     readonly metadata: FieldRef<"Session", 'Json'>
     readonly userId: FieldRef<"Session", 'Int'>
   }
@@ -10727,8 +10987,28 @@ export namespace Prisma {
     expiresAt: 'expiresAt',
     revokedAt: 'revokedAt',
     ipAddress: 'ipAddress',
-    userAgent: 'userAgent',
     context: 'context',
+    ua: 'ua',
+    isBot: 'isBot',
+    browserName: 'browserName',
+    browserVersion: 'browserVersion',
+    browserMajor: 'browserMajor',
+    deviceModel: 'deviceModel',
+    deviceType: 'deviceType',
+    deviceVendor: 'deviceVendor',
+    engineName: 'engineName',
+    engineVersion: 'engineVersion',
+    osName: 'osName',
+    osVersion: 'osVersion',
+    cpuArchitecture: 'cpuArchitecture',
+    hostname: 'hostname',
+    city: 'city',
+    region: 'region',
+    country: 'country',
+    loc: 'loc',
+    org: 'org',
+    postal: 'postal',
+    timezone: 'timezone',
     metadata: 'metadata',
     userId: 'userId'
   };
@@ -10841,6 +11121,13 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -11083,8 +11370,28 @@ export namespace Prisma {
     expiresAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     revokedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
     context?: StringNullableFilter<"Session"> | string | null
+    ua?: StringNullableFilter<"Session"> | string | null
+    isBot?: BoolNullableFilter<"Session"> | boolean | null
+    browserName?: StringNullableFilter<"Session"> | string | null
+    browserVersion?: StringNullableFilter<"Session"> | string | null
+    browserMajor?: StringNullableFilter<"Session"> | string | null
+    deviceModel?: StringNullableFilter<"Session"> | string | null
+    deviceType?: StringNullableFilter<"Session"> | string | null
+    deviceVendor?: StringNullableFilter<"Session"> | string | null
+    engineName?: StringNullableFilter<"Session"> | string | null
+    engineVersion?: StringNullableFilter<"Session"> | string | null
+    osName?: StringNullableFilter<"Session"> | string | null
+    osVersion?: StringNullableFilter<"Session"> | string | null
+    cpuArchitecture?: StringNullableFilter<"Session"> | string | null
+    hostname?: StringNullableFilter<"Session"> | string | null
+    city?: StringNullableFilter<"Session"> | string | null
+    region?: StringNullableFilter<"Session"> | string | null
+    country?: StringNullableFilter<"Session"> | string | null
+    loc?: StringNullableFilter<"Session"> | string | null
+    org?: StringNullableFilter<"Session"> | string | null
+    postal?: StringNullableFilter<"Session"> | string | null
+    timezone?: StringNullableFilter<"Session"> | string | null
     metadata?: JsonNullableFilter<"Session">
     userId?: IntFilter<"Session"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11097,8 +11404,28 @@ export namespace Prisma {
     expiresAt?: SortOrderInput | SortOrder
     revokedAt?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
-    userAgent?: SortOrderInput | SortOrder
     context?: SortOrderInput | SortOrder
+    ua?: SortOrderInput | SortOrder
+    isBot?: SortOrderInput | SortOrder
+    browserName?: SortOrderInput | SortOrder
+    browserVersion?: SortOrderInput | SortOrder
+    browserMajor?: SortOrderInput | SortOrder
+    deviceModel?: SortOrderInput | SortOrder
+    deviceType?: SortOrderInput | SortOrder
+    deviceVendor?: SortOrderInput | SortOrder
+    engineName?: SortOrderInput | SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    osName?: SortOrderInput | SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    cpuArchitecture?: SortOrderInput | SortOrder
+    hostname?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    loc?: SortOrderInput | SortOrder
+    org?: SortOrderInput | SortOrder
+    postal?: SortOrderInput | SortOrder
+    timezone?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -11114,8 +11441,28 @@ export namespace Prisma {
     expiresAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     revokedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
     context?: StringNullableFilter<"Session"> | string | null
+    ua?: StringNullableFilter<"Session"> | string | null
+    isBot?: BoolNullableFilter<"Session"> | boolean | null
+    browserName?: StringNullableFilter<"Session"> | string | null
+    browserVersion?: StringNullableFilter<"Session"> | string | null
+    browserMajor?: StringNullableFilter<"Session"> | string | null
+    deviceModel?: StringNullableFilter<"Session"> | string | null
+    deviceType?: StringNullableFilter<"Session"> | string | null
+    deviceVendor?: StringNullableFilter<"Session"> | string | null
+    engineName?: StringNullableFilter<"Session"> | string | null
+    engineVersion?: StringNullableFilter<"Session"> | string | null
+    osName?: StringNullableFilter<"Session"> | string | null
+    osVersion?: StringNullableFilter<"Session"> | string | null
+    cpuArchitecture?: StringNullableFilter<"Session"> | string | null
+    hostname?: StringNullableFilter<"Session"> | string | null
+    city?: StringNullableFilter<"Session"> | string | null
+    region?: StringNullableFilter<"Session"> | string | null
+    country?: StringNullableFilter<"Session"> | string | null
+    loc?: StringNullableFilter<"Session"> | string | null
+    org?: StringNullableFilter<"Session"> | string | null
+    postal?: StringNullableFilter<"Session"> | string | null
+    timezone?: StringNullableFilter<"Session"> | string | null
     metadata?: JsonNullableFilter<"Session">
     userId?: IntFilter<"Session"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11128,8 +11475,28 @@ export namespace Prisma {
     expiresAt?: SortOrderInput | SortOrder
     revokedAt?: SortOrderInput | SortOrder
     ipAddress?: SortOrderInput | SortOrder
-    userAgent?: SortOrderInput | SortOrder
     context?: SortOrderInput | SortOrder
+    ua?: SortOrderInput | SortOrder
+    isBot?: SortOrderInput | SortOrder
+    browserName?: SortOrderInput | SortOrder
+    browserVersion?: SortOrderInput | SortOrder
+    browserMajor?: SortOrderInput | SortOrder
+    deviceModel?: SortOrderInput | SortOrder
+    deviceType?: SortOrderInput | SortOrder
+    deviceVendor?: SortOrderInput | SortOrder
+    engineName?: SortOrderInput | SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    osName?: SortOrderInput | SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    cpuArchitecture?: SortOrderInput | SortOrder
+    hostname?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    loc?: SortOrderInput | SortOrder
+    org?: SortOrderInput | SortOrder
+    postal?: SortOrderInput | SortOrder
+    timezone?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     userId?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -11149,8 +11516,28 @@ export namespace Prisma {
     expiresAt?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
     revokedAt?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
     ipAddress?: StringNullableWithAggregatesFilter<"Session"> | string | null
-    userAgent?: StringNullableWithAggregatesFilter<"Session"> | string | null
     context?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    ua?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    isBot?: BoolNullableWithAggregatesFilter<"Session"> | boolean | null
+    browserName?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    browserVersion?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    browserMajor?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    deviceModel?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    deviceType?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    deviceVendor?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    engineName?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    engineVersion?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    osName?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    osVersion?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    cpuArchitecture?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    hostname?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    region?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    country?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    loc?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    org?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    postal?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    timezone?: StringNullableWithAggregatesFilter<"Session"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"Session">
     userId?: IntWithAggregatesFilter<"Session"> | number
   }
@@ -11588,8 +11975,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutSessionsInput
   }
@@ -11601,8 +12008,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
@@ -11613,8 +12040,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutSessionsNestedInput
   }
@@ -11626,8 +12073,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -11639,8 +12106,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
@@ -11651,8 +12138,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -11663,8 +12170,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -12196,6 +12723,11 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -12227,8 +12759,28 @@ export namespace Prisma {
     expiresAt?: SortOrder
     revokedAt?: SortOrder
     ipAddress?: SortOrder
-    userAgent?: SortOrder
     context?: SortOrder
+    ua?: SortOrder
+    isBot?: SortOrder
+    browserName?: SortOrder
+    browserVersion?: SortOrder
+    browserMajor?: SortOrder
+    deviceModel?: SortOrder
+    deviceType?: SortOrder
+    deviceVendor?: SortOrder
+    engineName?: SortOrder
+    engineVersion?: SortOrder
+    osName?: SortOrder
+    osVersion?: SortOrder
+    cpuArchitecture?: SortOrder
+    hostname?: SortOrder
+    city?: SortOrder
+    region?: SortOrder
+    country?: SortOrder
+    loc?: SortOrder
+    org?: SortOrder
+    postal?: SortOrder
+    timezone?: SortOrder
     metadata?: SortOrder
     userId?: SortOrder
   }
@@ -12245,8 +12797,28 @@ export namespace Prisma {
     expiresAt?: SortOrder
     revokedAt?: SortOrder
     ipAddress?: SortOrder
-    userAgent?: SortOrder
     context?: SortOrder
+    ua?: SortOrder
+    isBot?: SortOrder
+    browserName?: SortOrder
+    browserVersion?: SortOrder
+    browserMajor?: SortOrder
+    deviceModel?: SortOrder
+    deviceType?: SortOrder
+    deviceVendor?: SortOrder
+    engineName?: SortOrder
+    engineVersion?: SortOrder
+    osName?: SortOrder
+    osVersion?: SortOrder
+    cpuArchitecture?: SortOrder
+    hostname?: SortOrder
+    city?: SortOrder
+    region?: SortOrder
+    country?: SortOrder
+    loc?: SortOrder
+    org?: SortOrder
+    postal?: SortOrder
+    timezone?: SortOrder
     userId?: SortOrder
   }
 
@@ -12257,8 +12829,28 @@ export namespace Prisma {
     expiresAt?: SortOrder
     revokedAt?: SortOrder
     ipAddress?: SortOrder
-    userAgent?: SortOrder
     context?: SortOrder
+    ua?: SortOrder
+    isBot?: SortOrder
+    browserName?: SortOrder
+    browserVersion?: SortOrder
+    browserMajor?: SortOrder
+    deviceModel?: SortOrder
+    deviceType?: SortOrder
+    deviceVendor?: SortOrder
+    engineName?: SortOrder
+    engineVersion?: SortOrder
+    osName?: SortOrder
+    osVersion?: SortOrder
+    cpuArchitecture?: SortOrder
+    hostname?: SortOrder
+    city?: SortOrder
+    region?: SortOrder
+    country?: SortOrder
+    loc?: SortOrder
+    org?: SortOrder
+    postal?: SortOrder
+    timezone?: SortOrder
     userId?: SortOrder
   }
 
@@ -12279,6 +12871,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -12655,6 +13255,10 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
@@ -13083,6 +13687,11 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -13095,6 +13704,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -13193,8 +13810,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -13205,8 +13842,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -13341,8 +13998,28 @@ export namespace Prisma {
     expiresAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     revokedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
     context?: StringNullableFilter<"Session"> | string | null
+    ua?: StringNullableFilter<"Session"> | string | null
+    isBot?: BoolNullableFilter<"Session"> | boolean | null
+    browserName?: StringNullableFilter<"Session"> | string | null
+    browserVersion?: StringNullableFilter<"Session"> | string | null
+    browserMajor?: StringNullableFilter<"Session"> | string | null
+    deviceModel?: StringNullableFilter<"Session"> | string | null
+    deviceType?: StringNullableFilter<"Session"> | string | null
+    deviceVendor?: StringNullableFilter<"Session"> | string | null
+    engineName?: StringNullableFilter<"Session"> | string | null
+    engineVersion?: StringNullableFilter<"Session"> | string | null
+    osName?: StringNullableFilter<"Session"> | string | null
+    osVersion?: StringNullableFilter<"Session"> | string | null
+    cpuArchitecture?: StringNullableFilter<"Session"> | string | null
+    hostname?: StringNullableFilter<"Session"> | string | null
+    city?: StringNullableFilter<"Session"> | string | null
+    region?: StringNullableFilter<"Session"> | string | null
+    country?: StringNullableFilter<"Session"> | string | null
+    loc?: StringNullableFilter<"Session"> | string | null
+    org?: StringNullableFilter<"Session"> | string | null
+    postal?: StringNullableFilter<"Session"> | string | null
+    timezone?: StringNullableFilter<"Session"> | string | null
     metadata?: JsonNullableFilter<"Session">
     userId?: IntFilter<"Session"> | number
   }
@@ -13852,8 +14529,28 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
     ipAddress?: string | null
-    userAgent?: string | null
     context?: string | null
+    ua?: string | null
+    isBot?: boolean | null
+    browserName?: string | null
+    browserVersion?: string | null
+    browserMajor?: string | null
+    deviceModel?: string | null
+    deviceType?: string | null
+    deviceVendor?: string | null
+    engineName?: string | null
+    engineVersion?: string | null
+    osName?: string | null
+    osVersion?: string | null
+    cpuArchitecture?: string | null
+    hostname?: string | null
+    city?: string | null
+    region?: string | null
+    country?: string | null
+    loc?: string | null
+    org?: string | null
+    postal?: string | null
+    timezone?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -13885,8 +14582,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -13897,8 +14614,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -13909,8 +14646,28 @@ export namespace Prisma {
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     context?: NullableStringFieldUpdateOperationsInput | string | null
+    ua?: NullableStringFieldUpdateOperationsInput | string | null
+    isBot?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    browserName?: NullableStringFieldUpdateOperationsInput | string | null
+    browserVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    browserMajor?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceModel?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceVendor?: NullableStringFieldUpdateOperationsInput | string | null
+    engineName?: NullableStringFieldUpdateOperationsInput | string | null
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    osName?: NullableStringFieldUpdateOperationsInput | string | null
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    cpuArchitecture?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    loc?: NullableStringFieldUpdateOperationsInput | string | null
+    org?: NullableStringFieldUpdateOperationsInput | string | null
+    postal?: NullableStringFieldUpdateOperationsInput | string | null
+    timezone?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
