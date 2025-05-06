@@ -24,7 +24,6 @@ export const emailSchema = z
 
 export const emailSignUpSchema = z.object({
 	email: emailSchema,
-	password: passwordSchema,
 })
 
 export const emailLoginSchema = z.object({
@@ -47,5 +46,6 @@ export const resetPasswordSchema = z.object({
 })
 
 export const verifyEmailSchema = z.object({
-	otp: z.string().min(6, 'Your one-time password must be 6 characters'),
+	email: z.string().email(),
+	code: z.string().min(6, 'Your one-time password must be 6 characters'),
 })

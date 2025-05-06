@@ -14,8 +14,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Form } from '../ui/form'
-import { EmailField, PasswordField } from './fields'
+import { Form, FormMessage } from '../ui/form'
+import { EmailField } from './fields'
+import { emailSignup } from '@/app/actions/auth'
 
 export function Signup({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
@@ -74,27 +75,30 @@ export function Signup({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function EmailSignupForm() {
-	// 1. Define your form.
 	const form = useForm<z.infer<typeof emailSignUpSchema>>({
 		resolver: zodResolver(emailSignUpSchema),
 		defaultValues: {
 			email: '',
-			password: '',
 		},
 	})
 
-	// 2. Define a submit handler.
 	async function onSubmit(values: z.infer<typeof emailSignUpSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values)
+		const result = await emailSignup(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(key as 'email' | 'root', value),
+			)
+		}
 	}
 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
+				{/* don't alert existing accounts to avoid enumeration attacks */}
 				<EmailField form={form} />
-				<PasswordField form={form} />
+				{form.formState.errors.root ? (
+					<FormMessage>{form.formState.errors.root.message}</FormMessage>
+				) : null}
 				<Button type="submit" className="w-full">
 					Sign Up
 				</Button>

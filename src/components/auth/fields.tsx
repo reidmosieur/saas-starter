@@ -56,11 +56,11 @@ export function PasswordField<T extends { password: string }>({
 	)
 }
 
-export function OTPField<T extends { otp: string }>({ form }: FieldProps<T>) {
+export function OTPField<T extends { code: string }>({ form }: FieldProps<T>) {
 	return (
 		<FormField
 			control={form.control}
-			name={'otp' as Path<T>}
+			name={'code' as Path<T>}
 			render={({ field }) => (
 				<FormItem>
 					<FormLabel>One-Time Password</FormLabel>
