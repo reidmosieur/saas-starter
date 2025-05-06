@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormMessage } from '../ui/form'
 import { EmailField } from './fields'
-import { emailSignup } from '@/app/actions/auth'
+import { emailSignup } from '@/app/actions/auth/signup'
 
 export function Signup({ className, ...props }: React.ComponentProps<'div'>) {
 	return (

@@ -7,8 +7,8 @@ import {
 	IconUserCircle,
 } from '@tabler/icons-react'
 
-import { logout } from '@/app/actions/auth'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { handleLogout } from '@/app/actions/auth/logout'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -25,6 +25,7 @@ import {
 	useSidebar,
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
+import { useActionState } from 'react'
 
 export function NavUser({
 	user,
@@ -36,6 +37,7 @@ export function NavUser({
 		fallback: string
 	}
 }) {
+	const [, action] = useActionState(handleLogout, undefined)
 	const { isMobile } = useSidebar()
 
 	return (
@@ -101,10 +103,14 @@ export function NavUser({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={async () => await logout()}>
-							<IconLogout />
-							Log out
-						</DropdownMenuItem>
+						<form action={action}>
+							<DropdownMenuItem asChild className="w-full">
+								<button type="submit">
+									<IconLogout />
+									Log out
+								</button>
+							</DropdownMenuItem>
+						</form>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarMenuItem>

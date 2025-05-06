@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { EmailField, OTPField } from './fields'
 import { Form, FormMessage } from '../ui/form'
-import { handleVerifyOTP } from '@/app/actions/auth'
+import { handleVerifyOTP } from '@/app/actions/auth/verify'
 
 export function Verify({ className, ...props }: React.ComponentProps<'div'>) {
 	return (

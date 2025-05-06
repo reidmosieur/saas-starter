@@ -1,6 +1,6 @@
 'use client'
 
-import { handleLogin } from '@/app/actions/auth'
+import { handleLogin } from '@/app/actions/auth/login'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
