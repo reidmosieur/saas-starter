@@ -51,8 +51,8 @@ model OTP {
   createdAt DateTime @default(now())
   usedAt    DateTime @updatedAt
 
-  email      String
-  codeHash   String
+  email      String @unique // only one code per email at a time
+  codeHash   String @unique
   type       String // could opt for an enum if you're using Postgres
   redirectTo String // could opt for an enum if you're using Postgres
 }

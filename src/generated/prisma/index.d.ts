@@ -11034,16 +11034,16 @@ export namespace Prisma {
 
   export type OTPWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
+    codeHash?: string
     AND?: OTPWhereInput | OTPWhereInput[]
     OR?: OTPWhereInput[]
     NOT?: OTPWhereInput | OTPWhereInput[]
     createdAt?: DateTimeFilter<"OTP"> | Date | string
     usedAt?: DateTimeFilter<"OTP"> | Date | string
-    email?: StringFilter<"OTP"> | string
-    codeHash?: StringFilter<"OTP"> | string
     type?: StringFilter<"OTP"> | string
     redirectTo?: StringFilter<"OTP"> | string
-  }, "id">
+  }, "id" | "email" | "codeHash">
 
   export type OTPOrderByWithAggregationInput = {
     id?: SortOrder
