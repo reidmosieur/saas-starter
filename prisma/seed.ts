@@ -1,5 +1,5 @@
-import { hashPassword } from '@/app/actions/auth'
 import { PrismaClient } from '@/generated/prisma'
+import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
@@ -33,7 +33,7 @@ async function main() {
 	})
 
 	// Create password
-	const passwordHash = await hashPassword('johndoeRulez1234!')
+	const passwordHash = await bcrypt.hash('password', 10)
 	const password = await prisma.password.create({
 		data: {
 			hash: passwordHash,
