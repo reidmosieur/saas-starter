@@ -1,8 +1,10 @@
 import 'server-only'
 import { SignJWT, jwtVerify } from 'jose'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import prisma from './prisma'
 import { InputJsonObject } from '@/generated/prisma/runtime/library'
+import { IpInfoResponse } from '@/types/session'
+import { userAgent } from 'next/server'
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -37,24 +39,49 @@ export async function decrypt(session: string | undefined = '') {
 export async function createSession({
 	userId,
 	expiresAt = in30Days,
-	ipAddress,
-	userAgent,
 	context,
 	metadata,
 }: {
 	userId: number
-	expiresAt: Date | undefined
-	ipAddress: string
-	userAgent: string
+	expiresAt?: Date | undefined
 	context: string
-	metadata: InputJsonObject
+	metadata?: InputJsonObject
 }) {
+	const headersList = await headers()
+	const forwardedFor = headersList.get('x-forwarded-for')
+
+	const userAgentData = userAgent({ headers: headersList })
+
+	const ipInfo = await getIpLocation(forwardedFor ?? undefined)
+
 	const { id, expiresAt: sessionExpiresAt } = await prisma.session.create({
 		data: {
 			userId,
 			expiresAt,
-			ipAddress,
-			userAgent,
+			ipAddress: forwardedFor,
+			// user agent data
+			ua: userAgentData?.ua,
+			isBot: userAgentData?.isBot,
+			browserName: userAgentData?.browser.name,
+			browserVersion: userAgentData?.browser.version,
+			browserMajor: userAgentData?.browser.major,
+			deviceModel: userAgentData?.device.model,
+			deviceType: userAgentData?.device.type,
+			deviceVendor: userAgentData?.device.vendor,
+			engineName: userAgentData?.engine.name,
+			engineVersion: userAgentData?.engine.version,
+			osName: userAgentData?.os.name,
+			osVersion: userAgentData?.os.version,
+			cpuArchitecture: userAgentData?.cpu.architecture,
+			// ip info
+			hostname: ipInfo?.hostname,
+			city: ipInfo?.city,
+			region: ipInfo?.region,
+			country: ipInfo?.country,
+			loc: ipInfo?.loc,
+			org: ipInfo?.org,
+			postal: ipInfo?.postal,
+			timezone: ipInfo?.timezone,
 			context,
 			metadata,
 		},
@@ -87,6 +114,17 @@ export async function updateSession({
 		return null
 	}
 
+	const sessionId = payload.id as number
+
+	await prisma.session.update({
+		where: {
+			id: sessionId,
+		},
+		data: {
+			expiresAt,
+		},
+	})
+
 	const cookieStore = await cookies()
 	cookieStore.set('session', session, {
 		httpOnly: true,
@@ -98,6 +136,46 @@ export async function updateSession({
 }
 
 export async function deleteSession() {
+	const session = (await cookies()).get('session')?.value
+	const payload = await decrypt(session)
+
+	if (!session || !payload) {
+		return null
+	}
+
+	const sessionId = payload.id as number
+
+	await prisma.session.update({
+		where: {
+			id: sessionId,
+		},
+		data: {
+			revokedAt: new Date(),
+		},
+	})
+
 	const cookieStore = await cookies()
 	cookieStore.delete('session')
+}
+
+// ignore missing or local IPs
+const ignoredIps = ['::1', undefined]
+export async function getIpLocation(ip: string | undefined) {
+	if (ignoredIps.includes(ip)) return undefined
+
+	try {
+		const ipInfoApiKey = process.env.IP_INFO_API_KEY
+
+		if (!ipInfoApiKey) throw new Error('IPinfo API key is required')
+
+		const response = await fetch(
+			`https://ipinfo.io/${ip}/json?token=${ipInfoApiKey}`,
+		)
+		const data: IpInfoResponse = await response.json()
+
+		return data
+	} catch (err) {
+		console.error(err)
+		return undefined
+	}
 }

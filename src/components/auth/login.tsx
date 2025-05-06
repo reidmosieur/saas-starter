@@ -1,5 +1,6 @@
 'use client'
 
+import { handleLogin } from '@/app/actions/auth'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -14,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Form } from '../ui/form'
+import { Form, FormMessage } from '../ui/form'
 import { EmailField, PasswordField } from './fields'
 
 export function Login({ className, ...props }: React.ComponentProps<'div'>) {
@@ -85,16 +86,26 @@ function EmailLoginForm() {
 
 	// 2. Define a submit handler.
 	async function onSubmit(values: z.infer<typeof emailLoginSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values)
+		const result = await handleLogin(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(key as 'email' | 'password' | 'root', value),
+			)
+		}
 	}
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
 				<EmailField form={form} />
 				<PasswordField form={form} displayForgotPassword />
-				<Button type="submit" className="w-full">
+				{form.formState.errors.root ? (
+					<FormMessage>{form.formState.errors.root.message}</FormMessage>
+				) : null}
+				<Button
+					type="submit"
+					className="w-full"
+					loading={form.formState.isSubmitting}
+				>
 					Login
 				</Button>
 			</form>
