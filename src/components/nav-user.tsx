@@ -1,28 +1,29 @@
 "use client";
 
 import {
-  IconCreditCard,
-  IconDotsVertical,
-  IconLogout,
-  IconUserCircle,
-} from "@tabler/icons-react";
+	IconCreditCard,
+	IconDotsVertical,
+	IconLogout,
+	IconUserCircle,
+} from '@tabler/icons-react'
 
+import { logout } from '@/app/actions/auth'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+	useSidebar,
+} from '@/components/ui/sidebar'
 import Link from 'next/link'
 
 export function NavUser({
@@ -100,7 +101,7 @@ export function NavUser({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={async () => await logout()}>
 							<IconLogout />
 							Log out
 						</DropdownMenuItem>

@@ -3,7 +3,7 @@
 import { PrismaClientKnownRequestError } from '@/generated/prisma/runtime/library'
 import { generateCleanOTP } from '@/lib/auth'
 import prisma from '@/lib/prisma'
-import { createSession } from '@/lib/session'
+import { createSession, deleteSession } from '@/lib/session'
 import {
 	emailLoginSchema,
 	emailSignUpSchema,
@@ -270,6 +270,16 @@ export async function handleLogin({ email, password }: LoginArgs) {
 	const values = validatedFields.data
 
 	return await login(values)
+}
+
+export async function logout() {
+	try {
+		await deleteSession()
+	} catch (err) {
+		console.error('Error deleting session: ', err)
+		return
+	}
+	redirect('/login')
 }
 
 export async function hashPassword(passwordString: string) {
