@@ -10,15 +10,16 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_LOCATION")
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  onboarded DateTime?
 
   email     String  @unique
   username  String? @unique
@@ -33,6 +34,7 @@ model User {
   organizationId Int?          @unique
   roles          Role[]
   sessions       Session[]
+  onboarding     Onboarding?
 }
 
 model Password {
@@ -103,8 +105,22 @@ model Session {
 
   metadata Json? // additional store if you need something flexibile e.g. AB testing
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId Int
+}
+
+model Onboarding {
+  id Int @id @default(autoincrement())
+
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  step      Int      @default(1) // current step
+  status    String   @default("in_progress") // or use enum
+  startedAt DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
 
 model PhoneNumber {

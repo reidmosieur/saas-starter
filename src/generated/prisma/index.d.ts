@@ -34,6 +34,11 @@ export type OTP = $Result.DefaultSelection<Prisma.$OTPPayload>
  */
 export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
 /**
+ * Model Onboarding
+ * 
+ */
+export type Onboarding = $Result.DefaultSelection<Prisma.$OnboardingPayload>
+/**
  * Model PhoneNumber
  * 
  */
@@ -218,6 +223,16 @@ export class PrismaClient<
     * ```
     */
   get session(): Prisma.SessionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.onboarding`: Exposes CRUD operations for the **Onboarding** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Onboardings
+    * const onboardings = await prisma.onboarding.findMany()
+    * ```
+    */
+  get onboarding(): Prisma.OnboardingDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.phoneNumber`: Exposes CRUD operations for the **PhoneNumber** model.
@@ -702,6 +717,7 @@ export namespace Prisma {
     Password: 'Password',
     OTP: 'OTP',
     Session: 'Session',
+    Onboarding: 'Onboarding',
     PhoneNumber: 'PhoneNumber',
     Organization: 'Organization',
     Permission: 'Permission',
@@ -724,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "password" | "oTP" | "session" | "phoneNumber" | "organization" | "permission" | "role"
+      modelProps: "user" | "password" | "oTP" | "session" | "onboarding" | "phoneNumber" | "organization" | "permission" | "role"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1021,6 +1037,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SessionCountArgs<ExtArgs>
             result: $Utils.Optional<SessionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Onboarding: {
+        payload: Prisma.$OnboardingPayload<ExtArgs>
+        fields: Prisma.OnboardingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OnboardingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OnboardingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          findFirst: {
+            args: Prisma.OnboardingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OnboardingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          findMany: {
+            args: Prisma.OnboardingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[]
+          }
+          create: {
+            args: Prisma.OnboardingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          createMany: {
+            args: Prisma.OnboardingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OnboardingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[]
+          }
+          delete: {
+            args: Prisma.OnboardingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          update: {
+            args: Prisma.OnboardingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          deleteMany: {
+            args: Prisma.OnboardingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OnboardingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OnboardingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>[]
+          }
+          upsert: {
+            args: Prisma.OnboardingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OnboardingPayload>
+          }
+          aggregate: {
+            args: Prisma.OnboardingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOnboarding>
+          }
+          groupBy: {
+            args: Prisma.OnboardingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OnboardingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OnboardingCountArgs<ExtArgs>
+            result: $Utils.Optional<OnboardingCountAggregateOutputType> | number
           }
         }
       }
@@ -1408,6 +1498,7 @@ export namespace Prisma {
     password?: PasswordOmit
     oTP?: OTPOmit
     session?: SessionOmit
+    onboarding?: OnboardingOmit
     phoneNumber?: PhoneNumberOmit
     organization?: OrganizationOmit
     permission?: PermissionOmit
@@ -1686,6 +1777,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    onboarded: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1699,6 +1791,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    onboarded: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1712,6 +1805,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    onboarded: number
     email: number
     username: number
     firstName: number
@@ -1741,6 +1835,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    onboarded?: true
     email?: true
     username?: true
     firstName?: true
@@ -1754,6 +1849,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    onboarded?: true
     email?: true
     username?: true
     firstName?: true
@@ -1767,6 +1863,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    onboarded?: true
     email?: true
     username?: true
     firstName?: true
@@ -1867,6 +1964,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    onboarded: Date | null
     email: string
     username: string | null
     firstName: string | null
@@ -1899,6 +1997,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    onboarded?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -1911,6 +2010,7 @@ export namespace Prisma {
     organization?: boolean | User$organizationArgs<ExtArgs>
     roles?: boolean | User$rolesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    onboarding?: boolean | User$onboardingArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1918,6 +2018,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    onboarded?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -1934,6 +2035,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    onboarded?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -1950,6 +2052,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    onboarded?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -1959,13 +2062,14 @@ export namespace Prisma {
     organizationId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "username" | "firstName" | "lastName" | "passwordId" | "phoneNumberId" | "organizationId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "email" | "username" | "firstName" | "lastName" | "passwordId" | "phoneNumberId" | "organizationId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
     roles?: boolean | User$rolesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    onboarding?: boolean | User$onboardingArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1987,11 +2091,13 @@ export namespace Prisma {
       organization: Prisma.$OrganizationPayload<ExtArgs> | null
       roles: Prisma.$RolePayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      onboarding: Prisma.$OnboardingPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
+      onboarded: Date | null
       email: string
       username: string | null
       firstName: string | null
@@ -2398,6 +2504,7 @@ export namespace Prisma {
     organization<T extends User$organizationArgs<ExtArgs> = {}>(args?: Subset<T, User$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    onboarding<T extends User$onboardingArgs<ExtArgs> = {}>(args?: Subset<T, User$onboardingArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2430,6 +2537,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly onboarded: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
@@ -2666,6 +2774,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -2684,6 +2793,7 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -2933,6 +3043,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.onboarding
+   */
+  export type User$onboardingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    where?: OnboardingWhereInput
   }
 
   /**
@@ -3829,6 +3958,7 @@ export namespace Prisma {
      * The data used to create many Passwords.
      */
     data: PasswordCreateManyInput | PasswordCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -3847,6 +3977,7 @@ export namespace Prisma {
      * The data used to create many Passwords.
      */
     data: PasswordCreateManyInput | PasswordCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -4917,6 +5048,7 @@ export namespace Prisma {
      * The data used to create many OTPS.
      */
     data: OTPCreateManyInput | OTPCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -4935,6 +5067,7 @@ export namespace Prisma {
      * The data used to create many OTPS.
      */
     data: OTPCreateManyInput | OTPCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6308,6 +6441,7 @@ export namespace Prisma {
      * The data used to create many Sessions.
      */
     data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -6326,6 +6460,7 @@ export namespace Prisma {
      * The data used to create many Sessions.
      */
     data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -6488,6 +6623,1132 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SessionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Onboarding
+   */
+
+  export type AggregateOnboarding = {
+    _count: OnboardingCountAggregateOutputType | null
+    _avg: OnboardingAvgAggregateOutputType | null
+    _sum: OnboardingSumAggregateOutputType | null
+    _min: OnboardingMinAggregateOutputType | null
+    _max: OnboardingMaxAggregateOutputType | null
+  }
+
+  export type OnboardingAvgAggregateOutputType = {
+    id: number | null
+    step: number | null
+    userId: number | null
+  }
+
+  export type OnboardingSumAggregateOutputType = {
+    id: number | null
+    step: number | null
+    userId: number | null
+  }
+
+  export type OnboardingMinAggregateOutputType = {
+    id: number | null
+    completedAt: Date | null
+    updatedAt: Date | null
+    step: number | null
+    status: string | null
+    startedAt: Date | null
+    userId: number | null
+  }
+
+  export type OnboardingMaxAggregateOutputType = {
+    id: number | null
+    completedAt: Date | null
+    updatedAt: Date | null
+    step: number | null
+    status: string | null
+    startedAt: Date | null
+    userId: number | null
+  }
+
+  export type OnboardingCountAggregateOutputType = {
+    id: number
+    completedAt: number
+    updatedAt: number
+    step: number
+    status: number
+    startedAt: number
+    userId: number
+    _all: number
+  }
+
+
+  export type OnboardingAvgAggregateInputType = {
+    id?: true
+    step?: true
+    userId?: true
+  }
+
+  export type OnboardingSumAggregateInputType = {
+    id?: true
+    step?: true
+    userId?: true
+  }
+
+  export type OnboardingMinAggregateInputType = {
+    id?: true
+    completedAt?: true
+    updatedAt?: true
+    step?: true
+    status?: true
+    startedAt?: true
+    userId?: true
+  }
+
+  export type OnboardingMaxAggregateInputType = {
+    id?: true
+    completedAt?: true
+    updatedAt?: true
+    step?: true
+    status?: true
+    startedAt?: true
+    userId?: true
+  }
+
+  export type OnboardingCountAggregateInputType = {
+    id?: true
+    completedAt?: true
+    updatedAt?: true
+    step?: true
+    status?: true
+    startedAt?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type OnboardingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Onboarding to aggregate.
+     */
+    where?: OnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?: OnboardingOrderByWithRelationInput | OnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Onboardings
+    **/
+    _count?: true | OnboardingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OnboardingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OnboardingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OnboardingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OnboardingMaxAggregateInputType
+  }
+
+  export type GetOnboardingAggregateType<T extends OnboardingAggregateArgs> = {
+        [P in keyof T & keyof AggregateOnboarding]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOnboarding[P]>
+      : GetScalarType<T[P], AggregateOnboarding[P]>
+  }
+
+
+
+
+  export type OnboardingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OnboardingWhereInput
+    orderBy?: OnboardingOrderByWithAggregationInput | OnboardingOrderByWithAggregationInput[]
+    by: OnboardingScalarFieldEnum[] | OnboardingScalarFieldEnum
+    having?: OnboardingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OnboardingCountAggregateInputType | true
+    _avg?: OnboardingAvgAggregateInputType
+    _sum?: OnboardingSumAggregateInputType
+    _min?: OnboardingMinAggregateInputType
+    _max?: OnboardingMaxAggregateInputType
+  }
+
+  export type OnboardingGroupByOutputType = {
+    id: number
+    completedAt: Date | null
+    updatedAt: Date
+    step: number
+    status: string
+    startedAt: Date
+    userId: number
+    _count: OnboardingCountAggregateOutputType | null
+    _avg: OnboardingAvgAggregateOutputType | null
+    _sum: OnboardingSumAggregateOutputType | null
+    _min: OnboardingMinAggregateOutputType | null
+    _max: OnboardingMaxAggregateOutputType | null
+  }
+
+  type GetOnboardingGroupByPayload<T extends OnboardingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OnboardingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OnboardingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OnboardingGroupByOutputType[P]>
+            : GetScalarType<T[P], OnboardingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OnboardingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
+    step?: boolean
+    status?: boolean
+    startedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["onboarding"]>
+
+  export type OnboardingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
+    step?: boolean
+    status?: boolean
+    startedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["onboarding"]>
+
+  export type OnboardingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
+    step?: boolean
+    status?: boolean
+    startedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["onboarding"]>
+
+  export type OnboardingSelectScalar = {
+    id?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
+    step?: boolean
+    status?: boolean
+    startedAt?: boolean
+    userId?: boolean
+  }
+
+  export type OnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "completedAt" | "updatedAt" | "step" | "status" | "startedAt" | "userId", ExtArgs["result"]["onboarding"]>
+  export type OnboardingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type OnboardingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type OnboardingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $OnboardingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Onboarding"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      completedAt: Date | null
+      updatedAt: Date
+      step: number
+      status: string
+      startedAt: Date
+      userId: number
+    }, ExtArgs["result"]["onboarding"]>
+    composites: {}
+  }
+
+  type OnboardingGetPayload<S extends boolean | null | undefined | OnboardingDefaultArgs> = $Result.GetResult<Prisma.$OnboardingPayload, S>
+
+  type OnboardingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OnboardingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OnboardingCountAggregateInputType | true
+    }
+
+  export interface OnboardingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Onboarding'], meta: { name: 'Onboarding' } }
+    /**
+     * Find zero or one Onboarding that matches the filter.
+     * @param {OnboardingFindUniqueArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OnboardingFindUniqueArgs>(args: SelectSubset<T, OnboardingFindUniqueArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Onboarding that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OnboardingFindUniqueOrThrowArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OnboardingFindUniqueOrThrowArgs>(args: SelectSubset<T, OnboardingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Onboarding that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindFirstArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OnboardingFindFirstArgs>(args?: SelectSubset<T, OnboardingFindFirstArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Onboarding that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindFirstOrThrowArgs} args - Arguments to find a Onboarding
+     * @example
+     * // Get one Onboarding
+     * const onboarding = await prisma.onboarding.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OnboardingFindFirstOrThrowArgs>(args?: SelectSubset<T, OnboardingFindFirstOrThrowArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Onboardings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Onboardings
+     * const onboardings = await prisma.onboarding.findMany()
+     * 
+     * // Get first 10 Onboardings
+     * const onboardings = await prisma.onboarding.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OnboardingFindManyArgs>(args?: SelectSubset<T, OnboardingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Onboarding.
+     * @param {OnboardingCreateArgs} args - Arguments to create a Onboarding.
+     * @example
+     * // Create one Onboarding
+     * const Onboarding = await prisma.onboarding.create({
+     *   data: {
+     *     // ... data to create a Onboarding
+     *   }
+     * })
+     * 
+     */
+    create<T extends OnboardingCreateArgs>(args: SelectSubset<T, OnboardingCreateArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Onboardings.
+     * @param {OnboardingCreateManyArgs} args - Arguments to create many Onboardings.
+     * @example
+     * // Create many Onboardings
+     * const onboarding = await prisma.onboarding.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OnboardingCreateManyArgs>(args?: SelectSubset<T, OnboardingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Onboardings and returns the data saved in the database.
+     * @param {OnboardingCreateManyAndReturnArgs} args - Arguments to create many Onboardings.
+     * @example
+     * // Create many Onboardings
+     * const onboarding = await prisma.onboarding.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Onboardings and only return the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OnboardingCreateManyAndReturnArgs>(args?: SelectSubset<T, OnboardingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Onboarding.
+     * @param {OnboardingDeleteArgs} args - Arguments to delete one Onboarding.
+     * @example
+     * // Delete one Onboarding
+     * const Onboarding = await prisma.onboarding.delete({
+     *   where: {
+     *     // ... filter to delete one Onboarding
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OnboardingDeleteArgs>(args: SelectSubset<T, OnboardingDeleteArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Onboarding.
+     * @param {OnboardingUpdateArgs} args - Arguments to update one Onboarding.
+     * @example
+     * // Update one Onboarding
+     * const onboarding = await prisma.onboarding.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OnboardingUpdateArgs>(args: SelectSubset<T, OnboardingUpdateArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Onboardings.
+     * @param {OnboardingDeleteManyArgs} args - Arguments to filter Onboardings to delete.
+     * @example
+     * // Delete a few Onboardings
+     * const { count } = await prisma.onboarding.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OnboardingDeleteManyArgs>(args?: SelectSubset<T, OnboardingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Onboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Onboardings
+     * const onboarding = await prisma.onboarding.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OnboardingUpdateManyArgs>(args: SelectSubset<T, OnboardingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Onboardings and returns the data updated in the database.
+     * @param {OnboardingUpdateManyAndReturnArgs} args - Arguments to update many Onboardings.
+     * @example
+     * // Update many Onboardings
+     * const onboarding = await prisma.onboarding.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Onboardings and only return the `id`
+     * const onboardingWithIdOnly = await prisma.onboarding.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OnboardingUpdateManyAndReturnArgs>(args: SelectSubset<T, OnboardingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Onboarding.
+     * @param {OnboardingUpsertArgs} args - Arguments to update or create a Onboarding.
+     * @example
+     * // Update or create a Onboarding
+     * const onboarding = await prisma.onboarding.upsert({
+     *   create: {
+     *     // ... data to create a Onboarding
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Onboarding we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OnboardingUpsertArgs>(args: SelectSubset<T, OnboardingUpsertArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Onboardings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingCountArgs} args - Arguments to filter Onboardings to count.
+     * @example
+     * // Count the number of Onboardings
+     * const count = await prisma.onboarding.count({
+     *   where: {
+     *     // ... the filter for the Onboardings we want to count
+     *   }
+     * })
+    **/
+    count<T extends OnboardingCountArgs>(
+      args?: Subset<T, OnboardingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OnboardingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Onboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OnboardingAggregateArgs>(args: Subset<T, OnboardingAggregateArgs>): Prisma.PrismaPromise<GetOnboardingAggregateType<T>>
+
+    /**
+     * Group by Onboarding.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OnboardingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OnboardingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OnboardingGroupByArgs['orderBy'] }
+        : { orderBy?: OnboardingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OnboardingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOnboardingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Onboarding model
+   */
+  readonly fields: OnboardingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Onboarding.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OnboardingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Onboarding model
+   */
+  interface OnboardingFieldRefs {
+    readonly id: FieldRef<"Onboarding", 'Int'>
+    readonly completedAt: FieldRef<"Onboarding", 'DateTime'>
+    readonly updatedAt: FieldRef<"Onboarding", 'DateTime'>
+    readonly step: FieldRef<"Onboarding", 'Int'>
+    readonly status: FieldRef<"Onboarding", 'String'>
+    readonly startedAt: FieldRef<"Onboarding", 'DateTime'>
+    readonly userId: FieldRef<"Onboarding", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Onboarding findUnique
+   */
+  export type OnboardingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where: OnboardingWhereUniqueInput
+  }
+
+  /**
+   * Onboarding findUniqueOrThrow
+   */
+  export type OnboardingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where: OnboardingWhereUniqueInput
+  }
+
+  /**
+   * Onboarding findFirst
+   */
+  export type OnboardingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where?: OnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?: OnboardingOrderByWithRelationInput | OnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Onboardings.
+     */
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * Onboarding findFirstOrThrow
+   */
+  export type OnboardingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which Onboarding to fetch.
+     */
+    where?: OnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?: OnboardingOrderByWithRelationInput | OnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Onboardings.
+     */
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * Onboarding findMany
+   */
+  export type OnboardingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter, which Onboardings to fetch.
+     */
+    where?: OnboardingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Onboardings to fetch.
+     */
+    orderBy?: OnboardingOrderByWithRelationInput | OnboardingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Onboardings.
+     */
+    cursor?: OnboardingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Onboardings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Onboardings.
+     */
+    skip?: number
+    distinct?: OnboardingScalarFieldEnum | OnboardingScalarFieldEnum[]
+  }
+
+  /**
+   * Onboarding create
+   */
+  export type OnboardingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Onboarding.
+     */
+    data: XOR<OnboardingCreateInput, OnboardingUncheckedCreateInput>
+  }
+
+  /**
+   * Onboarding createMany
+   */
+  export type OnboardingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Onboardings.
+     */
+    data: OnboardingCreateManyInput | OnboardingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Onboarding createManyAndReturn
+   */
+  export type OnboardingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Onboardings.
+     */
+    data: OnboardingCreateManyInput | OnboardingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Onboarding update
+   */
+  export type OnboardingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Onboarding.
+     */
+    data: XOR<OnboardingUpdateInput, OnboardingUncheckedUpdateInput>
+    /**
+     * Choose, which Onboarding to update.
+     */
+    where: OnboardingWhereUniqueInput
+  }
+
+  /**
+   * Onboarding updateMany
+   */
+  export type OnboardingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Onboardings.
+     */
+    data: XOR<OnboardingUpdateManyMutationInput, OnboardingUncheckedUpdateManyInput>
+    /**
+     * Filter which Onboardings to update
+     */
+    where?: OnboardingWhereInput
+    /**
+     * Limit how many Onboardings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Onboarding updateManyAndReturn
+   */
+  export type OnboardingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * The data used to update Onboardings.
+     */
+    data: XOR<OnboardingUpdateManyMutationInput, OnboardingUncheckedUpdateManyInput>
+    /**
+     * Filter which Onboardings to update
+     */
+    where?: OnboardingWhereInput
+    /**
+     * Limit how many Onboardings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Onboarding upsert
+   */
+  export type OnboardingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Onboarding to update in case it exists.
+     */
+    where: OnboardingWhereUniqueInput
+    /**
+     * In case the Onboarding found by the `where` argument doesn't exist, create a new Onboarding with this data.
+     */
+    create: XOR<OnboardingCreateInput, OnboardingUncheckedCreateInput>
+    /**
+     * In case the Onboarding was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OnboardingUpdateInput, OnboardingUncheckedUpdateInput>
+  }
+
+  /**
+   * Onboarding delete
+   */
+  export type OnboardingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
+    /**
+     * Filter which Onboarding to delete.
+     */
+    where: OnboardingWhereUniqueInput
+  }
+
+  /**
+   * Onboarding deleteMany
+   */
+  export type OnboardingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Onboardings to delete
+     */
+    where?: OnboardingWhereInput
+    /**
+     * Limit how many Onboardings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Onboarding without action
+   */
+  export type OnboardingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Onboarding
+     */
+    select?: OnboardingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Onboarding
+     */
+    omit?: OnboardingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OnboardingInclude<ExtArgs> | null
   }
 
 
@@ -7366,6 +8627,7 @@ export namespace Prisma {
      * The data used to create many PhoneNumbers.
      */
     data: PhoneNumberCreateManyInput | PhoneNumberCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -7384,6 +8646,7 @@ export namespace Prisma {
      * The data used to create many PhoneNumbers.
      */
     data: PhoneNumberCreateManyInput | PhoneNumberCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8454,6 +9717,7 @@ export namespace Prisma {
      * The data used to create many Organizations.
      */
     data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -8472,6 +9736,7 @@ export namespace Prisma {
      * The data used to create many Organizations.
      */
     data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9593,6 +10858,7 @@ export namespace Prisma {
      * The data used to create many Permissions.
      */
     data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -9611,6 +10877,7 @@ export namespace Prisma {
      * The data used to create many Permissions.
      */
     data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -10700,6 +11967,7 @@ export namespace Prisma {
      * The data used to create many Roles.
      */
     data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
   }
 
   /**
@@ -10718,6 +11986,7 @@ export namespace Prisma {
      * The data used to create many Roles.
      */
     data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -10936,6 +12205,9 @@ export namespace Prisma {
    */
 
   export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
   };
 
@@ -10946,6 +12218,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    onboarded: 'onboarded',
     email: 'email',
     username: 'username',
     firstName: 'firstName',
@@ -11016,6 +12289,19 @@ export namespace Prisma {
   export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+  export const OnboardingScalarFieldEnum: {
+    id: 'id',
+    completedAt: 'completedAt',
+    updatedAt: 'updatedAt',
+    step: 'step',
+    status: 'status',
+    startedAt: 'startedAt',
+    userId: 'userId'
+  };
+
+  export type OnboardingScalarFieldEnum = (typeof OnboardingScalarFieldEnum)[keyof typeof OnboardingScalarFieldEnum]
+
+
   export const PhoneNumberScalarFieldEnum: {
     id: 'id',
     countryCode: 'countryCode',
@@ -11073,6 +12359,14 @@ export namespace Prisma {
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
@@ -11090,14 +12384,6 @@ export namespace Prisma {
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
-  export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
-  };
-
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
   /**
    * Field references
    */
@@ -11111,6 +12397,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -11118,9 +12411,23 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -11150,6 +12457,13 @@ export namespace Prisma {
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -11162,6 +12476,7 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -11174,12 +12489,14 @@ export namespace Prisma {
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
     sessions?: SessionListRelationFilter
+    onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    onboarded?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -11192,6 +12509,7 @@ export namespace Prisma {
     organization?: OrganizationOrderByWithRelationInput
     roles?: RoleOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    onboarding?: OnboardingOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11206,6 +12524,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
@@ -11213,12 +12532,14 @@ export namespace Prisma {
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
     sessions?: SessionListRelationFilter
+    onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
   }, "id" | "email" | "username" | "passwordId" | "phoneNumberId" | "organizationId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    onboarded?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -11240,6 +12561,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    onboarded?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11542,6 +12864,73 @@ export namespace Prisma {
     userId?: IntWithAggregatesFilter<"Session"> | number
   }
 
+  export type OnboardingWhereInput = {
+    AND?: OnboardingWhereInput | OnboardingWhereInput[]
+    OR?: OnboardingWhereInput[]
+    NOT?: OnboardingWhereInput | OnboardingWhereInput[]
+    id?: IntFilter<"Onboarding"> | number
+    completedAt?: DateTimeNullableFilter<"Onboarding"> | Date | string | null
+    updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    step?: IntFilter<"Onboarding"> | number
+    status?: StringFilter<"Onboarding"> | string
+    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    userId?: IntFilter<"Onboarding"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type OnboardingOrderByWithRelationInput = {
+    id?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    step?: SortOrder
+    status?: SortOrder
+    startedAt?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type OnboardingWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId?: number
+    AND?: OnboardingWhereInput | OnboardingWhereInput[]
+    OR?: OnboardingWhereInput[]
+    NOT?: OnboardingWhereInput | OnboardingWhereInput[]
+    completedAt?: DateTimeNullableFilter<"Onboarding"> | Date | string | null
+    updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    step?: IntFilter<"Onboarding"> | number
+    status?: StringFilter<"Onboarding"> | string
+    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type OnboardingOrderByWithAggregationInput = {
+    id?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    step?: SortOrder
+    status?: SortOrder
+    startedAt?: SortOrder
+    userId?: SortOrder
+    _count?: OnboardingCountOrderByAggregateInput
+    _avg?: OnboardingAvgOrderByAggregateInput
+    _max?: OnboardingMaxOrderByAggregateInput
+    _min?: OnboardingMinOrderByAggregateInput
+    _sum?: OnboardingSumOrderByAggregateInput
+  }
+
+  export type OnboardingScalarWhereWithAggregatesInput = {
+    AND?: OnboardingScalarWhereWithAggregatesInput | OnboardingScalarWhereWithAggregatesInput[]
+    OR?: OnboardingScalarWhereWithAggregatesInput[]
+    NOT?: OnboardingScalarWhereWithAggregatesInput | OnboardingScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Onboarding"> | number
+    completedAt?: DateTimeNullableWithAggregatesFilter<"Onboarding"> | Date | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
+    step?: IntWithAggregatesFilter<"Onboarding"> | number
+    status?: StringWithAggregatesFilter<"Onboarding"> | string
+    startedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
+    userId?: IntWithAggregatesFilter<"Onboarding"> | number
+  }
+
   export type PhoneNumberWhereInput = {
     AND?: PhoneNumberWhereInput | PhoneNumberWhereInput[]
     OR?: PhoneNumberWhereInput[]
@@ -11769,6 +13158,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -11778,12 +13168,14 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -11793,11 +13185,13 @@ export namespace Prisma {
     organizationId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11807,12 +13201,14 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11822,12 +13218,14 @@ export namespace Prisma {
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -11840,6 +13238,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11850,6 +13249,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12196,6 +13596,72 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type OnboardingCreateInput = {
+    completedAt?: Date | string | null
+    updatedAt?: Date | string
+    step?: number
+    status?: string
+    startedAt?: Date | string
+    user: UserCreateNestedOneWithoutOnboardingInput
+  }
+
+  export type OnboardingUncheckedCreateInput = {
+    id?: number
+    completedAt?: Date | string | null
+    updatedAt?: Date | string
+    step?: number
+    status?: string
+    startedAt?: Date | string
+    userId: number
+  }
+
+  export type OnboardingUpdateInput = {
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOnboardingNestedInput
+  }
+
+  export type OnboardingUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type OnboardingCreateManyInput = {
+    id?: number
+    completedAt?: Date | string | null
+    updatedAt?: Date | string
+    step?: number
+    status?: string
+    startedAt?: Date | string
+    userId: number
+  }
+
+  export type OnboardingUpdateManyMutationInput = {
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnboardingUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type PhoneNumberCreateInput = {
     countryCode: string
     number: string
@@ -12412,8 +13878,8 @@ export namespace Prisma {
 
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12423,8 +13889,8 @@ export namespace Prisma {
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12432,10 +13898,21 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12443,13 +13920,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12457,13 +13935,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12498,6 +13977,11 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type OnboardingNullableScalarRelationFilter = {
+    is?: OnboardingWhereInput | null
+    isNot?: OnboardingWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12515,6 +13999,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    onboarded?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -12535,6 +14020,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    onboarded?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -12548,6 +14034,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    onboarded?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -12566,8 +14053,8 @@ export namespace Prisma {
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12582,8 +14069,8 @@ export namespace Prisma {
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -12594,10 +14081,24 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12605,6 +14106,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -12613,8 +14115,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -12622,6 +14124,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -12630,8 +14133,8 @@ export namespace Prisma {
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -12713,17 +14216,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -12737,13 +14229,18 @@ export namespace Prisma {
 
   export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string
+    path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
     array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
@@ -12859,20 +14356,6 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -12889,17 +14372,64 @@ export namespace Prisma {
 
   export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string
+    path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
     array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type OnboardingCountOrderByAggregateInput = {
+    id?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
+    step?: SortOrder
+    status?: SortOrder
+    startedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OnboardingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    step?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OnboardingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
+    step?: SortOrder
+    status?: SortOrder
+    startedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OnboardingMinOrderByAggregateInput = {
+    id?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
+    step?: SortOrder
+    status?: SortOrder
+    startedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OnboardingSumOrderByAggregateInput = {
+    id?: SortOrder
+    step?: SortOrder
+    userId?: SortOrder
   }
 
   export type PhoneNumberCountryCodeNumberCompoundUniqueInput = {
@@ -13090,6 +14620,12 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type OnboardingCreateNestedOneWithoutUserInput = {
+    create?: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput
+    connect?: OnboardingWhereUniqueInput
+  }
+
   export type RoleUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput> | RoleCreateWithoutUsersInput[] | RoleUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput | RoleCreateOrConnectWithoutUsersInput[]
@@ -13103,8 +14639,18 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type OnboardingUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput
+    connect?: OnboardingWhereUniqueInput
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13172,6 +14718,16 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type OnboardingUpdateOneWithoutUserNestedInput = {
+    create?: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput
+    upsert?: OnboardingUpsertWithoutUserInput
+    disconnect?: OnboardingWhereInput | boolean
+    delete?: OnboardingWhereInput | boolean
+    connect?: OnboardingWhereUniqueInput
+    update?: XOR<XOR<OnboardingUpdateToOneWithWhereWithoutUserInput, OnboardingUpdateWithoutUserInput>, OnboardingUncheckedUpdateWithoutUserInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -13215,6 +14771,16 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type OnboardingUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
+    connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput
+    upsert?: OnboardingUpsertWithoutUserInput
+    disconnect?: OnboardingWhereInput | boolean
+    delete?: OnboardingWhereInput | boolean
+    connect?: OnboardingWhereUniqueInput
+    update?: XOR<XOR<OnboardingUpdateToOneWithWhereWithoutUserInput, OnboardingUpdateWithoutUserInput>, OnboardingUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserCreateNestedOneWithoutPasswordInput = {
     create?: XOR<UserCreateWithoutPasswordInput, UserUncheckedCreateWithoutPasswordInput>
     connectOrCreate?: UserCreateOrConnectWithoutPasswordInput
@@ -13253,10 +14819,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
   }
@@ -13267,6 +14829,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutSessionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutOnboardingInput = {
+    create?: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutOnboardingNestedInput = {
+    create?: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput
+    upsert?: UserUpsertWithoutOnboardingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOnboardingInput, UserUpdateWithoutOnboardingInput>, UserUncheckedUpdateWithoutOnboardingInput>
   }
 
   export type UserCreateNestedOneWithoutPhoneNumberInput = {
@@ -13515,8 +15091,8 @@ export namespace Prisma {
 
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -13526,8 +15102,8 @@ export namespace Prisma {
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -13535,10 +15111,21 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -13551,8 +15138,8 @@ export namespace Prisma {
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -13565,8 +15152,8 @@ export namespace Prisma {
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -13576,8 +15163,8 @@ export namespace Prisma {
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -13592,8 +15179,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -13603,8 +15190,8 @@ export namespace Prisma {
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -13615,10 +15202,24 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -13634,8 +15235,8 @@ export namespace Prisma {
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -13651,8 +15252,8 @@ export namespace Prisma {
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -13667,8 +15268,8 @@ export namespace Prisma {
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -13676,34 +15277,9 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13722,13 +15298,18 @@ export namespace Prisma {
 
   export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string
+    path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
     string_contains?: string | StringFieldRefInput<$PrismaModel>
     string_starts_with?: string | StringFieldRefInput<$PrismaModel>
     string_ends_with?: string | StringFieldRefInput<$PrismaModel>
     array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
@@ -13874,6 +15455,29 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OnboardingCreateWithoutUserInput = {
+    completedAt?: Date | string | null
+    updatedAt?: Date | string
+    step?: number
+    status?: string
+    startedAt?: Date | string
+  }
+
+  export type OnboardingUncheckedCreateWithoutUserInput = {
+    id?: number
+    completedAt?: Date | string | null
+    updatedAt?: Date | string
+    step?: number
+    status?: string
+    startedAt?: Date | string
+  }
+
+  export type OnboardingCreateOrConnectWithoutUserInput = {
+    where: OnboardingWhereUniqueInput
+    create: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
   }
 
   export type PasswordUpsertWithoutUserInput = {
@@ -14024,9 +15628,38 @@ export namespace Prisma {
     userId?: IntFilter<"Session"> | number
   }
 
+  export type OnboardingUpsertWithoutUserInput = {
+    update: XOR<OnboardingUpdateWithoutUserInput, OnboardingUncheckedUpdateWithoutUserInput>
+    create: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
+    where?: OnboardingWhereInput
+  }
+
+  export type OnboardingUpdateToOneWithWhereWithoutUserInput = {
+    where?: OnboardingWhereInput
+    data: XOR<OnboardingUpdateWithoutUserInput, OnboardingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OnboardingUpdateWithoutUserInput = {
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OnboardingUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    step?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutPasswordInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14035,12 +15668,14 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPasswordInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14049,6 +15684,7 @@ export namespace Prisma {
     organizationId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPasswordInput = {
@@ -14070,6 +15706,7 @@ export namespace Prisma {
   export type UserUpdateWithoutPasswordInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14078,12 +15715,14 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14092,11 +15731,13 @@ export namespace Prisma {
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14105,12 +15746,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14119,6 +15762,7 @@ export namespace Prisma {
     phoneNumberId?: number | null
     organizationId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -14140,6 +15784,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSessionsInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14148,12 +15793,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14162,11 +15809,91 @@ export namespace Prisma {
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutOnboardingInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    onboarded?: Date | string | null
+    email: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    password?: PasswordCreateNestedOneWithoutUserInput
+    phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    roles?: RoleCreateNestedManyWithoutUsersInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOnboardingInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    onboarded?: Date | string | null
+    email: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    passwordId?: number | null
+    phoneNumberId?: number | null
+    organizationId?: number | null
+    roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOnboardingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
+  }
+
+  export type UserUpsertWithoutOnboardingInput = {
+    update: XOR<UserUpdateWithoutOnboardingInput, UserUncheckedUpdateWithoutOnboardingInput>
+    create: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOnboardingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOnboardingInput, UserUncheckedUpdateWithoutOnboardingInput>
+  }
+
+  export type UserUpdateWithoutOnboardingInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: PasswordUpdateOneWithoutUserNestedInput
+    phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    roles?: RoleUpdateManyWithoutUsersNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOnboardingInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordId?: NullableIntFieldUpdateOperationsInput | number | null
+    phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
+    organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPhoneNumberInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14175,12 +15902,14 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPhoneNumberInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14189,6 +15918,7 @@ export namespace Prisma {
     organizationId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPhoneNumberInput = {
@@ -14210,6 +15940,7 @@ export namespace Prisma {
   export type UserUpdateWithoutPhoneNumberInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14218,12 +15949,14 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPhoneNumberInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14232,11 +15965,13 @@ export namespace Prisma {
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutOrganizationInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14245,12 +15980,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14259,6 +15996,7 @@ export namespace Prisma {
     phoneNumberId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -14268,6 +16006,7 @@ export namespace Prisma {
 
   export type UserCreateManyOrganizationInputEnvelope = {
     data: UserCreateManyOrganizationInput | UserCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
   }
 
   export type RoleCreateWithoutOrganizationInput = {
@@ -14292,6 +16031,7 @@ export namespace Prisma {
 
   export type RoleCreateManyOrganizationInputEnvelope = {
     data: RoleCreateManyOrganizationInput | RoleCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -14317,6 +16057,7 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -14423,6 +16164,7 @@ export namespace Prisma {
   export type UserCreateWithoutRolesInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14431,12 +16173,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14445,6 +16189,7 @@ export namespace Prisma {
     phoneNumberId?: number | null
     organizationId?: number | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRolesInput = {
@@ -14675,6 +16420,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    onboarded?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -14692,6 +16438,7 @@ export namespace Prisma {
   export type UserUpdateWithoutOrganizationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14700,12 +16447,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14714,12 +16463,14 @@ export namespace Prisma {
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOrganizationInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14800,6 +16551,7 @@ export namespace Prisma {
   export type UserUpdateWithoutRolesInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14808,12 +16560,14 @@ export namespace Prisma {
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14822,12 +16576,14 @@ export namespace Prisma {
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRolesInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null

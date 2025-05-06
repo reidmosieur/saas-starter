@@ -114,6 +114,9 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -121,6 +124,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  onboarded: 'onboarded',
   email: 'email',
   username: 'username',
   firstName: 'firstName',
@@ -179,6 +183,16 @@ exports.Prisma.SessionScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.OnboardingScalarFieldEnum = {
+  id: 'id',
+  completedAt: 'completedAt',
+  updatedAt: 'updatedAt',
+  step: 'step',
+  status: 'status',
+  startedAt: 'startedAt',
+  userId: 'userId'
+};
+
 exports.Prisma.PhoneNumberScalarFieldEnum = {
   id: 'id',
   countryCode: 'countryCode',
@@ -218,6 +232,11 @@ exports.Prisma.NullableJsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -229,17 +248,13 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 
 exports.Prisma.ModelName = {
   User: 'User',
   Password: 'Password',
   OTP: 'OTP',
   Session: 'Session',
+  Onboarding: 'Onboarding',
   PhoneNumber: 'PhoneNumber',
   Organization: 'Organization',
   Permission: 'Permission',
