@@ -102,6 +102,23 @@ export async function createSession({
 	})
 }
 
+export async function readSession() {
+	const cookie = (await cookies()).get('session')?.value
+	const sessionCookie = await decrypt(cookie)
+	const sessionId = sessionCookie?.id as number | undefined
+
+	const session = await prisma.session.findUnique({
+		where: {
+			id: sessionId,
+		},
+		select: {
+			userId: true,
+		},
+	})
+
+	return session
+}
+
 export async function updateSession({
 	expiresAt = in30Days,
 }: {
@@ -145,14 +162,18 @@ export async function deleteSession() {
 
 	const sessionId = payload.id as number
 
-	await prisma.session.update({
-		where: {
-			id: sessionId,
-		},
-		data: {
-			revokedAt: new Date(),
-		},
-	})
+	try {
+		await prisma.session.update({
+			where: {
+				id: sessionId,
+			},
+			data: {
+				revokedAt: new Date(),
+			},
+		})
+	} catch (err) {
+		console.error('Error deleting session', err)
+	}
 
 	const cookieStore = await cookies()
 	cookieStore.delete('session')
