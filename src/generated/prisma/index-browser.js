@@ -185,11 +185,12 @@ exports.Prisma.SessionScalarFieldEnum = {
 
 exports.Prisma.OnboardingScalarFieldEnum = {
   id: 'id',
+  startedAt: 'startedAt',
   completedAt: 'completedAt',
   updatedAt: 'updatedAt',
-  step: 'step',
-  status: 'status',
-  startedAt: 'startedAt',
+  currentStep: 'currentStep',
+  completedSteps: 'completedSteps',
+  stepTimeStamps: 'stepTimeStamps',
   userId: 'userId'
 };
 
@@ -247,7 +248,12 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
-
+exports.OnboardingSteps = exports.$Enums.OnboardingSteps = {
+  CREDENTIALS: 'CREDENTIALS',
+  PERSONAL_INFO: 'PERSONAL_INFO',
+  ORGANIZATION: 'ORGANIZATION',
+  COMPLETED: 'COMPLETED'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',

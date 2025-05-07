@@ -60,6 +60,25 @@ export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
 export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const OnboardingSteps: {
+  CREDENTIALS: 'CREDENTIALS',
+  PERSONAL_INFO: 'PERSONAL_INFO',
+  ORGANIZATION: 'ORGANIZATION',
+  COMPLETED: 'COMPLETED'
+};
+
+export type OnboardingSteps = (typeof OnboardingSteps)[keyof typeof OnboardingSteps]
+
+}
+
+export type OnboardingSteps = $Enums.OnboardingSteps
+
+export const OnboardingSteps: typeof $Enums.OnboardingSteps
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -6640,43 +6659,40 @@ export namespace Prisma {
 
   export type OnboardingAvgAggregateOutputType = {
     id: number | null
-    step: number | null
     userId: number | null
   }
 
   export type OnboardingSumAggregateOutputType = {
     id: number | null
-    step: number | null
     userId: number | null
   }
 
   export type OnboardingMinAggregateOutputType = {
     id: number | null
+    startedAt: Date | null
     completedAt: Date | null
     updatedAt: Date | null
-    step: number | null
-    status: string | null
-    startedAt: Date | null
+    currentStep: $Enums.OnboardingSteps | null
     userId: number | null
   }
 
   export type OnboardingMaxAggregateOutputType = {
     id: number | null
+    startedAt: Date | null
     completedAt: Date | null
     updatedAt: Date | null
-    step: number | null
-    status: string | null
-    startedAt: Date | null
+    currentStep: $Enums.OnboardingSteps | null
     userId: number | null
   }
 
   export type OnboardingCountAggregateOutputType = {
     id: number
+    startedAt: number
     completedAt: number
     updatedAt: number
-    step: number
-    status: number
-    startedAt: number
+    currentStep: number
+    completedSteps: number
+    stepTimeStamps: number
     userId: number
     _all: number
   }
@@ -6684,43 +6700,40 @@ export namespace Prisma {
 
   export type OnboardingAvgAggregateInputType = {
     id?: true
-    step?: true
     userId?: true
   }
 
   export type OnboardingSumAggregateInputType = {
     id?: true
-    step?: true
     userId?: true
   }
 
   export type OnboardingMinAggregateInputType = {
     id?: true
+    startedAt?: true
     completedAt?: true
     updatedAt?: true
-    step?: true
-    status?: true
-    startedAt?: true
+    currentStep?: true
     userId?: true
   }
 
   export type OnboardingMaxAggregateInputType = {
     id?: true
+    startedAt?: true
     completedAt?: true
     updatedAt?: true
-    step?: true
-    status?: true
-    startedAt?: true
+    currentStep?: true
     userId?: true
   }
 
   export type OnboardingCountAggregateInputType = {
     id?: true
+    startedAt?: true
     completedAt?: true
     updatedAt?: true
-    step?: true
-    status?: true
-    startedAt?: true
+    currentStep?: true
+    completedSteps?: true
+    stepTimeStamps?: true
     userId?: true
     _all?: true
   }
@@ -6813,11 +6826,12 @@ export namespace Prisma {
 
   export type OnboardingGroupByOutputType = {
     id: number
+    startedAt: Date
     completedAt: Date | null
     updatedAt: Date
-    step: number
-    status: string
-    startedAt: Date
+    currentStep: $Enums.OnboardingSteps
+    completedSteps: $Enums.OnboardingSteps[]
+    stepTimeStamps: JsonValue | null
     userId: number
     _count: OnboardingCountAggregateOutputType | null
     _avg: OnboardingAvgAggregateOutputType | null
@@ -6842,48 +6856,52 @@ export namespace Prisma {
 
   export type OnboardingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    startedAt?: boolean
     completedAt?: boolean
     updatedAt?: boolean
-    step?: boolean
-    status?: boolean
-    startedAt?: boolean
+    currentStep?: boolean
+    completedSteps?: boolean
+    stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["onboarding"]>
 
   export type OnboardingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    startedAt?: boolean
     completedAt?: boolean
     updatedAt?: boolean
-    step?: boolean
-    status?: boolean
-    startedAt?: boolean
+    currentStep?: boolean
+    completedSteps?: boolean
+    stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["onboarding"]>
 
   export type OnboardingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    startedAt?: boolean
     completedAt?: boolean
     updatedAt?: boolean
-    step?: boolean
-    status?: boolean
-    startedAt?: boolean
+    currentStep?: boolean
+    completedSteps?: boolean
+    stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["onboarding"]>
 
   export type OnboardingSelectScalar = {
     id?: boolean
+    startedAt?: boolean
     completedAt?: boolean
     updatedAt?: boolean
-    step?: boolean
-    status?: boolean
-    startedAt?: boolean
+    currentStep?: boolean
+    completedSteps?: boolean
+    stepTimeStamps?: boolean
     userId?: boolean
   }
 
-  export type OnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "completedAt" | "updatedAt" | "step" | "status" | "startedAt" | "userId", ExtArgs["result"]["onboarding"]>
+  export type OnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startedAt" | "completedAt" | "updatedAt" | "currentStep" | "completedSteps" | "stepTimeStamps" | "userId", ExtArgs["result"]["onboarding"]>
   export type OnboardingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6901,11 +6919,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      startedAt: Date
       completedAt: Date | null
       updatedAt: Date
-      step: number
-      status: string
-      startedAt: Date
+      currentStep: $Enums.OnboardingSteps
+      completedSteps: $Enums.OnboardingSteps[]
+      stepTimeStamps: Prisma.JsonValue | null
       userId: number
     }, ExtArgs["result"]["onboarding"]>
     composites: {}
@@ -7332,11 +7351,12 @@ export namespace Prisma {
    */
   interface OnboardingFieldRefs {
     readonly id: FieldRef<"Onboarding", 'Int'>
+    readonly startedAt: FieldRef<"Onboarding", 'DateTime'>
     readonly completedAt: FieldRef<"Onboarding", 'DateTime'>
     readonly updatedAt: FieldRef<"Onboarding", 'DateTime'>
-    readonly step: FieldRef<"Onboarding", 'Int'>
-    readonly status: FieldRef<"Onboarding", 'String'>
-    readonly startedAt: FieldRef<"Onboarding", 'DateTime'>
+    readonly currentStep: FieldRef<"Onboarding", 'OnboardingSteps'>
+    readonly completedSteps: FieldRef<"Onboarding", 'OnboardingSteps[]'>
+    readonly stepTimeStamps: FieldRef<"Onboarding", 'Json'>
     readonly userId: FieldRef<"Onboarding", 'Int'>
   }
     
@@ -12291,11 +12311,12 @@ export namespace Prisma {
 
   export const OnboardingScalarFieldEnum: {
     id: 'id',
+    startedAt: 'startedAt',
     completedAt: 'completedAt',
     updatedAt: 'updatedAt',
-    step: 'step',
-    status: 'status',
-    startedAt: 'startedAt',
+    currentStep: 'currentStep',
+    completedSteps: 'completedSteps',
+    stepTimeStamps: 'stepTimeStamps',
     userId: 'userId'
   };
 
@@ -12449,6 +12470,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'OnboardingSteps'
+   */
+  export type EnumOnboardingStepsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OnboardingSteps'>
+    
+
+
+  /**
+   * Reference to a field of type 'OnboardingSteps[]'
+   */
+  export type ListEnumOnboardingStepsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OnboardingSteps[]'>
     
 
 
@@ -12869,22 +12904,24 @@ export namespace Prisma {
     OR?: OnboardingWhereInput[]
     NOT?: OnboardingWhereInput | OnboardingWhereInput[]
     id?: IntFilter<"Onboarding"> | number
+    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
     completedAt?: DateTimeNullableFilter<"Onboarding"> | Date | string | null
     updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
-    step?: IntFilter<"Onboarding"> | number
-    status?: StringFilter<"Onboarding"> | string
-    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    currentStep?: EnumOnboardingStepsFilter<"Onboarding"> | $Enums.OnboardingSteps
+    completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    stepTimeStamps?: JsonNullableFilter<"Onboarding">
     userId?: IntFilter<"Onboarding"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type OnboardingOrderByWithRelationInput = {
     id?: SortOrder
+    startedAt?: SortOrder
     completedAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
-    step?: SortOrder
-    status?: SortOrder
-    startedAt?: SortOrder
+    currentStep?: SortOrder
+    completedSteps?: SortOrder
+    stepTimeStamps?: SortOrderInput | SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -12895,21 +12932,23 @@ export namespace Prisma {
     AND?: OnboardingWhereInput | OnboardingWhereInput[]
     OR?: OnboardingWhereInput[]
     NOT?: OnboardingWhereInput | OnboardingWhereInput[]
+    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
     completedAt?: DateTimeNullableFilter<"Onboarding"> | Date | string | null
     updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
-    step?: IntFilter<"Onboarding"> | number
-    status?: StringFilter<"Onboarding"> | string
-    startedAt?: DateTimeFilter<"Onboarding"> | Date | string
+    currentStep?: EnumOnboardingStepsFilter<"Onboarding"> | $Enums.OnboardingSteps
+    completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    stepTimeStamps?: JsonNullableFilter<"Onboarding">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type OnboardingOrderByWithAggregationInput = {
     id?: SortOrder
+    startedAt?: SortOrder
     completedAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
-    step?: SortOrder
-    status?: SortOrder
-    startedAt?: SortOrder
+    currentStep?: SortOrder
+    completedSteps?: SortOrder
+    stepTimeStamps?: SortOrderInput | SortOrder
     userId?: SortOrder
     _count?: OnboardingCountOrderByAggregateInput
     _avg?: OnboardingAvgOrderByAggregateInput
@@ -12923,11 +12962,12 @@ export namespace Prisma {
     OR?: OnboardingScalarWhereWithAggregatesInput[]
     NOT?: OnboardingScalarWhereWithAggregatesInput | OnboardingScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Onboarding"> | number
+    startedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
     completedAt?: DateTimeNullableWithAggregatesFilter<"Onboarding"> | Date | string | null
     updatedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
-    step?: IntWithAggregatesFilter<"Onboarding"> | number
-    status?: StringWithAggregatesFilter<"Onboarding"> | string
-    startedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
+    currentStep?: EnumOnboardingStepsWithAggregatesFilter<"Onboarding"> | $Enums.OnboardingSteps
+    completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    stepTimeStamps?: JsonNullableWithAggregatesFilter<"Onboarding">
     userId?: IntWithAggregatesFilter<"Onboarding"> | number
   }
 
@@ -13597,68 +13637,75 @@ export namespace Prisma {
   }
 
   export type OnboardingCreateInput = {
+    startedAt?: Date | string
     completedAt?: Date | string | null
     updatedAt?: Date | string
-    step?: number
-    status?: string
-    startedAt?: Date | string
+    currentStep?: $Enums.OnboardingSteps
+    completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutOnboardingInput
   }
 
   export type OnboardingUncheckedCreateInput = {
     id?: number
+    startedAt?: Date | string
     completedAt?: Date | string | null
     updatedAt?: Date | string
-    step?: number
-    status?: string
-    startedAt?: Date | string
+    currentStep?: $Enums.OnboardingSteps
+    completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
 
   export type OnboardingUpdateInput = {
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutOnboardingNestedInput
   }
 
   export type OnboardingUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type OnboardingCreateManyInput = {
     id?: number
+    startedAt?: Date | string
     completedAt?: Date | string | null
     updatedAt?: Date | string
-    step?: number
-    status?: string
-    startedAt?: Date | string
+    currentStep?: $Enums.OnboardingSteps
+    completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
 
   export type OnboardingUpdateManyMutationInput = {
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OnboardingUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -14390,46 +14437,68 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type EnumOnboardingStepsFilter<$PrismaModel = never> = {
+    equals?: $Enums.OnboardingSteps | EnumOnboardingStepsFieldRefInput<$PrismaModel>
+    in?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    not?: NestedEnumOnboardingStepsFilter<$PrismaModel> | $Enums.OnboardingSteps
+  }
+
+  export type EnumOnboardingStepsNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel> | null
+    has?: $Enums.OnboardingSteps | EnumOnboardingStepsFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type OnboardingCountOrderByAggregateInput = {
     id?: SortOrder
+    startedAt?: SortOrder
     completedAt?: SortOrder
     updatedAt?: SortOrder
-    step?: SortOrder
-    status?: SortOrder
-    startedAt?: SortOrder
+    currentStep?: SortOrder
+    completedSteps?: SortOrder
+    stepTimeStamps?: SortOrder
     userId?: SortOrder
   }
 
   export type OnboardingAvgOrderByAggregateInput = {
     id?: SortOrder
-    step?: SortOrder
     userId?: SortOrder
   }
 
   export type OnboardingMaxOrderByAggregateInput = {
     id?: SortOrder
+    startedAt?: SortOrder
     completedAt?: SortOrder
     updatedAt?: SortOrder
-    step?: SortOrder
-    status?: SortOrder
-    startedAt?: SortOrder
+    currentStep?: SortOrder
     userId?: SortOrder
   }
 
   export type OnboardingMinOrderByAggregateInput = {
     id?: SortOrder
+    startedAt?: SortOrder
     completedAt?: SortOrder
     updatedAt?: SortOrder
-    step?: SortOrder
-    status?: SortOrder
-    startedAt?: SortOrder
+    currentStep?: SortOrder
     userId?: SortOrder
   }
 
   export type OnboardingSumOrderByAggregateInput = {
     id?: SortOrder
-    step?: SortOrder
     userId?: SortOrder
+  }
+
+  export type EnumOnboardingStepsWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OnboardingSteps | EnumOnboardingStepsFieldRefInput<$PrismaModel>
+    in?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    not?: NestedEnumOnboardingStepsWithAggregatesFilter<$PrismaModel> | $Enums.OnboardingSteps
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOnboardingStepsFilter<$PrismaModel>
+    _max?: NestedEnumOnboardingStepsFilter<$PrismaModel>
   }
 
   export type PhoneNumberCountryCodeNumberCompoundUniqueInput = {
@@ -14831,10 +14900,23 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
 
+  export type OnboardingCreatecompletedStepsInput = {
+    set: $Enums.OnboardingSteps[]
+  }
+
   export type UserCreateNestedOneWithoutOnboardingInput = {
     create?: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
     connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type EnumOnboardingStepsFieldUpdateOperationsInput = {
+    set?: $Enums.OnboardingSteps
+  }
+
+  export type OnboardingUpdatecompletedStepsInput = {
+    set?: $Enums.OnboardingSteps[]
+    push?: $Enums.OnboardingSteps | $Enums.OnboardingSteps[]
   }
 
   export type UserUpdateOneRequiredWithoutOnboardingNestedInput = {
@@ -15313,6 +15395,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumOnboardingStepsFilter<$PrismaModel = never> = {
+    equals?: $Enums.OnboardingSteps | EnumOnboardingStepsFieldRefInput<$PrismaModel>
+    in?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    not?: NestedEnumOnboardingStepsFilter<$PrismaModel> | $Enums.OnboardingSteps
+  }
+
+  export type NestedEnumOnboardingStepsWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OnboardingSteps | EnumOnboardingStepsFieldRefInput<$PrismaModel>
+    in?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OnboardingSteps[] | ListEnumOnboardingStepsFieldRefInput<$PrismaModel>
+    not?: NestedEnumOnboardingStepsWithAggregatesFilter<$PrismaModel> | $Enums.OnboardingSteps
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOnboardingStepsFilter<$PrismaModel>
+    _max?: NestedEnumOnboardingStepsFilter<$PrismaModel>
+  }
+
   export type PasswordCreateWithoutUserInput = {
     updatedAt?: Date | string
     hash: string
@@ -15459,20 +15558,22 @@ export namespace Prisma {
   }
 
   export type OnboardingCreateWithoutUserInput = {
+    startedAt?: Date | string
     completedAt?: Date | string | null
     updatedAt?: Date | string
-    step?: number
-    status?: string
-    startedAt?: Date | string
+    currentStep?: $Enums.OnboardingSteps
+    completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OnboardingUncheckedCreateWithoutUserInput = {
     id?: number
+    startedAt?: Date | string
     completedAt?: Date | string | null
     updatedAt?: Date | string
-    step?: number
-    status?: string
-    startedAt?: Date | string
+    currentStep?: $Enums.OnboardingSteps
+    completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OnboardingCreateOrConnectWithoutUserInput = {
@@ -15640,20 +15741,22 @@ export namespace Prisma {
   }
 
   export type OnboardingUpdateWithoutUserInput = {
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OnboardingUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    step?: IntFieldUpdateOperationsInput | number
-    status?: StringFieldUpdateOperationsInput | string
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
+    completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserCreateWithoutPasswordInput = {
