@@ -1,29 +1,39 @@
+'use server'
+
+import { Prisma } from '@/generated/prisma'
 import prisma from '@/lib/prisma'
 import { readSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
-import 'server-only'
 
-export const getUserFromSession = cache(async () => {
+export const getUserId = cache(async () => {
 	const session = await readSession()
-	const id = session?.userId
+	return session?.userId
+})
 
-	if (!id) return null
-
-	const user = await prisma.user.findUnique({
-		where: {
-			id,
-		},
-		select: {
+export const getUserFromSession = cache(
+	async (
+		select: Prisma.UserSelect = {
 			firstName: true,
 			lastName: true,
 			email: true,
 			onboarded: true,
 		},
-	})
+	) => {
+		const id = await getUserId()
 
-	return user
-})
+		if (!id) return null
+
+		const user = await prisma.user.findUnique({
+			where: {
+				id,
+			},
+			select,
+		})
+
+		return user
+	},
+)
 
 export async function handleUserInitialization() {
 	// Step 1:
