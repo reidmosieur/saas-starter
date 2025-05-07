@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import { passwordSchema } from './auth'
+import { organizationSchema } from './organization'
 
 export const usernameSchema = z
 	.string()
@@ -19,15 +21,21 @@ export const lastNameSchema = z
 	.string()
 	.min(2, { message: `Please provide a last name` })
 	.trim()
+export const countryCodeSchema = z.string().optional()
+export const phoneNumberSchema = z.string().optional()
 
-export const phoneNumberSchema = z.object({
-	countryCode: z.string().optional(), // todo: enum for country codes
-	number: z.string().optional(), //todo: phone "number" refinement
+export const credentialsOnboardingStepSchema = z.object({
+	username: usernameSchema,
+	password: passwordSchema,
 })
 
-export const onboardingSchema = z.object({
-	username: usernameSchema,
+export const personalInfoOnboardingStepSchema = z.object({
 	firstName: firstNameSchema,
 	lastName: lastNameSchema,
-	phoneNumber: phoneNumberSchema.optional(),
+	countryCode: countryCodeSchema,
+	phoneNumber: phoneNumberSchema,
+})
+
+export const organizationOnboardingStepSchema = z.object({
+	name: organizationSchema,
 })
