@@ -10,14 +10,14 @@ import {
 } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
+import { handleVerifyOTP } from '@/app/actions/auth/verify'
 import { verifyEmailSchema } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { EmailField, OTPField } from './fields'
 import { Form, FormMessage } from '../ui/form'
-import { handleVerifyOTP } from '@/app/actions/auth/verify'
+import { OTPField } from './fields'
 
 export function Verify({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
@@ -47,7 +47,6 @@ function OTPForm() {
 		resolver: zodResolver(verifyEmailSchema),
 		defaultValues: {
 			code: '',
-			email: '',
 		},
 	})
 
@@ -55,7 +54,7 @@ function OTPForm() {
 		const result = await handleVerifyOTP(values)
 		if (result && result.errors) {
 			Object.entries(result.errors).map(([key, value]) =>
-				form.setError(key as 'email' | 'code' | 'root', value),
+				form.setError(key as 'code' | 'root', value),
 			)
 		}
 	}
@@ -64,7 +63,6 @@ function OTPForm() {
 			<form onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="grid gap-6">
 					<div className="grid gap-6">
-						<EmailField form={form} />
 						<OTPField form={form} />
 						{form.formState.errors.root ? (
 							<FormMessage>{form.formState.errors.root.message}</FormMessage>
