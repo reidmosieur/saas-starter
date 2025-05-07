@@ -2,7 +2,7 @@
 
 import { completePersonalInfoOnboarding } from '@/app/actions/account/onboarding'
 import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
+import { Form, FormMessage } from '@/components/ui/form'
 import { personalInfoOnboardingStepSchema } from '@/schema/account'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -27,7 +27,20 @@ export function PersonalInfoOnboardingStep() {
 	) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		await completePersonalInfoOnboarding(values)
+		const result = await completePersonalInfoOnboarding(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(
+					key as
+						| 'firstName'
+						| 'lastName'
+						| 'countryCode'
+						| 'phoneNumber'
+						| 'root',
+					value,
+				),
+			)
+		}
 	}
 	return (
 		<Form {...form}>
@@ -36,6 +49,9 @@ export function PersonalInfoOnboardingStep() {
 					<div className="grid gap-6">
 						<NameField form={form} firstNameInputProps={{ autoFocus: true }} />
 						<PhoneNumberField form={form} />
+						{form.formState.errors.root ? (
+							<FormMessage>{form.formState.errors.root.message}</FormMessage>
+						) : null}
 						<Button
 							type="submit"
 							className="w-full"

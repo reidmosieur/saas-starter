@@ -3,7 +3,7 @@
 import { completeCredentialsOnboarding } from '@/app/actions/account/onboarding'
 import { PasswordField } from '@/components/auth/fields'
 import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
+import { Form, FormMessage } from '@/components/ui/form'
 import { credentialsOnboardingStepSchema } from '@/schema/account'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -26,7 +26,12 @@ export function CredentialsOnboardingStep() {
 	) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		await completeCredentialsOnboarding(values)
+		const result = await completeCredentialsOnboarding(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(key as 'username' | 'password' | 'root', value),
+			)
+		}
 	}
 	return (
 		<Form {...form}>
@@ -35,6 +40,9 @@ export function CredentialsOnboardingStep() {
 					<div className="grid gap-6">
 						<UsernameField form={form} inputProps={{ autoFocus: true }} />
 						<PasswordField form={form} />
+						{form.formState.errors.root ? (
+							<FormMessage>{form.formState.errors.root.message}</FormMessage>
+						) : null}
 						<Button
 							type="submit"
 							className="w-full"

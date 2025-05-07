@@ -3,7 +3,7 @@
 import { completeOrganizationOnboarding } from '@/app/actions/account/onboarding'
 import { OrganizationNameField } from '@/components/organization/fields'
 import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
+import { Form, FormMessage } from '@/components/ui/form'
 import { organizationOnboardingStepSchema } from '@/schema/account'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -24,7 +24,12 @@ export function OrganizationOnboardingStep() {
 	) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		await completeOrganizationOnboarding(values)
+		const result = await completeOrganizationOnboarding(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(key as 'name' | 'root', value),
+			)
+		}
 	}
 	return (
 		<Form {...form}>
@@ -35,6 +40,9 @@ export function OrganizationOnboardingStep() {
 							form={form}
 							inputProps={{ autoFocus: true }}
 						/>
+						{form.formState.errors.root ? (
+							<FormMessage>{form.formState.errors.root.message}</FormMessage>
+						) : null}
 						<Button
 							type="submit"
 							className="w-full"
