@@ -72,6 +72,9 @@ export async function completeEmailSignup({ email }: { email: string }) {
 	const user = await prisma.user.create({
 		data: {
 			email,
+			onboarding: {
+				create: {}, // this can be empty to use the defaults
+			},
 		},
 		select: {
 			id: true,
