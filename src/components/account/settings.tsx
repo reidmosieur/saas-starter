@@ -62,7 +62,7 @@ export function AccountSettingsForm({ cardProps }: CardFormProps) {
 						<UsernameField form={form} />
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>
@@ -103,7 +103,7 @@ export function EmailSettingsForm({ cardProps }: CardFormProps) {
 						<EmailField form={form} />
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>
@@ -120,10 +120,7 @@ export function PhonenumberSettingsForm({ cardProps }: CardFormProps) {
 	const form = useForm<z.infer<typeof phoneNumberSettingsForm>>({
 		resolver: zodResolver(phoneNumberSettingsForm),
 		defaultValues: {
-			phoneNumber: {
-				countryCode: 'US',
-				number: '',
-			},
+			phoneNumber: '',
 		},
 	})
 
@@ -147,7 +144,7 @@ export function PhonenumberSettingsForm({ cardProps }: CardFormProps) {
 						<PhoneNumberField form={form} />
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>
@@ -159,12 +156,7 @@ export function AvatarSettingsForm({ cardProps }: CardFormProps) {
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof phoneNumberSettingsForm>>({
 		resolver: zodResolver(phoneNumberSettingsForm),
-		defaultValues: {
-			phoneNumber: {
-				countryCode: 'US',
-				number: '',
-			},
-		},
+		defaultValues: {},
 	})
 
 	// 2. Define a submit handler.
@@ -192,7 +184,7 @@ export function AvatarSettingsForm({ cardProps }: CardFormProps) {
 						</Avatar>
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>

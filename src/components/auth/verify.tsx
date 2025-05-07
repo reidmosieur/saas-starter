@@ -67,7 +67,11 @@ function OTPForm() {
 						{form.formState.errors.root ? (
 							<FormMessage>{form.formState.errors.root.message}</FormMessage>
 						) : null}
-						<Button type="submit" className="w-full">
+						<Button
+							type="submit"
+							className="w-full"
+							loading={form.formState.isSubmitting}
+						>
 							Verify
 						</Button>
 					</div>

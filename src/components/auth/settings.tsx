@@ -54,11 +54,11 @@ export function PasswordSettingsForm({ cardProps }: CardFormProps) {
 						<LabeledInputField
 							form={form}
 							name={'verifyPassword'}
-							label="Verify Password"
+							labelProps={{ children: 'Verify Password' }}
 						/>
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>

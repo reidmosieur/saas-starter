@@ -61,7 +61,7 @@ export function OrganizationSettingsForm({ cardProps }: CardFormProps) {
 					</CardHeader>
 					<CardContent className="grid gap-4 md:gap-6"></CardContent>
 					<CardFooter className="mt-auto justify-end">
-						<Button>Save</Button>
+						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
 			</Card>

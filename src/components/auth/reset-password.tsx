@@ -103,7 +103,11 @@ export function ResetPasswordForm() {
 					<div className="grid gap-6">
 						<PasswordField form={form} />
 						<PasswordField form={form} name="verifyPassword" />
-						<Button type="submit" className="w-full">
+						<Button
+							type="submit"
+							className="w-full"
+							loading={form.formState.isSubmitting}
+						>
 							Continue
 						</Button>
 					</div>

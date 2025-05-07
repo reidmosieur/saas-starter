@@ -1,5 +1,6 @@
 'use client'
 
+import { initializeEmailSignup } from '@/app/actions/auth/signup'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -16,7 +17,6 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormMessage } from '../ui/form'
 import { EmailField } from './fields'
-import { initializeEmailSignup } from '@/app/actions/auth/signup'
 
 export function Signup({ className, ...props }: React.ComponentProps<'div'>) {
 	return (
@@ -99,7 +99,11 @@ function EmailSignupForm() {
 				{form.formState.errors.root ? (
 					<FormMessage>{form.formState.errors.root.message}</FormMessage>
 				) : null}
-				<Button type="submit" className="w-full">
+				<Button
+					type="submit"
+					className="w-full"
+					loading={form.formState.isSubmitting}
+				>
 					Sign Up
 				</Button>
 			</form>

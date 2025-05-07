@@ -65,7 +65,11 @@ export function ForgotPasswordForm() {
 				<div className="grid gap-6">
 					<div className="grid gap-6">
 						<EmailField form={form} />
-						<Button type="submit" className="w-full">
+						<Button
+							type="submit"
+							className="w-full"
+							loading={form.formState.isSubmitting}
+						>
 							Continue
 						</Button>
 					</div>
