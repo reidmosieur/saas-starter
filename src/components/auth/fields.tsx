@@ -11,10 +11,14 @@ import {
 	FormMessage,
 } from '../ui/form'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
+import { ComponentProps } from 'react'
 
 export function EmailField<T extends { email: string }>({
 	form,
-}: FieldProps<T>) {
+	inputProps,
+}: FieldProps<T> & {
+	inputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<LabeledInputField
 			form={form}
@@ -22,6 +26,7 @@ export function EmailField<T extends { email: string }>({
 			labelProps={{
 				children: 'Email',
 			}}
+			inputProps={inputProps}
 		/>
 	)
 }
@@ -30,9 +35,11 @@ export function PasswordField<T extends { password: string }>({
 	form,
 	displayForgotPassword,
 	name = 'password',
+	inputProps,
 }: FieldProps<T> & {
 	displayForgotPassword?: boolean
 	name?: string
+	inputProps?: ComponentProps<'input'>
 }) {
 	return (
 		<LabeledInputField
@@ -51,12 +58,18 @@ export function PasswordField<T extends { password: string }>({
 			}}
 			inputProps={{
 				type: 'password',
+				...inputProps,
 			}}
 		/>
 	)
 }
 
-export function OTPField<T extends { code: string }>({ form }: FieldProps<T>) {
+export function OTPField<T extends { code: string }>({
+	form,
+	inputProps,
+}: FieldProps<T> & {
+	inputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<FormField
 			control={form.control}
@@ -65,7 +78,12 @@ export function OTPField<T extends { code: string }>({ form }: FieldProps<T>) {
 				<FormItem>
 					<FormLabel>One-Time Password</FormLabel>
 					<FormControl>
-						<InputOTP maxLength={6} {...field} className="w-full">
+						<InputOTP
+							maxLength={6}
+							{...inputProps}
+							{...field}
+							className="w-full"
+						>
 							<InputOTPGroup className="w-full">
 								{Array.from({ length: 6 }).map((_, index) => (
 									<InputOTPSlot className="w-full" key={index} index={index} />

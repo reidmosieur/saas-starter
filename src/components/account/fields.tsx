@@ -1,42 +1,56 @@
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form'
 import { FieldProps, LabeledInputField } from '../fields'
+import { ComponentProps } from 'react'
 
 type UsernameFieldProps<T extends FieldValues & { username: string }> = {
 	form: UseFormReturn<T>
+	inputProps?: ComponentProps<'input'>
 }
 
 export function UsernameField<T extends { username: string }>({
 	form,
-}: UsernameFieldProps<T>) {
+	inputProps,
+}: UsernameFieldProps<T> & {
+	inputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<LabeledInputField
 			form={form}
 			name={'username' as Path<T>}
 			labelProps={{ children: 'Username' }}
+			inputProps={inputProps}
 		/>
 	)
 }
 
 export function FirstNameField<T extends { firstName: string }>({
 	form,
-}: FieldProps<T>) {
+	inputProps,
+}: FieldProps<T> & {
+	inputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<LabeledInputField
 			form={form}
 			name={'firstName' as Path<T>}
 			labelProps={{ children: 'First Name' }}
+			inputProps={inputProps}
 		/>
 	)
 }
 
 export function LastNameField<T extends { lastName: string }>({
 	form,
-}: FieldProps<T>) {
+	inputProps,
+}: FieldProps<T> & {
+	inputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<LabeledInputField
 			form={form}
 			name={'lastName' as Path<T>}
 			labelProps={{ children: 'Last Name' }}
+			inputProps={inputProps}
 		/>
 	)
 }
@@ -47,20 +61,24 @@ type NameFieldProps<T extends { firstName: string; lastName: string }> = {
 
 export function NameField<T extends { firstName: string; lastName: string }>({
 	form,
-}: NameFieldProps<T>) {
+	firstNameInputProps,
+	lastNameInputProps,
+}: NameFieldProps<T> & {
+	firstNameInputProps?: ComponentProps<'input'>
+	lastNameInputProps?: ComponentProps<'input'>
+}) {
 	return (
 		<div className="grid grid-cols-2 gap-4">
-			<FirstNameField form={form} />
-			<LastNameField form={form} />
+			<FirstNameField form={form} inputProps={firstNameInputProps} />
+			<LastNameField form={form} inputProps={lastNameInputProps} />
 		</div>
 	)
 }
 
 type PhoneNumberProps<
 	T extends {
-		phoneNumber?:
-			| { number?: string | undefined; countryCode?: string | undefined }
-			| undefined
+		phoneNumber?: string | undefined
+		countryCode?: string | undefined
 	},
 > = {
 	form: UseFormReturn<T>
@@ -68,9 +86,8 @@ type PhoneNumberProps<
 
 export function PhoneNumberField<
 	T extends {
-		phoneNumber?:
-			| { number?: string | undefined; countryCode?: string | undefined }
-			| undefined
+		phoneNumber?: string | undefined
+		countryCode?: string | undefined
 	},
 >({ form }: PhoneNumberProps<T>) {
 	return (
@@ -82,7 +99,7 @@ export function PhoneNumberField<
 			/>
 			<LabeledInputField
 				form={form}
-				name={'number' as Path<T>}
+				name={'phoneNumber' as Path<T>}
 				labelProps={{ children: 'Phone Number' }}
 			/>
 		</div>
