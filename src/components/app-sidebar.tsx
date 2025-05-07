@@ -3,21 +3,20 @@
 import { IconDashboard, IconInnerShadowTop } from "@tabler/icons-react";
 import * as React from "react";
 
-import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
+import { NavMain } from '@/components/nav-main'
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
-import { NavSecondary } from './nav-secondary'
-import Link from 'next/link'
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+} from '@/components/ui/sidebar'
 import { appName } from '@/data/app'
+import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
+import Link from 'next/link'
+import { NavSecondary } from './nav-secondary'
 
 const data = {
 	user: {
@@ -47,7 +46,12 @@ const data = {
 	],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+	navUser,
+	...props
+}: React.ComponentProps<typeof Sidebar> & {
+	navUser: React.ReactNode
+}) {
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
@@ -69,9 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<NavMain items={data.navMain} />
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
-			<SidebarFooter>
-				<NavUser user={data.user} />
-			</SidebarFooter>
+			<SidebarFooter>{navUser}</SidebarFooter>
 		</Sidebar>
 	)
 }
