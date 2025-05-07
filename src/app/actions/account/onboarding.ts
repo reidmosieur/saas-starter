@@ -9,6 +9,15 @@ import {
 import { redirect } from 'next/navigation'
 import { hashPassword } from '../auth'
 import { getUserId } from '../user'
+import { Prisma } from '@/generated/prisma'
+
+const safeError = {
+	errors: {
+		root: {
+			message: 'Something went wrong',
+		},
+	},
+}
 
 export async function completeCredentialsOnboarding(values: {
 	username: string
@@ -49,10 +58,39 @@ export async function completeCredentialsOnboarding(values: {
 						hash: hashedPassword,
 					},
 				},
+				onboarding: {
+					update: {
+						currentStep: 'PERSONAL_INFO',
+						completedSteps: {
+							push: 'CREDENTIALS',
+						},
+						stepTimeStamps: {
+							CREDENTIALS: new Date(),
+						},
+					},
+				},
 			},
 		})
 	} catch (err) {
+		if (err instanceof Prisma.PrismaClientKnownRequestError) {
+			switch (err.code) {
+				case 'P2002': // username failed unique constraint
+					return {
+						errors: {
+							username: {
+								message: 'That username is unavailable',
+							},
+						},
+					}
+
+				default:
+					console.log('default reached')
+			}
+		}
+
 		console.error(err)
+
+		return safeError
 	}
 
 	redirect('/onboarding/personal-info')
@@ -86,6 +124,26 @@ export async function completePersonalInfoOnboarding(values: {
 	const { firstName, lastName, countryCode, phoneNumber } = validatedFields.data
 
 	try {
+		const currentUser = await prisma.user.findUniqueOrThrow({
+			where: {
+				id: userId,
+			},
+			select: {
+				onboarding: {
+					select: {
+						stepTimeStamps: true,
+					},
+				},
+			},
+		})
+
+		const completedStep = 'PERSONAL_INFO'
+		const stepTimeStamps = (currentUser.onboarding?.stepTimeStamps ??
+			{}) as unknown as Record<string, Date>
+		const updatedStamps = {
+			...stepTimeStamps,
+			[completedStep]: new Date(),
+		}
 		await prisma.user.update({
 			where: {
 				id: userId,
@@ -102,10 +160,21 @@ export async function completePersonalInfoOnboarding(values: {
 								},
 							}
 						: undefined,
+				onboarding: {
+					update: {
+						currentStep: 'ORGANIZATION',
+						completedSteps: {
+							push: completedStep,
+						},
+						stepTimeStamps: updatedStamps,
+					},
+				},
 			},
 		})
 	} catch (err) {
 		console.error(err)
+
+		return safeError
 	}
 
 	redirect('/onboarding/organization')
@@ -134,6 +203,27 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 	const { name } = validatedFields.data
 
 	try {
+		const currentUser = await prisma.user.findUniqueOrThrow({
+			where: {
+				id: userId,
+			},
+			select: {
+				onboarding: {
+					select: {
+						stepTimeStamps: true,
+					},
+				},
+			},
+		})
+
+		const completedStep = 'ORGANIZATION'
+		const stepTimeStamps = (currentUser.onboarding?.stepTimeStamps ??
+			{}) as unknown as Record<string, Date>
+		const updatedStamps = {
+			...stepTimeStamps,
+			[completedStep]: new Date(),
+		}
+
 		await prisma.user.update({
 			where: {
 				id: userId,
@@ -144,11 +234,23 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 						name,
 					},
 				},
+				onboarding: {
+					update: {
+						currentStep: 'COMPLETED',
+						completedSteps: {
+							push: completedStep,
+						},
+						stepTimeStamps: updatedStamps,
+					},
+				},
 			},
 		})
 	} catch (err) {
 		console.error(err)
+
+		return safeError
 	}
 
+	// here we'll mark onboarding as complete if everything looks good
 	redirect('/onboarding/complete')
 }
