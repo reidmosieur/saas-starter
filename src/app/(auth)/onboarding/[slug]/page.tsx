@@ -1,11 +1,19 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
-import { Onboarding } from '@/components/account/onboarding'
-import { CredentialsOnboardingStep } from '@/components/account/onboarding/credentials'
+import {
+	Onboarding,
+	OnboardingStep,
+	OnboardingSteps,
+} from '@/components/account/onboarding'
 import { appName } from '@/data/app'
 import Link from 'next/link'
 
-export default function Page() {
+export default async function Page({
+	params,
+}: {
+	params: Promise<{ slug: OnboardingSteps }>
+}) {
+	const { slug } = await params
 	return (
 		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 			<div className="flex w-full max-w-md flex-col gap-6">
@@ -18,8 +26,8 @@ export default function Page() {
 					</div>
 					{appName}
 				</Link>
-				<Onboarding slug="credentials">
-					<CredentialsOnboardingStep />
+				<Onboarding slug={slug}>
+					<OnboardingStep slug={slug} />
 				</Onboarding>
 			</div>
 		</div>
