@@ -14,8 +14,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Form } from '../ui/form'
+import { Form, FormMessage } from '../ui/form'
 import { EmailField } from './fields'
+import { initializeForgotPassword } from '@/app/actions/auth/forgot-password'
 
 export function ForgotPassword({
 	className,
@@ -34,11 +35,6 @@ export function ForgotPassword({
 					<ForgotPasswordForm />
 				</CardContent>
 			</Card>
-			<div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-				By continuing, you agree to our{' '}
-				<Link href="/terms">Terms of Service</Link> and{' '}
-				<Link href="/privacy">Privacy Policy</Link>.
-			</div>
 		</div>
 	)
 }
@@ -56,7 +52,12 @@ export function ForgotPasswordForm() {
 	async function onSubmit(values: z.infer<typeof forgotPasswordSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		console.log(values)
+		const result = await initializeForgotPassword(values)
+		if (result && result.errors) {
+			Object.entries(result.errors).map(([key, value]) =>
+				form.setError(key as 'email' | 'root', value),
+			)
+		}
 	}
 
 	return (
@@ -65,6 +66,9 @@ export function ForgotPasswordForm() {
 				<div className="grid gap-6">
 					<div className="grid gap-6">
 						<EmailField form={form} />
+						{form.formState.errors.root ? (
+							<FormMessage>{form.formState.errors.root.message}</FormMessage>
+						) : null}
 						<Button
 							type="submit"
 							className="w-full"
@@ -73,8 +77,11 @@ export function ForgotPasswordForm() {
 							Continue
 						</Button>
 					</div>
-					<div className="text-center text-sm">
-						Don&apos;t have an account?{' '}
+					<div className="grid grid-cols-2 text-center text-sm">
+						<Link href="/login" className="underline underline-offset-4">
+							Login
+						</Link>
+
 						<Link href="/signup" className="underline underline-offset-4">
 							Sign up
 						</Link>

@@ -10,6 +10,7 @@ import { PrismaClientKnownRequestError } from '@/generated/prisma/runtime/librar
 import { randomInt } from 'crypto'
 import { cookies } from 'next/headers'
 import { completeEmailSignup } from './signup'
+import { completeForgotPassword } from './forgot-password'
 
 const safeError = {
 	errors: {
@@ -55,7 +56,7 @@ export async function handleOTPSetup({
 		cookieStore.set('otp_session', otp.id.toString(), {
 			httpOnly: true,
 			secure: true,
-			sameSite: 'lax',
+			sameSite: 'strict',
 			maxAge: 600, // 10 minutes
 			path: '/',
 		})
@@ -156,10 +157,15 @@ export async function verifyOTP({ code }: VerifyOTPArgs) {
 	// Step 5:
 	// complete authorization flows based on the OTP type
 	const otpType = otp.type as OtpType
+	const email = otp.email
 
 	switch (otpType) {
 		case 'email-signup':
-			await completeEmailSignup({ email: otp.email })
+			await completeEmailSignup({ email })
+			break
+
+		case 'forgot-password':
+			await completeForgotPassword({ email })
 			break
 
 		default:
@@ -172,8 +178,10 @@ export async function verifyOTP({ code }: VerifyOTPArgs) {
 	const redirectTo = otp.redirectTo as RedirectTo
 	switch (redirectTo) {
 		case 'onboarding':
-			console.log('redirect to onboarding')
 			redirect(`/onboarding`)
+
+		case 'reset-password':
+			redirect('/reset-password')
 
 		default:
 			console.log('default reached in redirect to block')
