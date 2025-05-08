@@ -12583,6 +12583,7 @@ export namespace Prisma {
     id?: number
     email?: string
     username?: string
+    resetPasswordToken?: string
     passwordId?: number
     phoneNumberId?: number
     organizationId?: number
@@ -12595,14 +12596,13 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
-    resetPasswordToken?: StringNullableFilter<"User"> | string | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
     phoneNumber?: XOR<PhoneNumberNullableScalarRelationFilter, PhoneNumberWhereInput> | null
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
     sessions?: SessionListRelationFilter
     onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
-  }, "id" | "email" | "username" | "passwordId" | "phoneNumberId" | "organizationId">
+  }, "id" | "email" | "username" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder

@@ -27,7 +27,7 @@ model User {
   lastName  String?
 
   resetPasswordInitialized DateTime?
-  resetPasswordToken       String?
+  resetPasswordToken       String?   @unique
 
   password       Password?     @relation(fields: [passwordId], references: [id])
   passwordId     Int?          @unique
