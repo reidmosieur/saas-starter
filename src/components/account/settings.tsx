@@ -1,17 +1,20 @@
 'use client'
 
 import { Form } from '@/components/ui/form'
+import { submitter } from '@/lib/utils'
 import {
-	firstNameSchema,
-	lastNameSchema,
-	phoneNumberSchema,
-	usernameSchema,
+	emailSettingsForm,
+	EmailSettingsFormProps,
+	personalInfoSettingsForm,
+	PersonalInfoSettingsFormProps,
+	phoneNumberSettingsForm,
+	PhoneNumberSettingsFormProps,
 } from '@/schema/account'
-import { emailSchema } from '@/schema/auth'
+import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AvatarFallback } from '@radix-ui/react-avatar'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { toast } from 'sonner'
 import { EmailField } from '../auth/fields'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
@@ -24,35 +27,43 @@ import {
 	CardTitle,
 } from '../ui/card'
 import { NameField, PhoneNumberField, UsernameField } from './fields'
-import { CardFormProps } from '@/types'
+import {
+	updateEmailSettings,
+	updatePersonalInfoSettings,
+	updatePhoneNumberSettings,
+} from '@/app/actions/account/settings'
 
-const accountSettingsForm = z.object({
-	username: usernameSchema,
-	firstName: firstNameSchema,
-	lastName: lastNameSchema,
-})
-
-export function AccountSettingsForm({ cardProps }: CardFormProps) {
+export function PersonalInfoSettingsForm({
+	cardProps,
+	defaultValues = {
+		username: '',
+	},
+}: CardFormProps<PersonalInfoSettingsFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof accountSettingsForm>>({
-		resolver: zodResolver(accountSettingsForm),
-		defaultValues: {
-			username: '',
-		},
+	const form = useForm<PersonalInfoSettingsFormProps>({
+		resolver: zodResolver(personalInfoSettingsForm),
+		defaultValues,
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof accountSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: PersonalInfoSettingsFormProps) => {
+			return await updatePersonalInfoSettings(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully updated your personal information settings')
+			},
+		},
+	)
 
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
-						<CardTitle>Account</CardTitle>
+						<CardTitle>Personal Information</CardTitle>
 						<CardDescription>
 							Change your name, username, and other information
 						</CardDescription>
@@ -61,7 +72,16 @@ export function AccountSettingsForm({ cardProps }: CardFormProps) {
 						<NameField form={form} />
 						<UsernameField form={form} />
 					</CardContent>
-					<CardFooter className="mt-auto justify-end">
+					<CardFooter className="mt-auto justify-end gap-4">
+						{form.formState.isDirty ? (
+							<Button
+								variant={'outline'}
+								type="button"
+								onClick={() => form.reset()}
+							>
+								Reset
+							</Button>
+						) : null}
 						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
@@ -70,29 +90,35 @@ export function AccountSettingsForm({ cardProps }: CardFormProps) {
 	)
 }
 
-const emailSettingsForm = z.object({
-	email: emailSchema,
-})
-
-export function EmailSettingsForm({ cardProps }: CardFormProps) {
+export function EmailSettingsForm({
+	cardProps,
+	defaultValues = {
+		email: '',
+	},
+}: CardFormProps<EmailSettingsFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof emailSettingsForm>>({
+	const form = useForm<EmailSettingsFormProps>({
 		resolver: zodResolver(emailSettingsForm),
-		defaultValues: {
-			email: '',
-		},
+		defaultValues,
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof emailSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: EmailSettingsFormProps) => {
+			return await updateEmailSettings(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully updated your email settings')
+			},
+		},
+	)
 
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>Email</CardTitle>
 						<CardDescription>
@@ -102,7 +128,16 @@ export function EmailSettingsForm({ cardProps }: CardFormProps) {
 					<CardContent className="grid gap-4 md:gap-6">
 						<EmailField form={form} />
 					</CardContent>
-					<CardFooter className="mt-auto justify-end">
+					<CardFooter className="mt-auto justify-end gap-4">
+						{form.formState.isDirty ? (
+							<Button
+								variant={'outline'}
+								type="button"
+								onClick={() => form.reset()}
+							>
+								Reset
+							</Button>
+						) : null}
 						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
@@ -111,28 +146,35 @@ export function EmailSettingsForm({ cardProps }: CardFormProps) {
 	)
 }
 
-const phoneNumberSettingsForm = z.object({
-	phoneNumber: phoneNumberSchema,
-})
-
-export function PhonenumberSettingsForm({ cardProps }: CardFormProps) {
+export function PhonenumberSettingsForm({
+	cardProps,
+	defaultValues = {
+		phoneNumber: '',
+		countryCode: '',
+	},
+}: CardFormProps<PhoneNumberSettingsFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof phoneNumberSettingsForm>>({
+	const form = useForm<PhoneNumberSettingsFormProps>({
 		resolver: zodResolver(phoneNumberSettingsForm),
-		defaultValues: {
-			phoneNumber: '',
-		},
+		defaultValues,
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof phoneNumberSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: PhoneNumberSettingsFormProps) => {
+			return await updatePhoneNumberSettings(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully updated your phone number settings')
+			},
+		},
+	)
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>Your Phone Number</CardTitle>
 						<CardDescription>
@@ -143,7 +185,16 @@ export function PhonenumberSettingsForm({ cardProps }: CardFormProps) {
 					<CardContent className="grid gap-4 md:gap-6">
 						<PhoneNumberField form={form} />
 					</CardContent>
-					<CardFooter className="mt-auto justify-end">
+					<CardFooter className="mt-auto justify-end gap-4">
+						{form.formState.isDirty ? (
+							<Button
+								variant={'outline'}
+								type="button"
+								onClick={() => form.reset()}
+							>
+								Reset
+							</Button>
+						) : null}
 						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
@@ -152,22 +203,36 @@ export function PhonenumberSettingsForm({ cardProps }: CardFormProps) {
 	)
 }
 
-export function AvatarSettingsForm({ cardProps }: CardFormProps) {
+export function AvatarSettingsForm({
+	cardProps,
+	defaultValues = {
+		phoneNumber: '',
+		countryCode: '',
+	},
+}: CardFormProps<PhoneNumberSettingsFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof phoneNumberSettingsForm>>({
+	const form = useForm<PhoneNumberSettingsFormProps>({
 		resolver: zodResolver(phoneNumberSettingsForm),
-		defaultValues: {},
+		defaultValues,
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof phoneNumberSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		(values: PhoneNumberSettingsFormProps) => {
+			// placeholder
+			console.log(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully updated your personal information settings')
+			},
+		},
+	)
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>Avatar</CardTitle>
 						<CardDescription>
@@ -177,13 +242,22 @@ export function AvatarSettingsForm({ cardProps }: CardFormProps) {
 					<CardContent className="h-full">
 						<Avatar className="h-full w-full">
 							<AvatarImage
-								className="aspect-square h-full w-full"
-								src={'https://placehold.co/600x600/EEE/31343C'}
+								className="aspect-square h-full w-full object-cover"
+								src={'/user-images/reid.webp'}
 							/>
 							<AvatarFallback>RM</AvatarFallback>
 						</Avatar>
 					</CardContent>
-					<CardFooter className="mt-auto justify-end">
+					<CardFooter className="mt-auto justify-end gap-4">
+						{form.formState.isDirty ? (
+							<Button
+								variant={'outline'}
+								type="button"
+								onClick={() => form.reset()}
+							>
+								Reset
+							</Button>
+						) : null}
 						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
 				</form>
