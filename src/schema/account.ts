@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { passwordSchema } from './auth'
+import { emailSchema, passwordSchema } from './auth'
 import { organizationSchema } from './organization'
 
 export const usernameSchema = z
@@ -21,21 +21,52 @@ export const lastNameSchema = z
 	.string()
 	.min(2, { message: `Please provide a last name` })
 	.trim()
-export const countryCodeSchema = z.string().optional()
-export const phoneNumberSchema = z.string().optional()
+export const countryCodeSchema = z.string()
+export const phoneNumberSchema = z.string()
 
 export const credentialsOnboardingStepSchema = z.object({
 	username: usernameSchema,
 	password: passwordSchema,
 })
+export type CredentialsOnboardingStepFormProps = z.infer<
+	typeof credentialsOnboardingStepSchema
+>
 
 export const personalInfoOnboardingStepSchema = z.object({
 	firstName: firstNameSchema,
 	lastName: lastNameSchema,
-	countryCode: countryCodeSchema,
-	phoneNumber: phoneNumberSchema,
+	countryCode: countryCodeSchema.optional(),
+	phoneNumber: phoneNumberSchema.optional(),
 })
+export type PersonalInfoOnboardingStepSchema = z.infer<
+	typeof personalInfoOnboardingStepSchema
+>
 
 export const organizationOnboardingStepSchema = z.object({
 	name: organizationSchema,
 })
+export type OrganizationOnboardingStepFormProps = z.infer<
+	typeof organizationOnboardingStepSchema
+>
+
+export const personalInfoSettingsForm = z.object({
+	username: usernameSchema,
+	firstName: firstNameSchema,
+	lastName: lastNameSchema,
+})
+export type PersonalInfoSettingsFormProps = z.infer<
+	typeof personalInfoSettingsForm
+>
+
+export const emailSettingsForm = z.object({
+	email: emailSchema,
+})
+export type EmailSettingsFormProps = z.infer<typeof emailSettingsForm>
+
+export const phoneNumberSettingsForm = z.object({
+	countryCode: countryCodeSchema,
+	phoneNumber: phoneNumberSchema,
+})
+export type PhoneNumberSettingsFormProps = z.infer<
+	typeof phoneNumberSettingsForm
+>
