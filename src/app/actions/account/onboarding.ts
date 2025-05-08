@@ -39,7 +39,7 @@ export async function completeCredentialsOnboarding(values: {
 	const userId = await getUserId()
 
 	if (!userId) {
-		redirect('/login')
+		redirect('/logout')
 	}
 
 	const { username, password } = validatedFields.data
@@ -118,7 +118,7 @@ export async function completePersonalInfoOnboarding(values: {
 	const userId = await getUserId()
 
 	if (!userId) {
-		redirect('/login')
+		redirect('/logout')
 	}
 
 	const { firstName, lastName, countryCode, phoneNumber } = validatedFields.data
@@ -197,7 +197,7 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 	const userId = await getUserId()
 
 	if (!userId) {
-		redirect('/login')
+		redirect('/logout')
 	}
 
 	const { name } = validatedFields.data
