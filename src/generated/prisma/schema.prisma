@@ -17,15 +17,17 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
-  createdAt                DateTime  @default(now())
-  updatedAt                DateTime  @updatedAt
-  onboarded                DateTime?
-  resetPasswordInitialized DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  onboarded DateTime?
 
   email     String  @unique
   username  String? @unique
   firstName String?
   lastName  String?
+
+  resetPasswordInitialized DateTime?
+  resetPasswordToken       String?
 
   password       Password?     @relation(fields: [passwordId], references: [id])
   passwordId     Int?          @unique
