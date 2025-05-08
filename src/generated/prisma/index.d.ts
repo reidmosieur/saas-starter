@@ -1797,6 +1797,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     onboarded: Date | null
+    resetPasswordInitialized: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1811,6 +1812,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     onboarded: Date | null
+    resetPasswordInitialized: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1825,6 +1827,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     onboarded: number
+    resetPasswordInitialized: number
     email: number
     username: number
     firstName: number
@@ -1855,6 +1858,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    resetPasswordInitialized?: true
     email?: true
     username?: true
     firstName?: true
@@ -1869,6 +1873,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    resetPasswordInitialized?: true
     email?: true
     username?: true
     firstName?: true
@@ -1883,6 +1888,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    resetPasswordInitialized?: true
     email?: true
     username?: true
     firstName?: true
@@ -1984,6 +1990,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     onboarded: Date | null
+    resetPasswordInitialized: Date | null
     email: string
     username: string | null
     firstName: string | null
@@ -2017,6 +2024,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    resetPasswordInitialized?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2038,6 +2046,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    resetPasswordInitialized?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2055,6 +2064,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    resetPasswordInitialized?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2072,6 +2082,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    resetPasswordInitialized?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2081,7 +2092,7 @@ export namespace Prisma {
     organizationId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "email" | "username" | "firstName" | "lastName" | "passwordId" | "phoneNumberId" | "organizationId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "resetPasswordInitialized" | "email" | "username" | "firstName" | "lastName" | "passwordId" | "phoneNumberId" | "organizationId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
@@ -2117,6 +2128,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       onboarded: Date | null
+      resetPasswordInitialized: Date | null
       email: string
       username: string | null
       firstName: string | null
@@ -2557,6 +2569,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly onboarded: FieldRef<"User", 'DateTime'>
+    readonly resetPasswordInitialized: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
@@ -12239,6 +12252,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     onboarded: 'onboarded',
+    resetPasswordInitialized: 'resetPasswordInitialized',
     email: 'email',
     username: 'username',
     firstName: 'firstName',
@@ -12512,6 +12526,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -12532,6 +12547,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
+    resetPasswordInitialized?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -12560,6 +12576,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
@@ -12575,6 +12592,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
+    resetPasswordInitialized?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -12597,6 +12615,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     onboarded?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    resetPasswordInitialized?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -13199,6 +13218,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13216,6 +13236,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13232,6 +13253,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13249,6 +13271,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13266,6 +13289,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13279,6 +13303,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13290,6 +13315,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14047,6 +14073,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    resetPasswordInitialized?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -14068,6 +14095,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    resetPasswordInitialized?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -14082,6 +14110,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    resetPasswordInitialized?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -15763,6 +15792,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15779,6 +15809,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15810,6 +15841,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15826,6 +15858,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15841,6 +15874,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15857,6 +15891,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15888,6 +15923,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15904,6 +15940,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15919,6 +15956,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15935,6 +15973,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15966,6 +16005,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15982,6 +16022,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15997,6 +16038,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16013,6 +16055,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16044,6 +16087,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16060,6 +16104,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16075,6 +16120,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16091,6 +16137,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16161,6 +16208,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -16268,6 +16316,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16284,6 +16333,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16524,6 +16574,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    resetPasswordInitialized?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16542,6 +16593,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16558,6 +16610,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16574,6 +16627,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16655,6 +16709,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16671,6 +16726,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16687,6 +16743,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null

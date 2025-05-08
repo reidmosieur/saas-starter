@@ -17,9 +17,10 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  onboarded DateTime?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  onboarded                DateTime?
+  resetPasswordInitialized DateTime?
 
   email     String  @unique
   username  String? @unique
