@@ -38,6 +38,8 @@ export function NavUser({
 	const { isMobile } = useSidebar()
 	const name = `${firstName} ${lastName}`
 	const avatar = undefined // todo: add an avatar to the user
+	const fallback =
+		firstName && lastName ? firstName.at(0)! + lastName.at(0)! : 'UN'
 
 	return (
 		<SidebarMenu>
@@ -56,9 +58,7 @@ export function NavUser({
 									}
 								/>
 								<AvatarFallback className="rounded-lg">
-									{firstName && lastName
-										? firstName.at(0)! + lastName.at(0)!
-										: 'UN'}
+									{fallback}
 								</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
@@ -86,7 +86,9 @@ export function NavUser({
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 								<Avatar className="h-8 w-8 rounded-lg">
 									<AvatarImage src={avatar} alt={name} />
-									<AvatarFallback className="rounded-lg">CN</AvatarFallback>
+									<AvatarFallback className="rounded-lg">
+										{fallback}
+									</AvatarFallback>
 								</Avatar>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-medium">{name}</span>
@@ -115,8 +117,8 @@ export function NavUser({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem asChild className="w-full">
-							<Link href={'/logout'}>
+						<DropdownMenuItem asChild>
+							<Link href={'/logout'} className="text-foreground">
 								<IconLogout />
 								Log out
 							</Link>
