@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, submitter } from '@/lib/utils'
 import { resetPasswordSchema } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -47,20 +47,16 @@ export function ResetPasswordForm() {
 	})
 
 	// 2. Define a submit handler.
-	async function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		const result = await resetPassword(values)
-		if (result && result.errors) {
-			Object.entries(result.errors).map(([key, value]) =>
-				form.setError(key as 'password' | 'verifyPassword' | 'root', value),
-			)
-		}
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: z.infer<typeof resetPasswordSchema>) => {
+			return await resetPassword(values)
+		},
+	)
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<form onSubmit={onSubmit}>
 				<div className="grid gap-6">
 					<div className="grid gap-6">
 						<PasswordField form={form} />

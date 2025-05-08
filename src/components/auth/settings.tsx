@@ -19,6 +19,7 @@ import {
 } from '../ui/card'
 import { IconBrandApple, IconBrandGoogle } from '@tabler/icons-react'
 import { EllipsisVertical } from 'lucide-react'
+import { submitter } from '@/lib/utils'
 
 const emailSettingsForm = z.object({
 	password: passwordSchema,
@@ -36,15 +37,18 @@ export function PasswordSettingsForm({ cardProps }: CardFormProps) {
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof emailSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		(values: z.infer<typeof emailSettingsForm>) => {
+			// placeholder
+			console.log(values)
+		},
+	)
 
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>Password</CardTitle>
 						<CardDescription>Change your password</CardDescription>
@@ -82,15 +86,18 @@ export function OAuthSettingsForm({ cardProps }: CardFormProps) {
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof oauthSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		(values: z.infer<typeof oauthSettingsForm>) => {
+			// placeholder
+			console.log(values)
+		},
+	)
 
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>SSO Methods</CardTitle>
 						<CardDescription>

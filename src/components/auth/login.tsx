@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, submitter } from '@/lib/utils'
 import { emailLoginSchema } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -85,17 +85,15 @@ function EmailLoginForm() {
 	})
 
 	// 2. Define a submit handler.
-	async function onSubmit(values: z.infer<typeof emailLoginSchema>) {
-		const result = await handleLogin(values)
-		if (result && result.errors) {
-			Object.entries(result.errors).map(([key, value]) =>
-				form.setError(key as 'email' | 'password' | 'root', value),
-			)
-		}
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: z.infer<typeof emailLoginSchema>) => {
+			return await handleLogin(values)
+		},
+	)
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
+			<form onSubmit={onSubmit} className="grid gap-6">
 				<EmailField form={form} />
 				<PasswordField form={form} displayForgotPassword />
 				{form.formState.errors.root ? (

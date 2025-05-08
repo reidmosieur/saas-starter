@@ -8,7 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, submitter } from '@/lib/utils'
 
 import { handleVerifyOTP } from '@/app/actions/auth/verify'
 import { verifyEmailSchema } from '@/schema/auth'
@@ -50,17 +50,15 @@ function OTPForm() {
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof verifyEmailSchema>) {
-		const result = await handleVerifyOTP(values)
-		if (result && result.errors) {
-			Object.entries(result.errors).map(([key, value]) =>
-				form.setError(key as 'code' | 'root', value),
-			)
-		}
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: z.infer<typeof verifyEmailSchema>) => {
+			return await handleVerifyOTP(values)
+		},
+	)
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<form onSubmit={onSubmit}>
 				<div className="grid gap-6">
 					<div className="grid gap-6">
 						<OTPField form={form} />

@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
+import { cn, submitter } from '@/lib/utils'
 import { emailSignUpSchema } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -82,18 +82,16 @@ function EmailSignupForm() {
 		},
 	})
 
-	async function onSubmit(values: z.infer<typeof emailSignUpSchema>) {
-		const result = await initializeEmailSignup(values)
-		if (result && result.errors) {
-			Object.entries(result.errors).map(([key, value]) =>
-				form.setError(key as 'email' | 'root', value),
-			)
-		}
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: z.infer<typeof emailSignUpSchema>) => {
+			return await initializeEmailSignup(values)
+		},
+	)
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
+			<form onSubmit={onSubmit} className="grid gap-6">
 				{/* don't alert existing accounts to avoid enumeration attacks */}
 				<EmailField form={form} />
 				{form.formState.errors.root ? (
