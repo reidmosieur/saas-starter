@@ -97,7 +97,7 @@ export async function createSession({
 		httpOnly: true,
 		secure: true,
 		expires: sessionExpiresAt ?? undefined,
-		sameSite: 'lax',
+		sameSite: 'strict',
 		path: '/',
 	})
 }
@@ -147,7 +147,7 @@ export async function updateSession({
 		httpOnly: true,
 		secure: true,
 		expires: expiresAt,
-		sameSite: 'lax',
+		sameSite: 'strict',
 		path: '/',
 	})
 }
