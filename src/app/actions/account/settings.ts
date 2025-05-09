@@ -1,13 +1,16 @@
 'use server'
 
 import {
+	avatarSettingsForm,
 	emailSettingsForm,
 	personalInfoSettingsForm,
 	phoneNumberSettingsForm,
 } from '@/schema/account'
-import { getUserId } from '../user'
+import { getUserFromSession, getUserId } from '../user'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
+import { writeFile } from 'fs/promises'
+import path from 'path'
 
 const safeError = {
 	errors: {
@@ -155,4 +158,90 @@ export async function updatePhoneNumberSettings(values: {
 
 		return safeError
 	}
+}
+
+export async function uploadAvatar(formData: FormData) {
+	const user = await getUserFromSession({ username: true, id: true })
+
+	if (!user) {
+		redirect('/logout')
+	}
+
+	const file = formData.get('avatar')
+	if (!(file instanceof File)) {
+		return {
+			errors: {
+				avatar: {
+					message: 'New avatar file missing',
+				},
+			},
+		}
+	}
+	const height = formData.get('height')
+	const width = formData.get('width')
+
+	// Validate with Zod
+	const validatedFields = avatarSettingsForm.safeParse({
+		avatar: file,
+		height,
+		width,
+	})
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const {
+		avatar,
+		height: validatedHeight,
+		width: validatedWidth,
+	} = validatedFields.data
+
+	const buffer = Buffer.from(await avatar.arrayBuffer())
+	// write file name with .local. to prevent committing
+	const filename =
+		process.env.NODE_ENV === 'development'
+			? `${user.username}.local.png`
+			: `${user.username}.png`
+	const filePath = path.join(process.cwd(), 'public/user-images', filename)
+	try {
+		await writeFile(filePath, buffer)
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+
+	try {
+		await prisma.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				avatar: {
+					upsert: {
+						create: {
+							src: `/user-images/${filename}`,
+							alt: 'Your avatar',
+							height: Number(validatedHeight),
+							width: Number(validatedWidth),
+						},
+						update: {
+							src: `/user-images/${filename}`,
+							alt: 'Your avatar',
+							height: Number(validatedHeight),
+							width: Number(validatedWidth),
+						},
+					},
+				},
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+
+	return
 }

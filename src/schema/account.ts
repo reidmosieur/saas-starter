@@ -24,6 +24,14 @@ export const lastNameSchema = z
 export const countryCodeSchema = z.string()
 export const phoneNumberSchema = z.string()
 
+const fileSizeLimit = 5 * 1024 * 1024 // 5MB
+export const avatarSchema = z
+	.instanceof(File)
+	.refine((file) => ['image/png'].includes(file.type), 'File must be a PNG')
+	.refine((file) => file.size <= fileSizeLimit, {
+		message: 'File size should not exceed 5MB',
+	})
+
 export const credentialsOnboardingStepSchema = z.object({
 	username: usernameSchema,
 	password: passwordSchema,
@@ -70,3 +78,10 @@ export const phoneNumberSettingsForm = z.object({
 export type PhoneNumberSettingsFormProps = z.infer<
 	typeof phoneNumberSettingsForm
 >
+
+export const avatarSettingsForm = z.object({
+	avatar: avatarSchema,
+	height: z.string(),
+	width: z.string(),
+})
+export type AvatarSettingsFormProps = z.infer<typeof avatarSettingsForm>

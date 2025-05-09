@@ -18,6 +18,11 @@ export const getUserFromSession = cache(
 			lastName: true,
 			email: true,
 			onboarded: true,
+			avatar: {
+				select: {
+					src: true,
+				},
+			},
 		},
 	) => {
 		const id = await getUserId()

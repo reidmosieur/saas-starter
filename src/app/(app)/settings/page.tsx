@@ -20,13 +20,18 @@ export default async function Page() {
 				number: true,
 			},
 		},
+		avatar: {
+			select: {
+				src: true,
+			},
+		},
 	})
 
 	if (!user) {
 		redirect('/logout')
 	}
 
-	const { firstName, lastName, username, email, phoneNumber } = user
+	const { firstName, lastName, username, email, phoneNumber, avatar } = user
 
 	return (
 		<TabsContent value="account" className="py-4 md:py-6">
@@ -48,7 +53,10 @@ export default async function Page() {
 						}}
 					/>
 				</div>
-				<AvatarSettingsForm cardProps={{ className: 'col-span-2' }} />
+				<AvatarSettingsForm
+					cardProps={{ className: 'col-span-2' }}
+					currentImage={avatar?.src}
+				/>
 			</section>
 		</TabsContent>
 	)
