@@ -58,6 +58,11 @@ export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
  * 
  */
 export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+/**
+ * Model Image
+ * 
+ */
+export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
 
 /**
  * Enums
@@ -292,6 +297,16 @@ export class PrismaClient<
     * ```
     */
   get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.image`: Exposes CRUD operations for the **Image** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Images
+    * const images = await prisma.image.findMany()
+    * ```
+    */
+  get image(): Prisma.ImageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -740,7 +755,8 @@ export namespace Prisma {
     PhoneNumber: 'PhoneNumber',
     Organization: 'Organization',
     Permission: 'Permission',
-    Role: 'Role'
+    Role: 'Role',
+    Image: 'Image'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -759,7 +775,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "password" | "oTP" | "session" | "onboarding" | "phoneNumber" | "organization" | "permission" | "role"
+      modelProps: "user" | "password" | "oTP" | "session" | "onboarding" | "phoneNumber" | "organization" | "permission" | "role" | "image"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1429,6 +1445,80 @@ export namespace Prisma {
           }
         }
       }
+      Image: {
+        payload: Prisma.$ImagePayload<ExtArgs>
+        fields: Prisma.ImageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          findFirst: {
+            args: Prisma.ImageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          findMany: {
+            args: Prisma.ImageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          create: {
+            args: Prisma.ImageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          createMany: {
+            args: Prisma.ImageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          delete: {
+            args: Prisma.ImageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          update: {
+            args: Prisma.ImageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          deleteMany: {
+            args: Prisma.ImageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>[]
+          }
+          upsert: {
+            args: Prisma.ImageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePayload>
+          }
+          aggregate: {
+            args: Prisma.ImageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImage>
+          }
+          groupBy: {
+            args: Prisma.ImageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImageCountArgs<ExtArgs>
+            result: $Utils.Optional<ImageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1522,6 +1612,7 @@ export namespace Prisma {
     organization?: OrganizationOmit
     permission?: PermissionOmit
     role?: RoleOmit
+    image?: ImageOmit
   }
 
   /* Types for Logging */
@@ -1783,6 +1874,7 @@ export namespace Prisma {
     passwordId: number | null
     phoneNumberId: number | null
     organizationId: number | null
+    avatarId: number | null
   }
 
   export type UserSumAggregateOutputType = {
@@ -1790,6 +1882,7 @@ export namespace Prisma {
     passwordId: number | null
     phoneNumberId: number | null
     organizationId: number | null
+    avatarId: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1797,6 +1890,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     onboarded: Date | null
+    emailVerified: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1806,6 +1900,7 @@ export namespace Prisma {
     passwordId: number | null
     phoneNumberId: number | null
     organizationId: number | null
+    avatarId: number | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1813,6 +1908,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     onboarded: Date | null
+    emailVerified: Date | null
     email: string | null
     username: string | null
     firstName: string | null
@@ -1822,6 +1918,7 @@ export namespace Prisma {
     passwordId: number | null
     phoneNumberId: number | null
     organizationId: number | null
+    avatarId: number | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1829,6 +1926,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     onboarded: number
+    emailVerified: number
     email: number
     username: number
     firstName: number
@@ -1838,6 +1936,7 @@ export namespace Prisma {
     passwordId: number
     phoneNumberId: number
     organizationId: number
+    avatarId: number
     _all: number
   }
 
@@ -1847,6 +1946,7 @@ export namespace Prisma {
     passwordId?: true
     phoneNumberId?: true
     organizationId?: true
+    avatarId?: true
   }
 
   export type UserSumAggregateInputType = {
@@ -1854,6 +1954,7 @@ export namespace Prisma {
     passwordId?: true
     phoneNumberId?: true
     organizationId?: true
+    avatarId?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1861,6 +1962,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    emailVerified?: true
     email?: true
     username?: true
     firstName?: true
@@ -1870,6 +1972,7 @@ export namespace Prisma {
     passwordId?: true
     phoneNumberId?: true
     organizationId?: true
+    avatarId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1877,6 +1980,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    emailVerified?: true
     email?: true
     username?: true
     firstName?: true
@@ -1886,6 +1990,7 @@ export namespace Prisma {
     passwordId?: true
     phoneNumberId?: true
     organizationId?: true
+    avatarId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1893,6 +1998,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     onboarded?: true
+    emailVerified?: true
     email?: true
     username?: true
     firstName?: true
@@ -1902,6 +2008,7 @@ export namespace Prisma {
     passwordId?: true
     phoneNumberId?: true
     organizationId?: true
+    avatarId?: true
     _all?: true
   }
 
@@ -1996,6 +2103,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     onboarded: Date | null
+    emailVerified: Date | null
     email: string
     username: string | null
     firstName: string | null
@@ -2005,6 +2113,7 @@ export namespace Prisma {
     passwordId: number | null
     phoneNumberId: number | null
     organizationId: number | null
+    avatarId: number | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -2031,6 +2140,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    emailVerified?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2040,12 +2150,14 @@ export namespace Prisma {
     passwordId?: boolean
     phoneNumberId?: boolean
     organizationId?: boolean
+    avatarId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
     roles?: boolean | User$rolesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     onboarding?: boolean | User$onboardingArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2054,6 +2166,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    emailVerified?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2063,9 +2176,11 @@ export namespace Prisma {
     passwordId?: boolean
     phoneNumberId?: boolean
     organizationId?: boolean
+    avatarId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2073,6 +2188,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    emailVerified?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2082,9 +2198,11 @@ export namespace Prisma {
     passwordId?: boolean
     phoneNumberId?: boolean
     organizationId?: boolean
+    avatarId?: boolean
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2092,6 +2210,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     onboarded?: boolean
+    emailVerified?: boolean
     email?: boolean
     username?: boolean
     firstName?: boolean
@@ -2101,9 +2220,10 @@ export namespace Prisma {
     passwordId?: boolean
     phoneNumberId?: boolean
     organizationId?: boolean
+    avatarId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "email" | "username" | "firstName" | "lastName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "emailVerified" | "email" | "username" | "firstName" | "lastName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
@@ -2111,17 +2231,20 @@ export namespace Prisma {
     roles?: boolean | User$rolesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     onboarding?: boolean | User$onboardingArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
     organization?: boolean | User$organizationArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2133,12 +2256,14 @@ export namespace Prisma {
       roles: Prisma.$RolePayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       onboarding: Prisma.$OnboardingPayload<ExtArgs> | null
+      avatar: Prisma.$ImagePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
       onboarded: Date | null
+      emailVerified: Date | null
       email: string
       username: string | null
       firstName: string | null
@@ -2148,6 +2273,7 @@ export namespace Prisma {
       passwordId: number | null
       phoneNumberId: number | null
       organizationId: number | null
+      avatarId: number | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2548,6 +2674,7 @@ export namespace Prisma {
     roles<T extends User$rolesArgs<ExtArgs> = {}>(args?: Subset<T, User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     onboarding<T extends User$onboardingArgs<ExtArgs> = {}>(args?: Subset<T, User$onboardingArgs<ExtArgs>>): Prisma__OnboardingClient<$Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2581,6 +2708,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly onboarded: FieldRef<"User", 'DateTime'>
+    readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
@@ -2590,6 +2718,7 @@ export namespace Prisma {
     readonly passwordId: FieldRef<"User", 'Int'>
     readonly phoneNumberId: FieldRef<"User", 'Int'>
     readonly organizationId: FieldRef<"User", 'Int'>
+    readonly avatarId: FieldRef<"User", 'Int'>
   }
     
 
@@ -3107,6 +3236,25 @@ export namespace Prisma {
      */
     include?: OnboardingInclude<ExtArgs> | null
     where?: OnboardingWhereInput
+  }
+
+  /**
+   * User.avatar
+   */
+  export type User$avatarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    where?: ImageWhereInput
   }
 
   /**
@@ -12247,6 +12395,1137 @@ export namespace Prisma {
 
 
   /**
+   * Model Image
+   */
+
+  export type AggregateImage = {
+    _count: ImageCountAggregateOutputType | null
+    _avg: ImageAvgAggregateOutputType | null
+    _sum: ImageSumAggregateOutputType | null
+    _min: ImageMinAggregateOutputType | null
+    _max: ImageMaxAggregateOutputType | null
+  }
+
+  export type ImageAvgAggregateOutputType = {
+    id: number | null
+    width: number | null
+    height: number | null
+  }
+
+  export type ImageSumAggregateOutputType = {
+    id: number | null
+    width: number | null
+    height: number | null
+  }
+
+  export type ImageMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    src: string | null
+    alt: string | null
+    width: number | null
+    height: number | null
+  }
+
+  export type ImageMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    src: string | null
+    alt: string | null
+    width: number | null
+    height: number | null
+  }
+
+  export type ImageCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    src: number
+    alt: number
+    width: number
+    height: number
+    _all: number
+  }
+
+
+  export type ImageAvgAggregateInputType = {
+    id?: true
+    width?: true
+    height?: true
+  }
+
+  export type ImageSumAggregateInputType = {
+    id?: true
+    width?: true
+    height?: true
+  }
+
+  export type ImageMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    src?: true
+    alt?: true
+    width?: true
+    height?: true
+  }
+
+  export type ImageMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    src?: true
+    alt?: true
+    width?: true
+    height?: true
+  }
+
+  export type ImageCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    src?: true
+    alt?: true
+    width?: true
+    height?: true
+    _all?: true
+  }
+
+  export type ImageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Image to aggregate.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Images
+    **/
+    _count?: true | ImageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImageMaxAggregateInputType
+  }
+
+  export type GetImageAggregateType<T extends ImageAggregateArgs> = {
+        [P in keyof T & keyof AggregateImage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImage[P]>
+      : GetScalarType<T[P], AggregateImage[P]>
+  }
+
+
+
+
+  export type ImageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithAggregationInput | ImageOrderByWithAggregationInput[]
+    by: ImageScalarFieldEnum[] | ImageScalarFieldEnum
+    having?: ImageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImageCountAggregateInputType | true
+    _avg?: ImageAvgAggregateInputType
+    _sum?: ImageSumAggregateInputType
+    _min?: ImageMinAggregateInputType
+    _max?: ImageMaxAggregateInputType
+  }
+
+  export type ImageGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    src: string
+    alt: string
+    width: number
+    height: number
+    _count: ImageCountAggregateOutputType | null
+    _avg: ImageAvgAggregateOutputType | null
+    _sum: ImageSumAggregateOutputType | null
+    _min: ImageMinAggregateOutputType | null
+    _max: ImageMaxAggregateOutputType | null
+  }
+
+  type GetImageGroupByPayload<T extends ImageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImageGroupByOutputType[P]>
+            : GetScalarType<T[P], ImageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    src?: boolean
+    alt?: boolean
+    width?: boolean
+    height?: boolean
+    avatarOwner?: boolean | Image$avatarOwnerArgs<ExtArgs>
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    src?: boolean
+    alt?: boolean
+    width?: boolean
+    height?: boolean
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    src?: boolean
+    alt?: boolean
+    width?: boolean
+    height?: boolean
+  }, ExtArgs["result"]["image"]>
+
+  export type ImageSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    src?: boolean
+    alt?: boolean
+    width?: boolean
+    height?: boolean
+  }
+
+  export type ImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "src" | "alt" | "width" | "height", ExtArgs["result"]["image"]>
+  export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    avatarOwner?: boolean | Image$avatarOwnerArgs<ExtArgs>
+  }
+  export type ImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Image"
+    objects: {
+      avatarOwner: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      src: string
+      alt: string
+      width: number
+      height: number
+    }, ExtArgs["result"]["image"]>
+    composites: {}
+  }
+
+  type ImageGetPayload<S extends boolean | null | undefined | ImageDefaultArgs> = $Result.GetResult<Prisma.$ImagePayload, S>
+
+  type ImageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ImageCountAggregateInputType | true
+    }
+
+  export interface ImageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Image'], meta: { name: 'Image' } }
+    /**
+     * Find zero or one Image that matches the filter.
+     * @param {ImageFindUniqueArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImageFindUniqueArgs>(args: SelectSubset<T, ImageFindUniqueArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Image that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImageFindUniqueOrThrowArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImageFindUniqueOrThrowArgs>(args: SelectSubset<T, ImageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Image that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindFirstArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImageFindFirstArgs>(args?: SelectSubset<T, ImageFindFirstArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Image that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindFirstOrThrowArgs} args - Arguments to find a Image
+     * @example
+     * // Get one Image
+     * const image = await prisma.image.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImageFindFirstOrThrowArgs>(args?: SelectSubset<T, ImageFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Images
+     * const images = await prisma.image.findMany()
+     * 
+     * // Get first 10 Images
+     * const images = await prisma.image.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imageWithIdOnly = await prisma.image.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImageFindManyArgs>(args?: SelectSubset<T, ImageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Image.
+     * @param {ImageCreateArgs} args - Arguments to create a Image.
+     * @example
+     * // Create one Image
+     * const Image = await prisma.image.create({
+     *   data: {
+     *     // ... data to create a Image
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImageCreateArgs>(args: SelectSubset<T, ImageCreateArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Images.
+     * @param {ImageCreateManyArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const image = await prisma.image.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImageCreateManyArgs>(args?: SelectSubset<T, ImageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Images and returns the data saved in the database.
+     * @param {ImageCreateManyAndReturnArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const image = await prisma.image.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Images and only return the `id`
+     * const imageWithIdOnly = await prisma.image.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImageCreateManyAndReturnArgs>(args?: SelectSubset<T, ImageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Image.
+     * @param {ImageDeleteArgs} args - Arguments to delete one Image.
+     * @example
+     * // Delete one Image
+     * const Image = await prisma.image.delete({
+     *   where: {
+     *     // ... filter to delete one Image
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImageDeleteArgs>(args: SelectSubset<T, ImageDeleteArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Image.
+     * @param {ImageUpdateArgs} args - Arguments to update one Image.
+     * @example
+     * // Update one Image
+     * const image = await prisma.image.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImageUpdateArgs>(args: SelectSubset<T, ImageUpdateArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Images.
+     * @param {ImageDeleteManyArgs} args - Arguments to filter Images to delete.
+     * @example
+     * // Delete a few Images
+     * const { count } = await prisma.image.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImageDeleteManyArgs>(args?: SelectSubset<T, ImageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Images
+     * const image = await prisma.image.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImageUpdateManyArgs>(args: SelectSubset<T, ImageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images and returns the data updated in the database.
+     * @param {ImageUpdateManyAndReturnArgs} args - Arguments to update many Images.
+     * @example
+     * // Update many Images
+     * const image = await prisma.image.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Images and only return the `id`
+     * const imageWithIdOnly = await prisma.image.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImageUpdateManyAndReturnArgs>(args: SelectSubset<T, ImageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Image.
+     * @param {ImageUpsertArgs} args - Arguments to update or create a Image.
+     * @example
+     * // Update or create a Image
+     * const image = await prisma.image.upsert({
+     *   create: {
+     *     // ... data to create a Image
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Image we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImageUpsertArgs>(args: SelectSubset<T, ImageUpsertArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageCountArgs} args - Arguments to filter Images to count.
+     * @example
+     * // Count the number of Images
+     * const count = await prisma.image.count({
+     *   where: {
+     *     // ... the filter for the Images we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImageCountArgs>(
+      args?: Subset<T, ImageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Image.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImageAggregateArgs>(args: Subset<T, ImageAggregateArgs>): Prisma.PrismaPromise<GetImageAggregateType<T>>
+
+    /**
+     * Group by Image.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImageGroupByArgs['orderBy'] }
+        : { orderBy?: ImageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Image model
+   */
+  readonly fields: ImageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Image.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    avatarOwner<T extends Image$avatarOwnerArgs<ExtArgs> = {}>(args?: Subset<T, Image$avatarOwnerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Image model
+   */
+  interface ImageFieldRefs {
+    readonly id: FieldRef<"Image", 'Int'>
+    readonly createdAt: FieldRef<"Image", 'DateTime'>
+    readonly updatedAt: FieldRef<"Image", 'DateTime'>
+    readonly src: FieldRef<"Image", 'String'>
+    readonly alt: FieldRef<"Image", 'String'>
+    readonly width: FieldRef<"Image", 'Int'>
+    readonly height: FieldRef<"Image", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Image findUnique
+   */
+  export type ImageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where: ImageWhereUniqueInput
+  }
+
+  /**
+   * Image findUniqueOrThrow
+   */
+  export type ImageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where: ImageWhereUniqueInput
+  }
+
+  /**
+   * Image findFirst
+   */
+  export type ImageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * Image findFirstOrThrow
+   */
+  export type ImageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Image to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * Image findMany
+   */
+  export type ImageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where?: ImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Images.
+     */
+    cursor?: ImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * Image create
+   */
+  export type ImageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Image.
+     */
+    data: XOR<ImageCreateInput, ImageUncheckedCreateInput>
+  }
+
+  /**
+   * Image createMany
+   */
+  export type ImageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Images.
+     */
+    data: ImageCreateManyInput | ImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Image createManyAndReturn
+   */
+  export type ImageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Images.
+     */
+    data: ImageCreateManyInput | ImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Image update
+   */
+  export type ImageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Image.
+     */
+    data: XOR<ImageUpdateInput, ImageUncheckedUpdateInput>
+    /**
+     * Choose, which Image to update.
+     */
+    where: ImageWhereUniqueInput
+  }
+
+  /**
+   * Image updateMany
+   */
+  export type ImageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Image updateManyAndReturn
+   */
+  export type ImageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Image upsert
+   */
+  export type ImageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Image to update in case it exists.
+     */
+    where: ImageWhereUniqueInput
+    /**
+     * In case the Image found by the `where` argument doesn't exist, create a new Image with this data.
+     */
+    create: XOR<ImageCreateInput, ImageUncheckedCreateInput>
+    /**
+     * In case the Image was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImageUpdateInput, ImageUncheckedUpdateInput>
+  }
+
+  /**
+   * Image delete
+   */
+  export type ImageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    /**
+     * Filter which Image to delete.
+     */
+    where: ImageWhereUniqueInput
+  }
+
+  /**
+   * Image deleteMany
+   */
+  export type ImageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Images to delete
+     */
+    where?: ImageWhereInput
+    /**
+     * Limit how many Images to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Image.avatarOwner
+   */
+  export type Image$avatarOwnerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Image without action
+   */
+  export type ImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12265,6 +13544,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     onboarded: 'onboarded',
+    emailVerified: 'emailVerified',
     email: 'email',
     username: 'username',
     firstName: 'firstName',
@@ -12273,7 +13553,8 @@ export namespace Prisma {
     resetPasswordToken: 'resetPasswordToken',
     passwordId: 'passwordId',
     phoneNumberId: 'phoneNumberId',
-    organizationId: 'organizationId'
+    organizationId: 'organizationId',
+    avatarId: 'avatarId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12390,6 +13671,19 @@ export namespace Prisma {
   };
 
   export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+  export const ImageScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    src: 'src',
+    alt: 'alt',
+    width: 'width',
+    height: 'height'
+  };
+
+  export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12540,6 +13834,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -12549,12 +13844,14 @@ export namespace Prisma {
     passwordId?: IntNullableFilter<"User"> | number | null
     phoneNumberId?: IntNullableFilter<"User"> | number | null
     organizationId?: IntNullableFilter<"User"> | number | null
+    avatarId?: IntNullableFilter<"User"> | number | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
     phoneNumber?: XOR<PhoneNumberNullableScalarRelationFilter, PhoneNumberWhereInput> | null
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
     roles?: RoleListRelationFilter
     sessions?: SessionListRelationFilter
     onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
+    avatar?: XOR<ImageNullableScalarRelationFilter, ImageWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12562,6 +13859,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
+    emailVerified?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -12571,12 +13869,14 @@ export namespace Prisma {
     passwordId?: SortOrderInput | SortOrder
     phoneNumberId?: SortOrderInput | SortOrder
     organizationId?: SortOrderInput | SortOrder
+    avatarId?: SortOrderInput | SortOrder
     password?: PasswordOrderByWithRelationInput
     phoneNumber?: PhoneNumberOrderByWithRelationInput
     organization?: OrganizationOrderByWithRelationInput
     roles?: RoleOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     onboarding?: OnboardingOrderByWithRelationInput
+    avatar?: ImageOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12587,12 +13887,14 @@ export namespace Prisma {
     passwordId?: number
     phoneNumberId?: number
     organizationId?: number
+    avatarId?: number
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -12602,13 +13904,15 @@ export namespace Prisma {
     roles?: RoleListRelationFilter
     sessions?: SessionListRelationFilter
     onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
-  }, "id" | "email" | "username" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId">
+    avatar?: XOR<ImageNullableScalarRelationFilter, ImageWhereInput> | null
+  }, "id" | "email" | "username" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
+    emailVerified?: SortOrderInput | SortOrder
     email?: SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
@@ -12618,6 +13922,7 @@ export namespace Prisma {
     passwordId?: SortOrderInput | SortOrder
     phoneNumberId?: SortOrderInput | SortOrder
     organizationId?: SortOrderInput | SortOrder
+    avatarId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -12633,6 +13938,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     onboarded?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -12642,6 +13948,7 @@ export namespace Prisma {
     passwordId?: IntNullableWithAggregatesFilter<"User"> | number | null
     phoneNumberId?: IntNullableWithAggregatesFilter<"User"> | number | null
     organizationId?: IntNullableWithAggregatesFilter<"User"> | number | null
+    avatarId?: IntNullableWithAggregatesFilter<"User"> | number | null
   }
 
   export type PasswordWhereInput = {
@@ -13233,10 +14540,78 @@ export namespace Prisma {
     organizationId?: IntWithAggregatesFilter<"Role"> | number
   }
 
+  export type ImageWhereInput = {
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    id?: IntFilter<"Image"> | number
+    createdAt?: DateTimeFilter<"Image"> | Date | string
+    updatedAt?: DateTimeFilter<"Image"> | Date | string
+    src?: StringFilter<"Image"> | string
+    alt?: StringFilter<"Image"> | string
+    width?: IntFilter<"Image"> | number
+    height?: IntFilter<"Image"> | number
+    avatarOwner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type ImageOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    src?: SortOrder
+    alt?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    avatarOwner?: UserOrderByWithRelationInput
+  }
+
+  export type ImageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ImageWhereInput | ImageWhereInput[]
+    OR?: ImageWhereInput[]
+    NOT?: ImageWhereInput | ImageWhereInput[]
+    createdAt?: DateTimeFilter<"Image"> | Date | string
+    updatedAt?: DateTimeFilter<"Image"> | Date | string
+    src?: StringFilter<"Image"> | string
+    alt?: StringFilter<"Image"> | string
+    width?: IntFilter<"Image"> | number
+    height?: IntFilter<"Image"> | number
+    avatarOwner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type ImageOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    src?: SortOrder
+    alt?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+    _count?: ImageCountOrderByAggregateInput
+    _avg?: ImageAvgOrderByAggregateInput
+    _max?: ImageMaxOrderByAggregateInput
+    _min?: ImageMinOrderByAggregateInput
+    _sum?: ImageSumOrderByAggregateInput
+  }
+
+  export type ImageScalarWhereWithAggregatesInput = {
+    AND?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    OR?: ImageScalarWhereWithAggregatesInput[]
+    NOT?: ImageScalarWhereWithAggregatesInput | ImageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Image"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Image"> | Date | string
+    src?: StringWithAggregatesFilter<"Image"> | string
+    alt?: StringWithAggregatesFilter<"Image"> | string
+    width?: IntWithAggregatesFilter<"Image"> | number
+    height?: IntWithAggregatesFilter<"Image"> | number
+  }
+
   export type UserCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13249,6 +14624,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13256,6 +14632,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13265,6 +14642,7 @@ export namespace Prisma {
     passwordId?: number | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
@@ -13274,6 +14652,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13286,6 +14665,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13293,6 +14673,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13302,6 +14683,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
@@ -13312,6 +14694,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -13321,12 +14704,14 @@ export namespace Prisma {
     passwordId?: number | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
   }
 
   export type UserUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13340,6 +14725,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13349,6 +14735,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PasswordCreateInput = {
@@ -13975,6 +15362,77 @@ export namespace Prisma {
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ImageCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    src: string
+    alt: string
+    width: number
+    height: number
+    avatarOwner?: UserCreateNestedOneWithoutAvatarInput
+  }
+
+  export type ImageUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    src: string
+    alt: string
+    width: number
+    height: number
+    avatarOwner?: UserUncheckedCreateNestedOneWithoutAvatarInput
+  }
+
+  export type ImageUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+    avatarOwner?: UserUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type ImageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+    avatarOwner?: UserUncheckedUpdateOneWithoutAvatarNestedInput
+  }
+
+  export type ImageCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    src: string
+    alt: string
+    width: number
+    height: number
+  }
+
+  export type ImageUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -14081,6 +15539,11 @@ export namespace Prisma {
     isNot?: OnboardingWhereInput | null
   }
 
+  export type ImageNullableScalarRelationFilter = {
+    is?: ImageWhereInput | null
+    isNot?: ImageWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14099,6 +15562,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    emailVerified?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -14108,6 +15572,7 @@ export namespace Prisma {
     passwordId?: SortOrder
     phoneNumberId?: SortOrder
     organizationId?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -14115,6 +15580,7 @@ export namespace Prisma {
     passwordId?: SortOrder
     phoneNumberId?: SortOrder
     organizationId?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -14122,6 +15588,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    emailVerified?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -14131,6 +15598,7 @@ export namespace Prisma {
     passwordId?: SortOrder
     phoneNumberId?: SortOrder
     organizationId?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14138,6 +15606,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     onboarded?: SortOrder
+    emailVerified?: SortOrder
     email?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
@@ -14147,6 +15616,7 @@ export namespace Prisma {
     passwordId?: SortOrder
     phoneNumberId?: SortOrder
     organizationId?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -14154,6 +15624,7 @@ export namespace Prisma {
     passwordId?: SortOrder
     phoneNumberId?: SortOrder
     organizationId?: SortOrder
+    avatarId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14716,6 +16187,48 @@ export namespace Prisma {
     organizationId?: SortOrder
   }
 
+  export type ImageCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    src?: SortOrder
+    alt?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+  }
+
+  export type ImageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+  }
+
+  export type ImageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    src?: SortOrder
+    alt?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+  }
+
+  export type ImageMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    src?: SortOrder
+    alt?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+  }
+
+  export type ImageSumOrderByAggregateInput = {
+    id?: SortOrder
+    width?: SortOrder
+    height?: SortOrder
+  }
+
   export type PasswordCreateNestedOneWithoutUserInput = {
     create?: XOR<PasswordCreateWithoutUserInput, PasswordUncheckedCreateWithoutUserInput>
     connectOrCreate?: PasswordCreateOrConnectWithoutUserInput
@@ -14751,6 +16264,12 @@ export namespace Prisma {
     create?: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
     connectOrCreate?: OnboardingCreateOrConnectWithoutUserInput
     connect?: OnboardingWhereUniqueInput
+  }
+
+  export type ImageCreateNestedOneWithoutAvatarOwnerInput = {
+    create?: XOR<ImageCreateWithoutAvatarOwnerInput, ImageUncheckedCreateWithoutAvatarOwnerInput>
+    connectOrCreate?: ImageCreateOrConnectWithoutAvatarOwnerInput
+    connect?: ImageWhereUniqueInput
   }
 
   export type RoleUncheckedCreateNestedManyWithoutUsersInput = {
@@ -14853,6 +16372,16 @@ export namespace Prisma {
     delete?: OnboardingWhereInput | boolean
     connect?: OnboardingWhereUniqueInput
     update?: XOR<XOR<OnboardingUpdateToOneWithWhereWithoutUserInput, OnboardingUpdateWithoutUserInput>, OnboardingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ImageUpdateOneWithoutAvatarOwnerNestedInput = {
+    create?: XOR<ImageCreateWithoutAvatarOwnerInput, ImageUncheckedCreateWithoutAvatarOwnerInput>
+    connectOrCreate?: ImageCreateOrConnectWithoutAvatarOwnerInput
+    upsert?: ImageUpsertWithoutAvatarOwnerInput
+    disconnect?: ImageWhereInput | boolean
+    delete?: ImageWhereInput | boolean
+    connect?: ImageWhereUniqueInput
+    update?: XOR<XOR<ImageUpdateToOneWithWhereWithoutAvatarOwnerInput, ImageUpdateWithoutAvatarOwnerInput>, ImageUncheckedUpdateWithoutAvatarOwnerInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -15227,6 +16756,38 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutRolesInput | UserUpdateWithWhereUniqueWithoutRolesInput[]
     updateMany?: UserUpdateManyWithWhereWithoutRolesInput | UserUpdateManyWithWhereWithoutRolesInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAvatarInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUncheckedCreateNestedOneWithoutAvatarInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutAvatarNestedInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    upsert?: UserUpsertWithoutAvatarInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvatarInput, UserUpdateWithoutAvatarInput>, UserUncheckedUpdateWithoutAvatarInput>
+  }
+
+  export type UserUncheckedUpdateOneWithoutAvatarNestedInput = {
+    create?: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarInput
+    upsert?: UserUpsertWithoutAvatarInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvatarInput, UserUpdateWithoutAvatarInput>, UserUncheckedUpdateWithoutAvatarInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -15639,6 +17200,30 @@ export namespace Prisma {
     create: XOR<OnboardingCreateWithoutUserInput, OnboardingUncheckedCreateWithoutUserInput>
   }
 
+  export type ImageCreateWithoutAvatarOwnerInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    src: string
+    alt: string
+    width: number
+    height: number
+  }
+
+  export type ImageUncheckedCreateWithoutAvatarOwnerInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    src: string
+    alt: string
+    width: number
+    height: number
+  }
+
+  export type ImageCreateOrConnectWithoutAvatarOwnerInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutAvatarOwnerInput, ImageUncheckedCreateWithoutAvatarOwnerInput>
+  }
+
   export type PasswordUpsertWithoutUserInput = {
     update: XOR<PasswordUpdateWithoutUserInput, PasswordUncheckedUpdateWithoutUserInput>
     create: XOR<PasswordCreateWithoutUserInput, PasswordUncheckedCreateWithoutUserInput>
@@ -15817,10 +17402,41 @@ export namespace Prisma {
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type ImageUpsertWithoutAvatarOwnerInput = {
+    update: XOR<ImageUpdateWithoutAvatarOwnerInput, ImageUncheckedUpdateWithoutAvatarOwnerInput>
+    create: XOR<ImageCreateWithoutAvatarOwnerInput, ImageUncheckedCreateWithoutAvatarOwnerInput>
+    where?: ImageWhereInput
+  }
+
+  export type ImageUpdateToOneWithWhereWithoutAvatarOwnerInput = {
+    where?: ImageWhereInput
+    data: XOR<ImageUpdateWithoutAvatarOwnerInput, ImageUncheckedUpdateWithoutAvatarOwnerInput>
+  }
+
+  export type ImageUpdateWithoutAvatarOwnerInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImageUncheckedUpdateWithoutAvatarOwnerInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    src?: StringFieldUpdateOperationsInput | string
+    alt?: StringFieldUpdateOperationsInput | string
+    width?: IntFieldUpdateOperationsInput | number
+    height?: IntFieldUpdateOperationsInput | number
+  }
+
   export type UserCreateWithoutPasswordInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15832,6 +17448,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutPasswordInput = {
@@ -15839,6 +17456,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15847,6 +17465,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
@@ -15872,6 +17491,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15883,6 +17503,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordInput = {
@@ -15890,6 +17511,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15898,6 +17520,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
@@ -15907,6 +17530,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15918,6 +17542,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -15925,6 +17550,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -15934,6 +17560,7 @@ export namespace Prisma {
     passwordId?: number | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
@@ -15958,6 +17585,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15969,6 +17597,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -15976,6 +17605,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15985,6 +17615,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -15993,6 +17624,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16004,6 +17636,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutOnboardingInput = {
@@ -16011,6 +17644,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16020,6 +17654,7 @@ export namespace Prisma {
     passwordId?: number | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16044,6 +17679,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16055,6 +17691,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOnboardingInput = {
@@ -16062,6 +17699,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16071,6 +17709,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -16079,6 +17718,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16090,6 +17730,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutPhoneNumberInput = {
@@ -16097,6 +17738,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16105,6 +17747,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     passwordId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
@@ -16130,6 +17773,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16141,6 +17785,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPhoneNumberInput = {
@@ -16148,6 +17793,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16156,6 +17802,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
@@ -16165,6 +17812,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16176,6 +17824,7 @@ export namespace Prisma {
     roles?: RoleCreateNestedManyWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -16183,6 +17832,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16191,6 +17841,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     passwordId?: number | null
     phoneNumberId?: number | null
+    avatarId?: number | null
     roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
@@ -16255,6 +17906,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     email?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
@@ -16264,6 +17916,7 @@ export namespace Prisma {
     passwordId?: IntNullableFilter<"User"> | number | null
     phoneNumberId?: IntNullableFilter<"User"> | number | null
     organizationId?: IntNullableFilter<"User"> | number | null
+    avatarId?: IntNullableFilter<"User"> | number | null
   }
 
   export type RoleUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -16364,6 +18017,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16375,6 +18029,7 @@ export namespace Prisma {
     organization?: OrganizationCreateNestedOneWithoutUsersInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     onboarding?: OnboardingCreateNestedOneWithoutUserInput
+    avatar?: ImageCreateNestedOneWithoutAvatarOwnerInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -16382,6 +18037,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16391,6 +18047,7 @@ export namespace Prisma {
     passwordId?: number | null
     phoneNumberId?: number | null
     organizationId?: number | null
+    avatarId?: number | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
   }
@@ -16468,6 +18125,100 @@ export namespace Prisma {
   export type UserUpdateManyWithWhereWithoutRolesInput = {
     where: UserScalarWhereInput
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRolesInput>
+  }
+
+  export type UserCreateWithoutAvatarInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    onboarded?: Date | string | null
+    emailVerified?: Date | string | null
+    email: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    resetPasswordInitialized?: Date | string | null
+    resetPasswordToken?: string | null
+    password?: PasswordCreateNestedOneWithoutUserInput
+    phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
+    organization?: OrganizationCreateNestedOneWithoutUsersInput
+    roles?: RoleCreateNestedManyWithoutUsersInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAvatarInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    onboarded?: Date | string | null
+    emailVerified?: Date | string | null
+    email: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    resetPasswordInitialized?: Date | string | null
+    resetPasswordToken?: string | null
+    passwordId?: number | null
+    phoneNumberId?: number | null
+    organizationId?: number | null
+    roles?: RoleUncheckedCreateNestedManyWithoutUsersInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    onboarding?: OnboardingUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAvatarInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+  }
+
+  export type UserUpsertWithoutAvatarInput = {
+    update: XOR<UserUpdateWithoutAvatarInput, UserUncheckedUpdateWithoutAvatarInput>
+    create: XOR<UserCreateWithoutAvatarInput, UserUncheckedCreateWithoutAvatarInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAvatarInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAvatarInput, UserUncheckedUpdateWithoutAvatarInput>
+  }
+
+  export type UserUpdateWithoutAvatarInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: PasswordUpdateOneWithoutUserNestedInput
+    phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput
+    roles?: RoleUpdateManyWithoutUsersNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAvatarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordId?: NullableIntFieldUpdateOperationsInput | number | null
+    phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
+    organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -16624,6 +18375,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     onboarded?: Date | string | null
+    emailVerified?: Date | string | null
     email: string
     username?: string | null
     firstName?: string | null
@@ -16632,6 +18384,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     passwordId?: number | null
     phoneNumberId?: number | null
+    avatarId?: number | null
   }
 
   export type RoleCreateManyOrganizationInput = {
@@ -16644,6 +18397,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16655,6 +18409,7 @@ export namespace Prisma {
     roles?: RoleUpdateManyWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -16662,6 +18417,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16670,6 +18426,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     roles?: RoleUncheckedUpdateManyWithoutUsersNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
@@ -16680,6 +18437,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16688,6 +18446,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type RoleUpdateWithoutOrganizationInput = {
@@ -16763,6 +18522,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16774,6 +18534,7 @@ export namespace Prisma {
     organization?: OrganizationUpdateOneWithoutUsersNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUpdateOneWithoutUserNestedInput
+    avatar?: ImageUpdateOneWithoutAvatarOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
@@ -16781,6 +18542,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16790,6 +18552,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     onboarding?: OnboardingUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -16799,6 +18562,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16808,6 +18572,7 @@ export namespace Prisma {
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
     organizationId?: NullableIntFieldUpdateOperationsInput | number | null
+    avatarId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 

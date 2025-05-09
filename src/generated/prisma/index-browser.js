@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   onboarded: 'onboarded',
+  emailVerified: 'emailVerified',
   email: 'email',
   username: 'username',
   firstName: 'firstName',
@@ -133,7 +134,8 @@ exports.Prisma.UserScalarFieldEnum = {
   resetPasswordToken: 'resetPasswordToken',
   passwordId: 'passwordId',
   phoneNumberId: 'phoneNumberId',
-  organizationId: 'organizationId'
+  organizationId: 'organizationId',
+  avatarId: 'avatarId'
 };
 
 exports.Prisma.PasswordScalarFieldEnum = {
@@ -225,6 +227,16 @@ exports.Prisma.RoleScalarFieldEnum = {
   organizationId: 'organizationId'
 };
 
+exports.Prisma.ImageScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  src: 'src',
+  alt: 'alt',
+  width: 'width',
+  height: 'height'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -266,7 +278,8 @@ exports.Prisma.ModelName = {
   PhoneNumber: 'PhoneNumber',
   Organization: 'Organization',
   Permission: 'Permission',
-  Role: 'Role'
+  Role: 'Role',
+  Image: 'Image'
 };
 
 /**
