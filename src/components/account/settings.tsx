@@ -36,6 +36,7 @@ import {
 	CardTitle,
 } from '../ui/card'
 import { NameField, PhoneNumberField, UsernameField } from './fields'
+import { useUser } from '@/context/user'
 
 export function PersonalInfoSettingsForm({
 	cardProps,
@@ -50,6 +51,8 @@ export function PersonalInfoSettingsForm({
 	})
 	const disabled = !form.formState.isDirty
 
+	const { setUser } = useUser()
+
 	// 2. Define a submit handler.
 	const onSubmit = submitter(
 		form,
@@ -57,7 +60,11 @@ export function PersonalInfoSettingsForm({
 			return await updatePersonalInfoSettings(values)
 		},
 		{
-			onSuccess: () => {
+			onSuccess: (values) => {
+				setUser((prev) => ({
+					...prev,
+					...values,
+				}))
 				toast.success('Successfully updated your personal information settings')
 			},
 		},
@@ -110,6 +117,8 @@ export function EmailSettingsForm({
 	})
 	const disabled = !form.formState.isDirty
 
+	const { setUser } = useUser()
+
 	// 2. Define a submit handler.
 	const onSubmit = submitter(
 		form,
@@ -117,7 +126,11 @@ export function EmailSettingsForm({
 			return await updateEmailSettings(values)
 		},
 		{
-			onSuccess: () => {
+			onSuccess: (values) => {
+				setUser((prev) => ({
+					...prev,
+					...values,
+				}))
 				toast.success('Successfully updated your email settings')
 			},
 		},
@@ -170,6 +183,8 @@ export function PhonenumberSettingsForm({
 	})
 	const disabled = !form.formState.isDirty
 
+	const { setUser } = useUser()
+
 	// 2. Define a submit handler.
 	const onSubmit = submitter(
 		form,
@@ -177,7 +192,11 @@ export function PhonenumberSettingsForm({
 			return await updatePhoneNumberSettings(values)
 		},
 		{
-			onSuccess: () => {
+			onSuccess: (values) => {
+				setUser((prev) => ({
+					...prev,
+					...values,
+				}))
 				toast.success('Successfully updated your phone number settings')
 			},
 		},

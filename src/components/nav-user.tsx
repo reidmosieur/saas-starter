@@ -25,21 +25,15 @@ import {
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
 import React from 'react'
+import { useUser } from '@/context/user'
 
-export function NavUser({
-	firstName,
-	lastName,
-	email,
-	avatar,
-}: {
-	firstName: string | null
-	lastName: string | null
-	email: string | null
-	avatar?: {
-		src: string
-	}
-}) {
+export function NavUser() {
 	const { isMobile } = useSidebar()
+	const { user } = useUser()
+
+	if (!user) return null
+
+	const { firstName, lastName, avatar, email } = user
 	const name = `${firstName} ${lastName}`
 	const fallback =
 		firstName && lastName ? firstName.at(0)! + lastName.at(0)! : 'UN'

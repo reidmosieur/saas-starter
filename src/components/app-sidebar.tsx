@@ -17,6 +17,7 @@ import { appName } from '@/data/app'
 import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
 import Link from 'next/link'
 import { NavSecondary } from './nav-secondary'
+import { NavUser } from './nav-user'
 
 const data = {
 	user: {
@@ -47,11 +48,8 @@ const data = {
 }
 
 export function AppSidebar({
-	navUser,
 	...props
-}: React.ComponentProps<typeof Sidebar> & {
-	navUser: React.ReactNode
-}) {
+}: React.ComponentProps<typeof Sidebar> & {}) {
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
@@ -73,7 +71,9 @@ export function AppSidebar({
 				<NavMain items={data.navMain} />
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
-			<SidebarFooter>{navUser}</SidebarFooter>
+			<SidebarFooter>
+				<NavUser />
+			</SidebarFooter>
 		</Sidebar>
 	)
 }
