@@ -26,6 +26,7 @@ model User {
   username  String? @unique
   firstName String?
   lastName  String?
+  fullName  String?
 
   resetPasswordInitialized DateTime?
   resetPasswordToken       String?   @unique
@@ -35,7 +36,7 @@ model User {
   phoneNumber    PhoneNumber?  @relation(fields: [phoneNumberId], references: [id])
   phoneNumberId  Int?          @unique
   organization   Organization? @relation(fields: [organizationId], references: [id])
-  organizationId Int?          @unique
+  organizationId Int?
   roles          Role[]
   sessions       Session[]
   onboarding     Onboarding?
@@ -186,7 +187,7 @@ model Role {
 
   permissions    Permission[]
   organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId Int          @unique
+  organizationId Int
   users          User[]
 }
 

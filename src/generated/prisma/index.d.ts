@@ -1895,6 +1895,7 @@ export namespace Prisma {
     username: string | null
     firstName: string | null
     lastName: string | null
+    fullName: string | null
     resetPasswordInitialized: Date | null
     resetPasswordToken: string | null
     passwordId: number | null
@@ -1913,6 +1914,7 @@ export namespace Prisma {
     username: string | null
     firstName: string | null
     lastName: string | null
+    fullName: string | null
     resetPasswordInitialized: Date | null
     resetPasswordToken: string | null
     passwordId: number | null
@@ -1931,6 +1933,7 @@ export namespace Prisma {
     username: number
     firstName: number
     lastName: number
+    fullName: number
     resetPasswordInitialized: number
     resetPasswordToken: number
     passwordId: number
@@ -1967,6 +1970,7 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     resetPasswordInitialized?: true
     resetPasswordToken?: true
     passwordId?: true
@@ -1985,6 +1989,7 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     resetPasswordInitialized?: true
     resetPasswordToken?: true
     passwordId?: true
@@ -2003,6 +2008,7 @@ export namespace Prisma {
     username?: true
     firstName?: true
     lastName?: true
+    fullName?: true
     resetPasswordInitialized?: true
     resetPasswordToken?: true
     passwordId?: true
@@ -2108,6 +2114,7 @@ export namespace Prisma {
     username: string | null
     firstName: string | null
     lastName: string | null
+    fullName: string | null
     resetPasswordInitialized: Date | null
     resetPasswordToken: string | null
     passwordId: number | null
@@ -2145,6 +2152,7 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     resetPasswordInitialized?: boolean
     resetPasswordToken?: boolean
     passwordId?: boolean
@@ -2171,6 +2179,7 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     resetPasswordInitialized?: boolean
     resetPasswordToken?: boolean
     passwordId?: boolean
@@ -2193,6 +2202,7 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     resetPasswordInitialized?: boolean
     resetPasswordToken?: boolean
     passwordId?: boolean
@@ -2215,6 +2225,7 @@ export namespace Prisma {
     username?: boolean
     firstName?: boolean
     lastName?: boolean
+    fullName?: boolean
     resetPasswordInitialized?: boolean
     resetPasswordToken?: boolean
     passwordId?: boolean
@@ -2223,7 +2234,7 @@ export namespace Prisma {
     avatarId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "emailVerified" | "email" | "username" | "firstName" | "lastName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "emailVerified" | "email" | "username" | "firstName" | "lastName" | "fullName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
@@ -2268,6 +2279,7 @@ export namespace Prisma {
       username: string | null
       firstName: string | null
       lastName: string | null
+      fullName: string | null
       resetPasswordInitialized: Date | null
       resetPasswordToken: string | null
       passwordId: number | null
@@ -2713,6 +2725,7 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
+    readonly fullName: FieldRef<"User", 'String'>
     readonly resetPasswordInitialized: FieldRef<"User", 'DateTime'>
     readonly resetPasswordToken: FieldRef<"User", 'String'>
     readonly passwordId: FieldRef<"User", 'Int'>
@@ -13575,6 +13588,7 @@ export namespace Prisma {
     username: 'username',
     firstName: 'firstName',
     lastName: 'lastName',
+    fullName: 'fullName',
     resetPasswordInitialized: 'resetPasswordInitialized',
     resetPasswordToken: 'resetPasswordToken',
     passwordId: 'passwordId',
@@ -13867,6 +13881,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
+    fullName?: StringNullableFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     passwordId?: IntNullableFilter<"User"> | number | null
@@ -13892,6 +13907,7 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
+    fullName?: SortOrderInput | SortOrder
     resetPasswordInitialized?: SortOrderInput | SortOrder
     resetPasswordToken?: SortOrderInput | SortOrder
     passwordId?: SortOrderInput | SortOrder
@@ -13914,7 +13930,6 @@ export namespace Prisma {
     resetPasswordToken?: string
     passwordId?: number
     phoneNumberId?: number
-    organizationId?: number
     avatarId?: number
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -13925,7 +13940,9 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
+    fullName?: StringNullableFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
+    organizationId?: IntNullableFilter<"User"> | number | null
     password?: XOR<PasswordNullableScalarRelationFilter, PasswordWhereInput> | null
     phoneNumber?: XOR<PhoneNumberNullableScalarRelationFilter, PhoneNumberWhereInput> | null
     organization?: XOR<OrganizationNullableScalarRelationFilter, OrganizationWhereInput> | null
@@ -13933,7 +13950,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     onboarding?: XOR<OnboardingNullableScalarRelationFilter, OnboardingWhereInput> | null
     avatar?: XOR<ImageNullableScalarRelationFilter, ImageWhereInput> | null
-  }, "id" | "email" | "username" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId">
+  }, "id" | "email" | "username" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "avatarId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13945,6 +13962,7 @@ export namespace Prisma {
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
+    fullName?: SortOrderInput | SortOrder
     resetPasswordInitialized?: SortOrderInput | SortOrder
     resetPasswordToken?: SortOrderInput | SortOrder
     passwordId?: SortOrderInput | SortOrder
@@ -13971,6 +13989,7 @@ export namespace Prisma {
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    fullName?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     passwordId?: IntNullableWithAggregatesFilter<"User"> | number | null
@@ -14542,17 +14561,17 @@ export namespace Prisma {
 
   export type RoleWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    organizationId?: number
     AND?: RoleWhereInput | RoleWhereInput[]
     OR?: RoleWhereInput[]
     NOT?: RoleWhereInput | RoleWhereInput[]
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
     name?: StringFilter<"Role"> | string
+    organizationId?: IntFilter<"Role"> | number
     permissions?: PermissionListRelationFilter
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     users?: UserListRelationFilter
-  }, "id" | "organizationId">
+  }, "id">
 
   export type RoleOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14654,6 +14673,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -14675,6 +14695,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -14695,6 +14716,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -14716,6 +14738,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -14737,6 +14760,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -14754,6 +14778,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -14768,6 +14793,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -15619,6 +15645,7 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     resetPasswordInitialized?: SortOrder
     resetPasswordToken?: SortOrder
     passwordId?: SortOrder
@@ -15645,6 +15672,7 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     resetPasswordInitialized?: SortOrder
     resetPasswordToken?: SortOrder
     passwordId?: SortOrder
@@ -15663,6 +15691,7 @@ export namespace Prisma {
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    fullName?: SortOrder
     resetPasswordInitialized?: SortOrder
     resetPasswordToken?: SortOrder
     passwordId?: SortOrder
@@ -17502,6 +17531,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     phoneNumber?: PhoneNumberCreateNestedOneWithoutUserInput
@@ -17522,6 +17552,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     phoneNumberId?: number | null
@@ -17557,6 +17588,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: PhoneNumberUpdateOneWithoutUserNestedInput
@@ -17577,6 +17609,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumberId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17596,6 +17629,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -17616,6 +17650,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -17651,6 +17686,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -17671,6 +17707,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17690,6 +17727,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -17710,6 +17748,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -17745,6 +17784,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -17765,6 +17805,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17784,6 +17825,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -17804,6 +17846,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -17839,6 +17882,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -17859,6 +17903,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17878,6 +17923,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -17898,6 +17944,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -17974,6 +18021,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
+    fullName?: StringNullableFilter<"User"> | string | null
     resetPasswordInitialized?: DateTimeNullableFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     passwordId?: IntNullableFilter<"User"> | number | null
@@ -18089,6 +18137,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -18109,6 +18158,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -18204,6 +18254,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     password?: PasswordCreateNestedOneWithoutUserInput
@@ -18224,6 +18275,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -18259,6 +18311,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -18279,6 +18332,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -18451,6 +18505,7 @@ export namespace Prisma {
     username?: string | null
     firstName?: string | null
     lastName?: string | null
+    fullName?: string | null
     resetPasswordInitialized?: Date | string | null
     resetPasswordToken?: string | null
     passwordId?: number | null
@@ -18474,6 +18529,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -18494,6 +18550,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -18514,6 +18571,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -18608,6 +18666,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     password?: PasswordUpdateOneWithoutUserNestedInput
@@ -18628,6 +18687,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -18648,6 +18708,7 @@ export namespace Prisma {
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordInitialized?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     passwordId?: NullableIntFieldUpdateOperationsInput | number | null
