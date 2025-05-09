@@ -215,6 +215,7 @@ exports.Prisma.PermissionScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  name: 'name',
   action: 'action',
   access: 'access',
   entity: 'entity'
@@ -224,6 +225,7 @@ exports.Prisma.RoleScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  name: 'name',
   organizationId: 'organizationId'
 };
 

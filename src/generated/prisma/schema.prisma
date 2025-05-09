@@ -166,6 +166,7 @@ model Permission {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  name   String
   action String
   access String
   entity String
@@ -180,6 +181,8 @@ model Role {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  name String
 
   permissions    Permission[]
   organization   Organization @relation(fields: [organizationId], references: [id])

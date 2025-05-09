@@ -10160,6 +10160,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    name: string | null
     action: string | null
     access: string | null
     entity: string | null
@@ -10169,6 +10170,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    name: string | null
     action: string | null
     access: string | null
     entity: string | null
@@ -10178,6 +10180,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    name: number
     action: number
     access: number
     entity: number
@@ -10197,6 +10200,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     action?: true
     access?: true
     entity?: true
@@ -10206,6 +10210,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     action?: true
     access?: true
     entity?: true
@@ -10215,6 +10220,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     action?: true
     access?: true
     entity?: true
@@ -10311,6 +10317,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    name: string
     action: string
     access: string
     entity: string
@@ -10339,6 +10346,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     action?: boolean
     access?: boolean
     entity?: boolean
@@ -10350,6 +10358,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     action?: boolean
     access?: boolean
     entity?: boolean
@@ -10359,6 +10368,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     action?: boolean
     access?: boolean
     entity?: boolean
@@ -10368,12 +10378,13 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     action?: boolean
     access?: boolean
     entity?: boolean
   }
 
-  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "action" | "access" | "entity", ExtArgs["result"]["permission"]>
+  export type PermissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "action" | "access" | "entity", ExtArgs["result"]["permission"]>
   export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     roles?: boolean | Permission$rolesArgs<ExtArgs>
     _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
@@ -10390,6 +10401,7 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
+      name: string
       action: string
       access: string
       entity: string
@@ -10820,6 +10832,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Permission", 'Int'>
     readonly createdAt: FieldRef<"Permission", 'DateTime'>
     readonly updatedAt: FieldRef<"Permission", 'DateTime'>
+    readonly name: FieldRef<"Permission", 'String'>
     readonly action: FieldRef<"Permission", 'String'>
     readonly access: FieldRef<"Permission", 'String'>
     readonly entity: FieldRef<"Permission", 'String'>
@@ -11279,6 +11292,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    name: string | null
     organizationId: number | null
   }
 
@@ -11286,6 +11300,7 @@ export namespace Prisma {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    name: string | null
     organizationId: number | null
   }
 
@@ -11293,6 +11308,7 @@ export namespace Prisma {
     id: number
     createdAt: number
     updatedAt: number
+    name: number
     organizationId: number
     _all: number
   }
@@ -11312,6 +11328,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     organizationId?: true
   }
 
@@ -11319,6 +11336,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     organizationId?: true
   }
 
@@ -11326,6 +11344,7 @@ export namespace Prisma {
     id?: true
     createdAt?: true
     updatedAt?: true
+    name?: true
     organizationId?: true
     _all?: true
   }
@@ -11420,6 +11439,7 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
+    name: string
     organizationId: number
     _count: RoleCountAggregateOutputType | null
     _avg: RoleAvgAggregateOutputType | null
@@ -11446,6 +11466,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     organizationId?: boolean
     permissions?: boolean | Role$permissionsArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -11457,6 +11478,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["role"]>
@@ -11465,6 +11487,7 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     organizationId?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["role"]>
@@ -11473,10 +11496,11 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    name?: boolean
     organizationId?: boolean
   }
 
-  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "organizationId", ExtArgs["result"]["role"]>
+  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "organizationId", ExtArgs["result"]["role"]>
   export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     permissions?: boolean | Role$permissionsArgs<ExtArgs>
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
@@ -11501,6 +11525,7 @@ export namespace Prisma {
       id: number
       createdAt: Date
       updatedAt: Date
+      name: string
       organizationId: number
     }, ExtArgs["result"]["role"]>
     composites: {}
@@ -11931,6 +11956,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Role", 'Int'>
     readonly createdAt: FieldRef<"Role", 'DateTime'>
     readonly updatedAt: FieldRef<"Role", 'DateTime'>
+    readonly name: FieldRef<"Role", 'String'>
     readonly organizationId: FieldRef<"Role", 'Int'>
   }
     
@@ -13655,6 +13681,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    name: 'name',
     action: 'action',
     access: 'access',
     entity: 'entity'
@@ -13667,6 +13694,7 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
+    name: 'name',
     organizationId: 'organizationId'
   };
 
@@ -14426,6 +14454,7 @@ export namespace Prisma {
     id?: IntFilter<"Permission"> | number
     createdAt?: DateTimeFilter<"Permission"> | Date | string
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    name?: StringFilter<"Permission"> | string
     action?: StringFilter<"Permission"> | string
     access?: StringFilter<"Permission"> | string
     entity?: StringFilter<"Permission"> | string
@@ -14436,6 +14465,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     action?: SortOrder
     access?: SortOrder
     entity?: SortOrder
@@ -14450,6 +14480,7 @@ export namespace Prisma {
     NOT?: PermissionWhereInput | PermissionWhereInput[]
     createdAt?: DateTimeFilter<"Permission"> | Date | string
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    name?: StringFilter<"Permission"> | string
     action?: StringFilter<"Permission"> | string
     access?: StringFilter<"Permission"> | string
     entity?: StringFilter<"Permission"> | string
@@ -14460,6 +14491,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     action?: SortOrder
     access?: SortOrder
     entity?: SortOrder
@@ -14477,6 +14509,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Permission"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    name?: StringWithAggregatesFilter<"Permission"> | string
     action?: StringWithAggregatesFilter<"Permission"> | string
     access?: StringWithAggregatesFilter<"Permission"> | string
     entity?: StringWithAggregatesFilter<"Permission"> | string
@@ -14489,6 +14522,7 @@ export namespace Prisma {
     id?: IntFilter<"Role"> | number
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
+    name?: StringFilter<"Role"> | string
     organizationId?: IntFilter<"Role"> | number
     permissions?: PermissionListRelationFilter
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
@@ -14499,6 +14533,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     organizationId?: SortOrder
     permissions?: PermissionOrderByRelationAggregateInput
     organization?: OrganizationOrderByWithRelationInput
@@ -14513,6 +14548,7 @@ export namespace Prisma {
     NOT?: RoleWhereInput | RoleWhereInput[]
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
+    name?: StringFilter<"Role"> | string
     permissions?: PermissionListRelationFilter
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     users?: UserListRelationFilter
@@ -14522,6 +14558,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     organizationId?: SortOrder
     _count?: RoleCountOrderByAggregateInput
     _avg?: RoleAvgOrderByAggregateInput
@@ -14537,6 +14574,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Role"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+    name?: StringWithAggregatesFilter<"Role"> | string
     organizationId?: IntWithAggregatesFilter<"Role"> | number
   }
 
@@ -15248,6 +15286,7 @@ export namespace Prisma {
   export type PermissionCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     action: string
     access: string
     entity: string
@@ -15258,6 +15297,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     action: string
     access: string
     entity: string
@@ -15267,6 +15307,7 @@ export namespace Prisma {
   export type PermissionUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -15277,6 +15318,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -15287,6 +15329,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     action: string
     access: string
     entity: string
@@ -15295,6 +15338,7 @@ export namespace Prisma {
   export type PermissionUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -15304,6 +15348,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -15312,6 +15357,7 @@ export namespace Prisma {
   export type RoleCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     permissions?: PermissionCreateNestedManyWithoutRolesInput
     organization: OrganizationCreateNestedOneWithoutRolesInput
     users?: UserCreateNestedManyWithoutRolesInput
@@ -15321,6 +15367,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     organizationId: number
     permissions?: PermissionUncheckedCreateNestedManyWithoutRolesInput
     users?: UserUncheckedCreateNestedManyWithoutRolesInput
@@ -15329,6 +15376,7 @@ export namespace Prisma {
   export type RoleUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     permissions?: PermissionUpdateManyWithoutRolesNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutRolesNestedInput
     users?: UserUpdateManyWithoutRolesNestedInput
@@ -15338,6 +15386,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
     permissions?: PermissionUncheckedUpdateManyWithoutRolesNestedInput
     users?: UserUncheckedUpdateManyWithoutRolesNestedInput
@@ -15347,18 +15396,21 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     organizationId: number
   }
 
   export type RoleUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type RoleUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -16110,6 +16162,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     action?: SortOrder
     access?: SortOrder
     entity?: SortOrder
@@ -16123,6 +16176,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     action?: SortOrder
     access?: SortOrder
     entity?: SortOrder
@@ -16132,6 +16186,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     action?: SortOrder
     access?: SortOrder
     entity?: SortOrder
@@ -16160,6 +16215,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -16172,6 +16228,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -16179,6 +16236,7 @@ export namespace Prisma {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    name?: SortOrder
     organizationId?: SortOrder
   }
 
@@ -17086,6 +17144,7 @@ export namespace Prisma {
   export type RoleCreateWithoutUsersInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     permissions?: PermissionCreateNestedManyWithoutRolesInput
     organization: OrganizationCreateNestedOneWithoutRolesInput
   }
@@ -17094,6 +17153,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     organizationId: number
     permissions?: PermissionUncheckedCreateNestedManyWithoutRolesInput
   }
@@ -17317,6 +17377,7 @@ export namespace Prisma {
     id?: IntFilter<"Role"> | number
     createdAt?: DateTimeFilter<"Role"> | Date | string
     updatedAt?: DateTimeFilter<"Role"> | Date | string
+    name?: StringFilter<"Role"> | string
     organizationId?: IntFilter<"Role"> | number
   }
 
@@ -17860,6 +17921,7 @@ export namespace Prisma {
   export type RoleCreateWithoutOrganizationInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     permissions?: PermissionCreateNestedManyWithoutRolesInput
     users?: UserCreateNestedManyWithoutRolesInput
   }
@@ -17868,6 +17930,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     permissions?: PermissionUncheckedCreateNestedManyWithoutRolesInput
     users?: UserUncheckedCreateNestedManyWithoutRolesInput
   }
@@ -17938,6 +18001,7 @@ export namespace Prisma {
   export type RoleCreateWithoutPermissionsInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     organization: OrganizationCreateNestedOneWithoutRolesInput
     users?: UserCreateNestedManyWithoutRolesInput
   }
@@ -17946,6 +18010,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     organizationId: number
     users?: UserUncheckedCreateNestedManyWithoutRolesInput
   }
@@ -17974,6 +18039,7 @@ export namespace Prisma {
   export type PermissionCreateWithoutRolesInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     action: string
     access: string
     entity: string
@@ -17983,6 +18049,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
     action: string
     access: string
     entity: string
@@ -18080,6 +18147,7 @@ export namespace Prisma {
     id?: IntFilter<"Permission"> | number
     createdAt?: DateTimeFilter<"Permission"> | Date | string
     updatedAt?: DateTimeFilter<"Permission"> | Date | string
+    name?: StringFilter<"Permission"> | string
     action?: StringFilter<"Permission"> | string
     access?: StringFilter<"Permission"> | string
     entity?: StringFilter<"Permission"> | string
@@ -18256,6 +18324,7 @@ export namespace Prisma {
   export type RoleUpdateWithoutUsersInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     permissions?: PermissionUpdateManyWithoutRolesNestedInput
     organization?: OrganizationUpdateOneRequiredWithoutRolesNestedInput
   }
@@ -18264,6 +18333,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
     permissions?: PermissionUncheckedUpdateManyWithoutRolesNestedInput
   }
@@ -18272,6 +18342,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18391,6 +18462,7 @@ export namespace Prisma {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    name: string
   }
 
   export type UserUpdateWithoutOrganizationInput = {
@@ -18452,6 +18524,7 @@ export namespace Prisma {
   export type RoleUpdateWithoutOrganizationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     permissions?: PermissionUpdateManyWithoutRolesNestedInput
     users?: UserUpdateManyWithoutRolesNestedInput
   }
@@ -18460,6 +18533,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     permissions?: PermissionUncheckedUpdateManyWithoutRolesNestedInput
     users?: UserUncheckedUpdateManyWithoutRolesNestedInput
   }
@@ -18468,11 +18542,13 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type RoleUpdateWithoutPermissionsInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organization?: OrganizationUpdateOneRequiredWithoutRolesNestedInput
     users?: UserUpdateManyWithoutRolesNestedInput
   }
@@ -18481,6 +18557,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
     users?: UserUncheckedUpdateManyWithoutRolesNestedInput
   }
@@ -18489,12 +18566,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     organizationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PermissionUpdateWithoutRolesInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -18504,6 +18583,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string
@@ -18513,6 +18593,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
     access?: StringFieldUpdateOperationsInput | string
     entity?: StringFieldUpdateOperationsInput | string

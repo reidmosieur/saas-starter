@@ -16,6 +16,9 @@ async function main() {
 	// Create permission
 	const permission = await prisma.permission.create({
 		data: {
+			// indicates a user is allowed to use the app
+			// useful for after onboarding, eg if a users access is revoked
+			name: 'View dashboard',
 			action: 'read',
 			access: 'granted',
 			entity: 'dashboard',
@@ -25,6 +28,8 @@ async function main() {
 	// Create role
 	const role = await prisma.role.create({
 		data: {
+			// standard
+			name: 'Admin',
 			organization: { connect: { id: org.id } },
 			permissions: {
 				connect: { id: permission.id },
@@ -48,10 +53,19 @@ async function main() {
 		},
 	})
 
+	// Dates
+	const emailVerified = new Date('2025-04-20T08:30:00Z')
+	const onboardingStarted = new Date('2025-04-20T08:32:00Z')
+	const credentialsCompleted = new Date('2025-04-20T08:34:00Z')
+	const personalInfoCompleted = new Date('2025-04-20T08:35:00Z')
+	const organizationCompleted = new Date('2025-04-20T08:36:00Z')
+	const onboardingCompleted = new Date('2025-04-20T08:37:00Z')
+
 	// Create user
 	await prisma.user.create({
 		data: {
 			email: 'john.doe@example.com',
+			emailVerified,
 			username: 'johndoe',
 			firstName: 'John',
 			lastName: 'Doe',
@@ -59,6 +73,21 @@ async function main() {
 			password: { connect: { id: password.id } },
 			phoneNumber: { connect: { id: phoneNumber.id } },
 			roles: { connect: { id: role.id } },
+			onboarded: onboardingCompleted,
+			onboarding: {
+				create: {
+					startedAt: onboardingStarted,
+					completedAt: onboardingCompleted,
+					updatedAt: onboardingCompleted,
+					currentStep: 'COMPLETED',
+					completedSteps: ['CREDENTIALS', 'PERSONAL_INFO', 'ORGANIZATION'],
+					stepTimeStamps: {
+						CREDENTIALS: credentialsCompleted,
+						PERSONAL_INFO: personalInfoCompleted,
+						ORGANIZATION: organizationCompleted,
+					},
+				},
+			},
 			sessions: {
 				createMany: {
 					data: [
@@ -89,7 +118,7 @@ async function main() {
 							timezone: 'America/Los_Angeles',
 						},
 						{
-							createdAt: new Date('2025-04-20T08:30:00Z'),
+							createdAt: emailVerified,
 							updatedAt: new Date('2025-04-22T14:15:00Z'),
 							context: 'email-signup',
 							ipAddress: '1.1.1.1',
@@ -115,6 +144,14 @@ async function main() {
 							timezone: 'America/New_York',
 						},
 					],
+				},
+			},
+			avatar: {
+				create: {
+					src: '/user-images/johndoe.local.png',
+					alt: 'Your avatar',
+					height: 500,
+					width: 500,
 				},
 			},
 		},
