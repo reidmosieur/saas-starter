@@ -1,16 +1,17 @@
 'use client'
 
+import { updateOrganizationInfoSettingsForm } from '@/app/actions/organization'
 import { Form } from '@/components/ui/form'
+import { submitter } from '@/lib/utils'
 import {
-	firstNameSchema,
-	lastNameSchema,
-	usernameSchema,
-} from '@/schema/account'
+	organizationInfoSettingsForm,
+	OrganizationInfoSettingsFormProps,
+} from '@/schema/organization'
 import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EllipsisVertical, UserPlus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import {
 	Card,
@@ -29,37 +30,44 @@ import {
 	TableHeader,
 	TableRow,
 } from '../ui/table'
+import { OrganizationNameField } from './fields'
+import { ComponentProps } from 'react'
+import { Permission, Role, User } from '@/generated/prisma'
 
-const organizationSettingsForm = z.object({
-	username: usernameSchema,
-	firstName: firstNameSchema,
-	lastName: lastNameSchema,
-})
-
-export function OrganizationSettingsForm({ cardProps }: CardFormProps) {
+export function OrganizationInfoSettingsForm({
+	cardProps,
+	defaultValues,
+}: CardFormProps<OrganizationInfoSettingsFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof organizationSettingsForm>>({
-		resolver: zodResolver(organizationSettingsForm),
-		defaultValues: {
-			username: '',
-		},
+	const form = useForm<OrganizationInfoSettingsFormProps>({
+		resolver: zodResolver(organizationInfoSettingsForm),
+		defaultValues,
 	})
 
 	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof organizationSettingsForm>) {
-		// placeholder
-		console.log(values)
-	}
+	const onSubmit = submitter(
+		form,
+		async (values: OrganizationInfoSettingsFormProps) => {
+			return await updateOrganizationInfoSettingsForm(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully update your organization name')
+			},
+		},
+	)
 
 	return (
 		<Form {...form}>
 			<Card {...cardProps} asChild>
-				<form onSubmit={form.handleSubmit(onSubmit)}>
+				<form onSubmit={onSubmit}>
 					<CardHeader>
-						<CardTitle>General</CardTitle>
+						<CardTitle>Organization Information</CardTitle>
 						<CardDescription>Change your organizations name</CardDescription>
 					</CardHeader>
-					<CardContent className="grid gap-4 md:gap-6"></CardContent>
+					<CardContent className="grid gap-4 md:gap-6">
+						<OrganizationNameField form={form} />
+					</CardContent>
 					<CardFooter className="mt-auto justify-end">
 						<Button loading={form.formState.isSubmitting}>Save</Button>
 					</CardFooter>
@@ -69,7 +77,19 @@ export function OrganizationSettingsForm({ cardProps }: CardFormProps) {
 	)
 }
 
-export function OrganizationUsers({ cardProps }: CardFormProps) {
+export function OrganizationUsers({
+	cardProps,
+	users,
+}: {
+	cardProps: ComponentProps<'div'>
+	users: Array<
+		Partial<
+			User & {
+				roles: Array<Partial<Role>>
+			}
+		>
+	>
+}) {
 	return (
 		<Card {...cardProps}>
 			<CardHeader className="flex flex-row justify-between gap-4">
@@ -87,75 +107,52 @@ export function OrganizationUsers({ cardProps }: CardFormProps) {
 						<TableRow>
 							<TableHead>Email</TableHead>
 							<TableHead>Name</TableHead>
-							<TableHead>Role</TableHead>
+							<TableHead>Roles</TableHead>
 							<TableHead>Status</TableHead>
 							<TableHead />
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow>
-							<TableCell>joe@example.com</TableCell>
-							<TableCell>Joe Dirt</TableCell>
-							<TableCell>Admin</TableCell>
-							<TableCell className="text-green-700 dark:text-green-300">
-								Active since 4/01/25
-							</TableCell>
-							<TableCell>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent align="end" className="flex flex-col gap-2">
-										<Button variant={'outline'}>Edit</Button>
-										<Button variant={'outline'}>Deactivate</Button>
-										<Button variant={'destructive'}>Delete</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>jane@example.com</TableCell>
-							<TableCell>Jane Dirt</TableCell>
-							<TableCell>User</TableCell>
-							<TableCell className="text-muted-foreground">
-								Inactive since 4/14/25
-							</TableCell>
-							<TableCell>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent align="end" className="flex flex-col gap-2">
-										<Button>Reactivate</Button>
-										<Button variant={'destructive'}>Delete</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>bob@example.com</TableCell>
-							<TableCell>Bob Dirt</TableCell>
-							<TableCell />
-							<TableCell className="text-muted-foreground">
-								Invited since 4/14/25
-							</TableCell>
-							<TableCell>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent align="end" className="flex flex-col gap-2">
-										<Button variant={'destructive'}>Rescind Invitation</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-						</TableRow>
+						{users.length > 0
+							? users.map(
+									({ firstName, lastName, email, createdAt, roles }, index) => (
+										<TableRow key={index}>
+											<TableCell>{email}</TableCell>
+											<TableCell>
+												{firstName} {lastName}
+											</TableCell>
+											<TableCell>
+												{roles?.map(({ name }) => name).join(', ')}
+											</TableCell>
+											<TableCell className="text-green-700 dark:text-green-400">
+												{createdAt ? (
+													<span>
+														Active since{' '}
+														{new Date(createdAt).toLocaleDateString()}
+													</span>
+												) : null}
+											</TableCell>
+											<TableCell align="right">
+												<Popover>
+													<PopoverTrigger asChild>
+														<Button variant={'ghost'}>
+															<EllipsisVertical />
+														</Button>
+													</PopoverTrigger>
+													<PopoverContent
+														align="end"
+														className="flex flex-col gap-2"
+													>
+														<Button variant={'outline'}>Edit</Button>
+														<Button variant={'outline'}>Deactivate</Button>
+														<Button variant={'destructive'}>Delete</Button>
+													</PopoverContent>
+												</Popover>
+											</TableCell>
+										</TableRow>
+									),
+								)
+							: null}
 					</TableBody>
 				</Table>
 			</CardContent>
@@ -163,7 +160,24 @@ export function OrganizationUsers({ cardProps }: CardFormProps) {
 	)
 }
 
-export function OrganizationRoles({ cardProps }: CardFormProps) {
+export function OrganizationRoles({
+	cardProps,
+	roles,
+}: {
+	cardProps: ComponentProps<'div'>
+	roles: Array<
+		Partial<
+			Role & {
+				users: Array<Partial<User>>
+				permissions: Array<Partial<Permission>>
+				_count: {
+					users: number
+					permissions: number
+				}
+			}
+		>
+	>
+}) {
 	return (
 		<Card {...cardProps}>
 			<CardHeader className="flex flex-row justify-between gap-4">
@@ -186,45 +200,85 @@ export function OrganizationRoles({ cardProps }: CardFormProps) {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow>
-							<TableCell>Admin</TableCell>
-							<TableCell>Joe Dirt and 0 others</TableCell>
-							<TableCell>Create any, invite users, and 5 others</TableCell>
-							<TableCell>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent align="end" className="flex flex-col gap-2">
-										<Button variant={'outline'}>Edit</Button>
-										<Button variant={'destructive'}>Delete</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>User</TableCell>
-							<TableCell>Jane Dirt and 0 others</TableCell>
-							<TableCell>Create own, read own, and 5 others</TableCell>
-							<TableCell>
-								<Popover>
-									<PopoverTrigger asChild>
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</PopoverTrigger>
-									<PopoverContent align="end" className="flex flex-col gap-2">
-										<Button variant={'outline'}>Edit</Button>
-										<Button variant={'destructive'}>Delete</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-						</TableRow>
+						{roles.length > 0
+							? roles.map(({ name, users, permissions, _count }, index) => (
+									<TableRow key={index}>
+										<TableCell>{name}</TableCell>
+										<TableCell>
+											<UsersCell users={users} count={_count?.users ?? 0} />
+										</TableCell>
+										<TableCell>
+											<PermissionsCell
+												permissions={permissions}
+												count={_count?.permissions ?? 0}
+											/>
+										</TableCell>
+										<TableCell align="right">
+											<Popover>
+												<PopoverTrigger asChild>
+													<Button variant={'ghost'}>
+														<EllipsisVertical />
+													</Button>
+												</PopoverTrigger>
+												<PopoverContent
+													align="end"
+													className="flex flex-col gap-2"
+												>
+													<Button variant={'outline'}>Edit</Button>
+													<Button variant={'destructive'}>Delete</Button>
+												</PopoverContent>
+											</Popover>
+										</TableCell>
+									</TableRow>
+								))
+							: null}
 					</TableBody>
 				</Table>
 			</CardContent>
 		</Card>
 	)
+}
+
+function UsersCell({
+	users,
+	count,
+}: {
+	users?: Array<Partial<User>>
+	count: number
+}) {
+	if (!users || users.length < 1) {
+		return 'No users'
+	}
+
+	let permissionsText = users
+		?.map(({ firstName, lastName }) => `${firstName} ${lastName}`)
+		.join(', ')
+
+	const additionalUsersCount = count - 2
+	if (additionalUsersCount > 1) {
+		permissionsText += ` and ${additionalUsersCount} more`
+	}
+
+	return permissionsText
+}
+
+function PermissionsCell({
+	permissions,
+	count,
+}: {
+	permissions?: Array<Partial<Permission>>
+	count: number
+}) {
+	if (!permissions || permissions.length < 1) {
+		return 'No permissions'
+	}
+
+	let permissionsText = permissions?.map(({ name }) => name).join(', ')
+
+	const additionalPermissionsCount = count - 2
+	if (additionalPermissionsCount > 1) {
+		permissionsText += ` and ${additionalPermissionsCount} more`
+	}
+
+	return permissionsText
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { emailSchema, passwordSchema } from './auth'
-import { organizationSchema } from './organization'
+import { organizationNameSchema } from './organization'
 
 export const usernameSchema = z
 	.string()
@@ -51,7 +51,7 @@ export type PersonalInfoOnboardingStepSchema = z.infer<
 >
 
 export const organizationOnboardingStepSchema = z.object({
-	name: organizationSchema,
+	name: organizationNameSchema,
 })
 export type OrganizationOnboardingStepFormProps = z.infer<
 	typeof organizationOnboardingStepSchema
