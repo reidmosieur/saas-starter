@@ -183,9 +183,9 @@ export async function verifyOTP({ code }: VerifyOTPArgs) {
 		case 'reset-password':
 			redirect('/reset-password')
 
-		default:
+		default: // something weird happened. Let's return safeError
 			console.log('default reached in redirect to block')
-			break
+			return safeError
 	}
 }
 
