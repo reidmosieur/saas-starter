@@ -35,14 +35,21 @@ export async function initializeForgotPassword({ email }: { email: string }) {
 
 	// Step 2:
 	// check for an existing user with that email
-	const existingUser = await prisma.user.findUniqueOrThrow({
-		where: {
-			email,
-		},
-		select: {
-			password: true,
-		},
-	})
+	let existingUser
+	try {
+		existingUser = await prisma.user.findUniqueOrThrow({
+			where: {
+				email,
+			},
+			select: {
+				password: true,
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
 
 	// if a user isn't found return a safe error to avoid enumeration attacks
 	if (!existingUser || !existingUser.password) {
