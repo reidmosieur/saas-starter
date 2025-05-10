@@ -33,6 +33,10 @@ export async function initializeEmailSignup({ email }: { email: string }) {
 
 	const { email: validatedEmail } = validatedFields.data
 
+	// optional:
+	// use an email verification api to check for bad emails before verifying
+	// improves deliverability
+
 	// Step 2:
 	// check for an existing user with that email
 	const existingUser: boolean = await checkExistingUser({
