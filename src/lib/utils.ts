@@ -104,3 +104,37 @@ export function constructRequiredPermissions(
 ) {
 	return sourcePermissions.map(({ key }) => key)
 }
+
+export type StringPart =
+	| string
+	| null
+	| undefined
+	| {
+			parts: StringPart[]
+			join: string
+	  }
+
+export function stringConcatenator(
+	words: Array<string | undefined | null>,
+	join: string,
+) {
+	return words.filter(Boolean).join(join)
+}
+
+export function smartConcat(parts: StringPart[]): string {
+	return stringConcatenator(
+		parts.map((part) => {
+			if (
+				typeof part === 'object' &&
+				part !== null &&
+				'parts' in part &&
+				'join' in part
+			) {
+				return smartConcat(part.parts)
+			}
+			return part ?? ''
+		}),
+		' ',
+	)
+}
+
