@@ -1,13 +1,17 @@
 'use client'
 
+import { handleChangePassword } from '@/app/actions/auth/reset-password'
 import { Form } from '@/components/ui/form'
-import { passwordSchema } from '@/schema/auth'
+import { submitter } from '@/lib/utils'
+import { passwordSchema, ResetPasswordFormProps } from '@/schema/auth'
 import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { IconBrandApple, IconBrandGoogle } from '@tabler/icons-react'
+import { EllipsisVertical } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { PasswordField } from '../auth/fields'
-import { LabeledInputField } from '../fields'
 import { Button } from '../ui/button'
 import {
 	Card,
@@ -17,18 +21,17 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../ui/card'
-import { IconBrandApple, IconBrandGoogle } from '@tabler/icons-react'
-import { EllipsisVertical } from 'lucide-react'
-import { submitter } from '@/lib/utils'
 
 const emailSettingsForm = z.object({
 	password: passwordSchema,
 	verifyPassword: passwordSchema,
 })
 
-export function PasswordSettingsForm({ cardProps }: CardFormProps) {
+export function PasswordSettingsForm({
+	cardProps,
+}: CardFormProps<ResetPasswordFormProps>) {
 	// 1. Define your form.
-	const form = useForm<z.infer<typeof emailSettingsForm>>({
+	const form = useForm<ResetPasswordFormProps>({
 		resolver: zodResolver(emailSettingsForm),
 		defaultValues: {
 			password: '',
@@ -39,9 +42,13 @@ export function PasswordSettingsForm({ cardProps }: CardFormProps) {
 	// 2. Define a submit handler.
 	const onSubmit = submitter(
 		form,
-		(values: z.infer<typeof emailSettingsForm>) => {
-			// placeholder
-			console.log(values)
+		async (values: ResetPasswordFormProps) => {
+			return await handleChangePassword(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully updated your avatar settings')
+			},
 		},
 	)
 
@@ -55,11 +62,7 @@ export function PasswordSettingsForm({ cardProps }: CardFormProps) {
 					</CardHeader>
 					<CardContent className="grid gap-4 md:gap-6">
 						<PasswordField form={form} />
-						<LabeledInputField
-							form={form}
-							name={'verifyPassword'}
-							labelProps={{ children: 'Verify Password' }}
-						/>
+						<PasswordField form={form} name="verifyPassword" />
 					</CardContent>
 					<CardFooter className="mt-auto justify-end">
 						<Button loading={form.formState.isSubmitting}>Save</Button>
@@ -75,7 +78,9 @@ const oauthSettingsForm = z.object({
 	verifyPassword: passwordSchema,
 })
 
-export function OAuthSettingsForm({ cardProps }: CardFormProps) {
+export function OAuthSettingsForm({
+	cardProps,
+}: CardFormProps<z.infer<typeof oauthSettingsForm>>) {
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof oauthSettingsForm>>({
 		resolver: zodResolver(oauthSettingsForm),
