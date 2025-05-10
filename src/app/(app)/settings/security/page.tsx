@@ -1,6 +1,7 @@
 import {
 	OAuthSettingsForm,
 	PasswordSettingsForm,
+	SessionsTable,
 } from '@/components/auth/settings'
 import { TabsContent } from '@/components/ui/tabs'
 import { readOwnUser } from '@/constants/permissions'
@@ -15,6 +16,7 @@ const additionalSelect = {
 	username: true,
 	phoneNumber: true,
 	avatar: true,
+	sessions: true,
 }
 
 export default async function Page() {
@@ -35,6 +37,10 @@ export default async function Page() {
 			<section className="grid grid-cols-6 gap-4 md:gap-6">
 				<PasswordSettingsForm cardProps={{ className: 'col-span-2' }} />
 				<OAuthSettingsForm cardProps={{ className: 'col-span-2' }} />
+				<SessionsTable
+					cardProps={{ className: 'col-span-6' }}
+					sessions={user.sessions}
+				/>
 			</section>
 		</TabsContent>
 	)
