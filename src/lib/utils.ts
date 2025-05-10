@@ -1,3 +1,4 @@
+import { PermissionKey } from '@/constants/permissions'
 import { clsx, type ClassValue } from 'clsx'
 import { ErrorOption, FieldValues, Path, UseFormReturn } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -15,14 +16,14 @@ export function submitter<T extends FieldValues>(
 		| undefined
 	> | void,
 	options?: {
-		onSuccess?: () => void | Promise<void>
+		onSuccess?: (values: T) => void | Promise<void>
 	},
 ) {
 	return form.handleSubmit(async (values: T) => {
 		const result = await action(values)
 
 		if (!result || !result.errors) {
-			await options?.onSuccess?.()
+			await options?.onSuccess?.(values)
 			return
 		}
 
@@ -75,4 +76,31 @@ export function getImageDimensions(
 
 		img.src = URL.createObjectURL(file)
 	})
+}
+
+export function capitalize(str: string) {
+	return str.at(0)?.toUpperCase() + str.slice(1)
+}
+
+export function constructPermissionKey({
+	action,
+	access,
+	entity,
+}: {
+	action: string
+	access: string
+	entity: string
+}) {
+	return [action, access, entity].join(':')
+}
+
+export function constructRequiredPermissions(
+	sourcePermissions: Array<{
+		key: PermissionKey
+		action: string
+		access: string
+		entity: string
+	}>,
+) {
+	return sourcePermissions.map(({ key }) => key)
 }
