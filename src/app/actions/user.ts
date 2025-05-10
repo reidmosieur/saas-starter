@@ -1,10 +1,12 @@
-'use server'
-
+import { readGrantedDashboard } from '@/constants/permissions'
+import { defaultUserSelect } from '@/constants/user'
 import { Prisma } from '@/generated/prisma'
+import { checkUserPermissions } from '@/lib/access-control'
 import prisma from '@/lib/prisma'
 import { readSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
+import 'server-only'
 
 export const getUserId = cache(async () => {
 	const session = await readSession()
@@ -13,18 +15,8 @@ export const getUserId = cache(async () => {
 
 export const getUserFromSession = cache(
 	async (
-		select: Prisma.UserSelect = {
-			firstName: true,
-			lastName: true,
-			email: true,
-			onboarded: true,
-			avatar: {
-				select: {
-					src: true,
-				},
-			},
-		},
-	) => {
+		select: Prisma.UserSelect = defaultUserSelect,
+	): Promise<Prisma.UserGetPayload<{ select: typeof select }> | null> => {
 		const id = await getUserId()
 
 		if (!id) return null
@@ -43,7 +35,10 @@ export const getUserFromSession = cache(
 export async function handleUserInitialization() {
 	// Step 1:
 	// get the user
-	const user = await getUserFromSession()
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions: [readGrantedDashboard].map(({ key }) => key),
+		additionalSelect: defaultUserSelect,
+	})
 
 	// Step 2:
 	// the user should exist. they have a session cookie in middleware.
@@ -53,9 +48,8 @@ export async function handleUserInitialization() {
 	}
 
 	// Step 3:
-	// check if the user is fully onboarded. redirect them if they aren't
-	// user.onboarded is a date so we convert it to boolean
-	if (!Boolean(user.onboarded)) {
+	// check if the user is permitted by checking "read-dashboard-granted"
+	if (!permitted) {
 		redirect('/onboarding')
 	}
 
