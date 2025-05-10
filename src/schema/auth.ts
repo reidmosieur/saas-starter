@@ -25,6 +25,7 @@ export const emailSchema = z
 export const emailSignUpSchema = z.object({
 	email: emailSchema,
 })
+export type EmailSignUpFormProps = z.infer<typeof emailSignUpSchema>
 
 export const emailLoginSchema = z.object({
 	email: emailSchema,
@@ -35,16 +36,20 @@ export const emailLoginSchema = z.object({
 		.min(1, 'Please provide a password')
 		.trim(),
 })
+export type EmailLoginFormProps = z.infer<typeof emailLoginSchema>
 
 export const forgotPasswordSchema = z.object({
 	email: emailSchema,
 })
+export type ForgotPasswordFormProps = z.infer<typeof forgotPasswordSchema>
 
 export const resetPasswordSchema = z.object({
 	password: passwordSchema,
 	verifyPassword: passwordSchema,
 })
+export type ResetPasswordFormProps = z.infer<typeof resetPasswordSchema>
 
 export const verifyEmailSchema = z.object({
 	code: z.string().min(6, 'Your one-time password must be 6 characters'),
 })
+export type VerifyEmailFormProps = z.infer<typeof verifyEmailSchema>
