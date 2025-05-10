@@ -13,8 +13,68 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { TabsContent } from '@/components/ui/tabs'
+import { redirect } from 'next/navigation'
+import { constructRequiredPermissions } from '@/lib/utils'
+import { readOrganizationOrganization } from '@/constants/permissions'
+import { checkUserPermissions } from '@/lib/access-control'
 
-export default function Page() {
+const requiredPermissions = constructRequiredPermissions([
+	readOrganizationOrganization,
+])
+const additionalSelect = {
+	organization: {
+		select: {
+			name: true,
+			users: {
+				select: {
+					firstName: true,
+					lastName: true,
+					email: true,
+					roles: true,
+					createdAt: true,
+				},
+			},
+			roles: {
+				select: {
+					name: true,
+					users: {
+						select: {
+							firstName: true,
+							lastName: true,
+						},
+						take: 2,
+					},
+					permissions: {
+						select: {
+							name: true,
+						},
+						take: 2,
+					},
+					_count: {
+						select: {
+							users: true,
+							permissions: true,
+						},
+					},
+				},
+			},
+		},
+	},
+}
+
+export default async function Page() {
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions,
+		additionalSelect,
+	})
+
+	if (!permitted) {
+		redirect('/')
+	}
+
+	if (!user) {
+		redirect('/logout')
+	}
 	return (
 		<TabsContent value="billing" className="py-4 md:py-6">
 			<section className="grid grid-cols-6 gap-4 md:gap-6">

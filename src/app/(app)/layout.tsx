@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { UserContextProvider } from '@/context/user'
 import { handleUserInitialization } from '../actions/user'
+import { constructNavigation } from '@/lib/access-control'
 
 export default async function Layout({
 	children,
@@ -10,6 +11,7 @@ export default async function Layout({
 	children: React.ReactNode
 }>) {
 	const user = await handleUserInitialization()
+	const permittedRoutes = await constructNavigation()
 
 	return (
 		<UserContextProvider defaultValues={user}>
@@ -21,7 +23,7 @@ export default async function Layout({
 					} as React.CSSProperties
 				}
 			>
-				<AppSidebar variant="inset" />
+				<AppSidebar variant="inset" permittedRoutes={permittedRoutes} />
 				<SidebarInset>
 					<SiteHeader />
 					{children}

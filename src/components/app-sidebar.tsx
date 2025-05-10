@@ -1,9 +1,8 @@
 "use client";
 
-import { IconDashboard, IconInnerShadowTop } from "@tabler/icons-react";
-import * as React from "react";
+import { IconInnerShadowTop } from '@tabler/icons-react'
+import * as React from 'react'
 
-import { NavMain } from '@/components/nav-main'
 import {
 	Sidebar,
 	SidebarContent,
@@ -14,42 +13,46 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { appName } from '@/data/app'
-import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
 import Link from 'next/link'
-import { NavSecondary } from './nav-secondary'
 import { NavUser } from './nav-user'
+import { organizationSettings, root, settings } from '@/constants/routes'
+import { IconDashboard } from '@tabler/icons-react'
+import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
+import { NavMain } from './nav-main'
+import { NavSecondary } from './nav-secondary'
 
-const data = {
-	user: {
-		name: 'Reid Mosieur',
-		email: 'rmosieur@gmail.com',
-		avatar: '/avatars/reid.jpg',
-		fallback: 'RM',
+const navMain = [
+	{
+		title: 'Dashboard',
+		url: root,
+		icon: IconDashboard,
 	},
-	navMain: [
-		{
-			title: 'Dashboard',
-			url: '/',
-			icon: IconDashboard,
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Organization',
-			url: '/organization',
-			icon: BriefcaseBusiness,
-		},
-		{
-			title: 'Settings',
-			url: '/settings',
-			icon: SettingsIcon,
-		},
-	],
-}
+]
+const navSecondary = [
+	{
+		title: 'Organization',
+		url: organizationSettings,
+		icon: BriefcaseBusiness,
+	},
+	{
+		title: 'Settings',
+		url: settings,
+		icon: SettingsIcon,
+	},
+]
 
 export function AppSidebar({
+	permittedRoutes,
 	...props
-}: React.ComponentProps<typeof Sidebar> & {}) {
+}: React.ComponentProps<typeof Sidebar> & {
+	permittedRoutes: Array<string>
+}) {
+	const filteredNavMain = navMain.filter(({ url }) =>
+		permittedRoutes.includes(url),
+	)
+	const filteredNavSecondary = navSecondary.filter(({ url }) =>
+		permittedRoutes.includes(url),
+	)
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
@@ -68,8 +71,8 @@ export function AppSidebar({
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
-				<NavSecondary items={data.navSecondary} className="mt-auto" />
+				<NavMain items={filteredNavMain} />
+				<NavSecondary items={filteredNavSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser />

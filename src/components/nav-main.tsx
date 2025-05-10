@@ -11,15 +11,13 @@ import {
 } from "@/components/ui/sidebar";
 import Link from 'next/link'
 
-export function NavMain({
-	items,
-}: {
-	items: {
-		title: string
-		url: string
-		icon?: Icon
-	}[]
-}) {
+export type NavMainItems = Array<{
+	title: string
+	url: string
+	icon?: Icon
+}>
+
+export function NavMain({ items }: { items: NavMainItems }) {
 	return (
 		<SidebarGroup>
 			<SidebarGroupContent className="flex flex-col gap-2">
@@ -28,7 +26,7 @@ export function NavMain({
 						<SidebarMenuItem key={item.title}>
 							<SidebarMenuButton tooltip={item.title} asChild>
 								<Link className="text-foreground" href={item.url}>
-									{item.icon && <item.icon />}
+									{item.icon ? <item.icon /> : null}
 									<span>{item.title}</span>
 								</Link>
 							</SidebarMenuButton>

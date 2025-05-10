@@ -12,17 +12,19 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
+export type NavSecondaryItems = Array<{
+	title: string
+	url: string
+	icon: LucideIcon
+}>
+
 export function NavSecondary({
-  items,
-  ...props
+	items,
+	...props
 }: {
-  items: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
+	items: NavSecondaryItems
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  return (
+	return (
 		<SidebarGroup {...props}>
 			<SidebarGroupContent>
 				<SidebarMenu>

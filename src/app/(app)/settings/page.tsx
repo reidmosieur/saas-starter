@@ -1,31 +1,33 @@
-import { getUserFromSession } from '@/app/actions/user'
 import {
-	PersonalInfoSettingsForm,
 	AvatarSettingsForm,
 	EmailSettingsForm,
+	PersonalInfoSettingsForm,
 	PhonenumberSettingsForm,
 } from '@/components/account/settings'
 import { TabsContent } from '@/components/ui/tabs'
+import { readOwnUser } from '@/constants/permissions'
+import { checkUserPermissions } from '@/lib/access-control'
+import { constructRequiredPermissions } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
+const requiredPermissions = constructRequiredPermissions([readOwnUser])
+const additionalSelect = {
+	firstName: true,
+	lastName: true,
+	username: true,
+	phoneNumber: true,
+	avatar: true,
+}
+
 export default async function Page() {
-	const user = await getUserFromSession({
-		firstName: true,
-		lastName: true,
-		username: true,
-		email: true,
-		phoneNumber: {
-			select: {
-				countryCode: true,
-				number: true,
-			},
-		},
-		avatar: {
-			select: {
-				src: true,
-			},
-		},
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions,
+		additionalSelect,
 	})
+
+	if (!permitted) {
+		redirect('/')
+	}
 
 	if (!user) {
 		redirect('/logout')
