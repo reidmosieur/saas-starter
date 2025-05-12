@@ -17,6 +17,7 @@ const additionalSelect = {
 	username: true,
 	phoneNumber: true,
 	avatar: true,
+	email: true,
 }
 
 export default async function Page() {
