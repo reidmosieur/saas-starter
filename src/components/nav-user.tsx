@@ -23,11 +23,11 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from '@/components/ui/sidebar'
-import Link from 'next/link'
-import React from 'react'
+import { billingSettingsRoute, settingsRoute } from '@/constants/routes'
 import { useUser } from '@/context/user'
+import Link from 'next/link'
 
-export function NavUser() {
+export function NavUser({ permitted }: { permitted: Array<string> }) {
 	const { isMobile } = useSidebar()
 	const { user } = useUser()
 
@@ -102,21 +102,22 @@ export function NavUser() {
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem asChild>
-								<Link className="text-foreground" href={'/settings'}>
-									<IconUserCircle />
-									Account
-								</Link>
-							</DropdownMenuItem>
-							<DropdownMenuItem asChild>
-								<Link
-									className="text-foreground"
-									href={'/organization/billing'}
-								>
-									<IconCreditCard />
-									Billing
-								</Link>
-							</DropdownMenuItem>
+							{permitted.includes(settingsRoute) ? (
+								<DropdownMenuItem asChild>
+									<Link className="text-foreground" href={settingsRoute}>
+										<IconUserCircle />
+										Account
+									</Link>
+								</DropdownMenuItem>
+							) : null}
+							{permitted.includes(billingSettingsRoute) ? (
+								<DropdownMenuItem asChild>
+									<Link className="text-foreground" href={billingSettingsRoute}>
+										<IconCreditCard />
+										Billing
+									</Link>
+								</DropdownMenuItem>
+							) : null}
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem asChild>
