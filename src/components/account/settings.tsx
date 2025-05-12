@@ -7,6 +7,7 @@ import {
 	uploadAvatar,
 } from '@/app/actions/account/settings'
 import { Form, FormMessage } from '@/components/ui/form'
+import { useUser } from '@/context/user'
 import { cn, getImageDimensions, submitter } from '@/lib/utils'
 import {
 	avatarSettingsForm,
@@ -25,7 +26,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { EmailField } from '../auth/fields'
-import { Avatar, AvatarImage } from '../ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 import {
 	Card,
@@ -35,8 +36,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../ui/card'
-import { NameField, PhoneNumberField, UsernameField } from './fields'
-import { useUser } from '@/context/user'
+import { NameField, PhoneNumberFlagField, UsernameField } from './fields'
 
 export function PersonalInfoSettingsForm({
 	cardProps,
@@ -172,7 +172,7 @@ export function EmailSettingsForm({
 export function PhonenumberSettingsForm({
 	cardProps,
 	defaultValues = {
-		phoneNumber: '',
+		phoneNumber: 'US',
 		countryCode: '',
 	},
 }: CardFormProps<PhoneNumberSettingsFormProps>) {
@@ -213,7 +213,7 @@ export function PhonenumberSettingsForm({
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="grid gap-4 md:gap-6">
-						<PhoneNumberField form={form} />
+						<PhoneNumberFlagField form={form} />
 					</CardContent>
 					<CardFooter className="mt-auto justify-end gap-4">
 						{form.formState.isDirty ? (
@@ -312,12 +312,16 @@ export function AvatarSettingsForm({
 							)}
 						>
 							{preview ? (
-								<Avatar className="h-full w-full">
+								<Avatar className="aspect-square h-full w-full">
 									<AvatarImage
 										className="aspect-square h-full w-full object-cover"
 										src={preview}
 										alt="Your avatar"
 									/>
+									<AvatarFallback className="rounded-full">
+										<Upload className="size-8" />
+										<span>Upload an image</span>
+									</AvatarFallback>
 								</Avatar>
 							) : (
 								<>
