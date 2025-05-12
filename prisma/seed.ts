@@ -1,4 +1,5 @@
 import { PrismaClient } from '@/generated/prisma'
+import { constructPermissionKey } from '@/lib/utils'
 import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
@@ -21,6 +22,7 @@ async function main() {
 		accesses.flatMap((access) =>
 			entities.flatMap((entity) => ({
 				name: `${action} ${access} ${entity}`,
+				key: constructPermissionKey({ action, access, entity }),
 				action,
 				access,
 				entity,
@@ -33,6 +35,11 @@ async function main() {
 				// indicates a user is allowed to use the app
 				// useful for after onboarding, eg if a users access is revoked
 				name: 'view dashboard',
+				key: constructPermissionKey({
+					action: 'read',
+					access: 'granted',
+					entity: 'dashboard',
+				}),
 				action: 'read',
 				access: 'granted',
 				entity: 'dashboard',

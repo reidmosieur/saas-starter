@@ -168,7 +168,7 @@ model Permission {
   updatedAt DateTime @updatedAt
 
   name   String
-  key    String @unique //action:access:entity
+  key    String @unique // action:access:entity
   action String
   access String
   entity String
