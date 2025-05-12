@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card'
 import { cn, submitter } from '@/lib/utils'
 
-import { handleVerifyOTP } from '@/app/actions/auth/verify'
+import { verifyOTP } from '@/app/actions/auth/verify'
 import { verifyEmailSchema } from '@/schema/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -53,7 +53,7 @@ function OTPForm() {
 	const onSubmit = submitter(
 		form,
 		async (values: z.infer<typeof verifyEmailSchema>) => {
-			return await handleVerifyOTP(values)
+			return await verifyOTP(values)
 		},
 	)
 	return (

@@ -1,6 +1,10 @@
 import { z } from 'zod'
 import { emailSchema, passwordSchema } from './auth'
-import { organizationNameSchema } from './organization'
+import {
+	firstNameSchema,
+	lastNameSchema,
+	organizationNameSchema,
+} from './shared'
 
 export const usernameSchema = z
 	.string()
@@ -12,17 +16,12 @@ export const usernameSchema = z
 		message: `Please only use letters, numbers, and underscores`,
 	})
 	.trim()
-
-export const firstNameSchema = z
-	.string()
-	.min(2, { message: `Please provide a first name` })
-	.trim()
-export const lastNameSchema = z
-	.string()
-	.min(2, { message: `Please provide a last name` })
-	.trim()
 export const countryCodeSchema = z.string()
-export const phoneNumberSchema = z.string()
+export const phoneNumberSchema = z
+	.string()
+	.min(10)
+	.max(15)
+	.regex(/^\d+$/, 'Phone number must contain digits only')
 
 const fileSizeLimit = 5 * 1024 * 1024 // 5MB
 export const avatarSchema = z
@@ -61,6 +60,8 @@ export const personalInfoSettingsForm = z.object({
 	username: usernameSchema,
 	firstName: firstNameSchema,
 	lastName: lastNameSchema,
+	countryCode: countryCodeSchema,
+	phoneNumber: phoneNumberSchema,
 })
 export type PersonalInfoSettingsFormProps = z.infer<
 	typeof personalInfoSettingsForm

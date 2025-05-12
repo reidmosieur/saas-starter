@@ -18,17 +18,25 @@ import { redirect } from 'next/navigation'
 import { OrganizationOnboardingStep } from './organization'
 import { PersonalInfoOnboardingStep } from './personal-info'
 import { Fragment } from 'react'
+import { OnboardingSteps } from '@/generated/prisma'
 
-const onboardingSteps = [
+const onboardingSteps: Array<{
+	id: OnboardingSteps
+	slug: OnboardingSlugs
+	label: string
+}> = [
 	{
+		id: 'CREDENTIALS',
 		slug: 'credentials',
 		label: 'Credentials',
 	},
 	{
+		id: 'PERSONAL_INFO',
 		slug: 'personal-info',
 		label: 'Your Info',
 	},
 	{
+		id: 'ORGANIZATION',
 		slug: 'organization',
 		label: 'Organization Info',
 	},
@@ -40,11 +48,13 @@ export function Onboarding({
 	heading = 'Welcome',
 	description = 'Continue setting up your account',
 	slug,
+	requiredSteps = ['CREDENTIALS', 'PERSONAL_INFO', 'ORGANIZATION'],
 	...props
 }: React.ComponentProps<'div'> & {
 	heading?: string
 	description?: string
 	slug: string
+	requiredSteps?: Array<OnboardingSteps>
 }) {
 	const onboardingStepsLength = onboardingSteps.length
 	const currentStep = onboardingSteps.findIndex(
@@ -63,31 +73,33 @@ export function Onboarding({
 				<CardContent className="mb-6 space-y-6">
 					<Breadcrumb>
 						<BreadcrumbList className="justify-between sm:gap-5">
-							{onboardingSteps.map(({ slug, label }, index) => {
-								const completed = index < currentStep
-								const current = index === currentStep
-								return (
-									<Fragment key={slug}>
-										<BreadcrumbItem
-											className={cn(
-												completed && 'text-primary',
-												current && 'text-foreground',
-											)}
-										>
-											{label}
-										</BreadcrumbItem>
-										{index < onboardingStepsLength - 1 ? (
-											<Separator
-												orientation="horizontal"
+							{onboardingSteps
+								.filter(({ id }) => requiredSteps.includes(id))
+								.map(({ slug, label }, index) => {
+									const completed = index < currentStep
+									const current = index === currentStep
+									return (
+										<Fragment key={slug}>
+											<BreadcrumbItem
 												className={cn(
-													'grow data-[orientation=horizontal]:w-fit',
-													completed && 'bg-primary',
+													completed && 'text-primary',
+													current && 'text-foreground',
 												)}
-											/>
-										) : null}
-									</Fragment>
-								)
-							})}
+											>
+												{label}
+											</BreadcrumbItem>
+											{index < onboardingStepsLength - 2 ? (
+												<Separator
+													orientation="horizontal"
+													className={cn(
+														'grow data-[orientation=horizontal]:w-fit',
+														completed && 'bg-primary',
+													)}
+												/>
+											) : null}
+										</Fragment>
+									)
+								})}
 						</BreadcrumbList>
 					</Breadcrumb>
 					{children}
@@ -97,9 +109,9 @@ export function Onboarding({
 	)
 }
 
-export type OnboardingSteps = 'credentials' | 'personal-info' | 'organization'
+export type OnboardingSlugs = 'credentials' | 'personal-info' | 'organization'
 
-export function OnboardingStep({ slug }: { slug: OnboardingSteps }) {
+export function OnboardingStep({ slug }: { slug: OnboardingSlugs }) {
 	switch (slug) {
 		// Step 1:
 		// credentials step is at /onboarding

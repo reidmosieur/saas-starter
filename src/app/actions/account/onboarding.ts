@@ -10,6 +10,7 @@ import { redirect } from 'next/navigation'
 import { hashPassword } from '../auth'
 import { getUserId } from '../user'
 import { Prisma } from '@/generated/prisma'
+import { logoutRoute } from '@/constants/routes'
 
 const safeError = {
 	errors: {
@@ -39,15 +40,17 @@ export async function completeCredentialsOnboarding(values: {
 	const userId = await getUserId()
 
 	if (!userId) {
-		redirect('/logout')
+		redirect(logoutRoute)
 	}
 
 	const { username, password } = validatedFields.data
 
 	const hashedPassword = await hashPassword(password)
 
+	let updatedUser
+
 	try {
-		await prisma.user.update({
+		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
 			},
@@ -67,6 +70,13 @@ export async function completeCredentialsOnboarding(values: {
 						stepTimeStamps: {
 							CREDENTIALS: new Date(),
 						},
+					},
+				},
+			},
+			select: {
+				onboarding: {
+					select: {
+						requiredSteps: true,
 					},
 				},
 			},
@@ -93,7 +103,11 @@ export async function completeCredentialsOnboarding(values: {
 		return safeError
 	}
 
-	redirect('/onboarding/personal-info')
+	if (updatedUser.onboarding?.requiredSteps.includes('PERSONAL_INFO')) {
+		redirect('/onboarding/personal-info')
+	} else {
+		redirect('/onboarding/complete')
+	}
 }
 
 export async function completePersonalInfoOnboarding(values: {
@@ -123,6 +137,8 @@ export async function completePersonalInfoOnboarding(values: {
 
 	const { firstName, lastName, countryCode, phoneNumber } = validatedFields.data
 
+	let updatedUser
+
 	try {
 		const currentUser = await prisma.user.findUniqueOrThrow({
 			where: {
@@ -144,7 +160,7 @@ export async function completePersonalInfoOnboarding(values: {
 			...stepTimeStamps,
 			[completedStep]: new Date(),
 		}
-		await prisma.user.update({
+		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
 			},
@@ -170,6 +186,13 @@ export async function completePersonalInfoOnboarding(values: {
 					},
 				},
 			},
+			select: {
+				onboarding: {
+					select: {
+						requiredSteps: true,
+					},
+				},
+			},
 		})
 	} catch (err) {
 		console.error(err)
@@ -177,7 +200,11 @@ export async function completePersonalInfoOnboarding(values: {
 		return safeError
 	}
 
-	redirect('/onboarding/organization')
+	if (updatedUser.onboarding?.requiredSteps.includes('ORGANIZATION')) {
+		redirect('/onboarding/organization')
+	} else {
+		redirect('/onboarding/complete')
+	}
 }
 
 export async function completeOrganizationOnboarding(values: { name: string }) {

@@ -7,10 +7,18 @@ import {
 import { TabsContent } from '@/components/ui/tabs'
 import { redirect } from 'next/navigation'
 import { constructRequiredPermissions } from '@/lib/utils'
-import { readOrganizationOrganization } from '@/constants/permissions'
+import {
+	readOrganizationOrganization,
+	readOrganizationRole,
+	readOrganizationUser,
+	updateOrganizationRole,
+	updateOrganizationUser,
+} from '@/constants/permissions'
+import { logoutRoute, rootRoute } from '@/constants/routes'
 
 const requiredPermissions = constructRequiredPermissions([
 	readOrganizationOrganization,
+	readOrganizationUser,
 ])
 const additionalSelect = {
 	organization: {
@@ -22,11 +30,14 @@ const additionalSelect = {
 					lastName: true,
 					email: true,
 					roles: true,
-					createdAt: true,
+					onboarded: true,
+					suspended: true,
+					invitedAt: true,
 				},
 			},
 			roles: {
 				select: {
+					id: true,
 					name: true,
 					users: {
 						select: {
@@ -48,31 +59,51 @@ const additionalSelect = {
 						},
 					},
 				},
+				orderBy: {
+					createdAt: 'asc',
+				},
 			},
 		},
 	},
 }
 
 export default async function Page() {
-	const { permitted, permissions, user } = await checkUserPermissions({
+	const { permitted, user, permissions } = await checkUserPermissions({
 		requiredPermissions,
 		additionalSelect,
 	})
 
 	if (!permitted) {
-		redirect('/')
+		redirect(rootRoute)
 	}
 
 	if (!user) {
-		redirect('/logout')
+		redirect(logoutRoute)
 	}
+
+	// this is weird, the user should have permissions
+	if (!permissions || !permissions.size) {
+		// optional: log that something weird happened
+		redirect(rootRoute)
+	}
+
+	// user can view organization users but not update them
+	// this could become more granular with a createOrganizationUser
+	// check then remove the "Invite user" button but keep the vertical
+	// ellipsis edit button
+	const readOnlyUsersTable =
+		permissions.has(readOrganizationUser.key) &&
+		!permissions.has(updateOrganizationUser.key)
+
+	// similar logic to make role table read only
+	// just for roles
+	const readOnlyRolesTable =
+		permissions.has(readOrganizationRole.key) &&
+		!permissions.has(updateOrganizationRole.key)
 
 	return (
 		<TabsContent value="general" className="py-4 md:py-6">
 			<section className="grid grid-cols-6 gap-4 md:gap-6">
-				<pre className="col-span-6 whitespace-pre-wrap">
-					{JSON.stringify(permissions)}
-				</pre>
 				<OrganizationInfoSettingsForm
 					cardProps={{ className: 'col-span-2 h-fit' }}
 					defaultValues={{
@@ -82,10 +113,13 @@ export default async function Page() {
 				<OrganizationUsers
 					cardProps={{ className: 'col-span-4' }}
 					users={user.organization?.users}
+					readOnly={readOnlyUsersTable}
+					roles={user.organization?.roles}
 				/>
 				<OrganizationRoles
 					cardProps={{ className: 'col-span-4' }}
 					roles={user.organization?.roles}
+					readOnly={readOnlyRolesTable}
 				/>
 			</section>
 		</TabsContent>

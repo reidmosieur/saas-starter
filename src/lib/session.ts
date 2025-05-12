@@ -32,7 +32,7 @@ export async function decrypt(session: string | undefined = '') {
 		})
 		return payload
 	} catch (error) {
-		console.log('Failed to verify session', error)
+		console.error('Failed to verify session', error)
 	}
 }
 
@@ -47,63 +47,70 @@ export async function createSession({
 	context: string
 	metadata?: InputJsonObject
 }) {
-	const headersList = await headers()
-	const forwardedFor = headersList.get('x-forwarded-for')
+	try {
+		const headersList = await headers()
+		const forwardedFor = headersList.get('x-forwarded-for')
 
-	const userAgentData = userAgent({ headers: headersList })
+		const userAgentData = userAgent({ headers: headersList })
 
-	const ipInfo = await getIpLocation(forwardedFor ?? undefined)
+		const ipInfo = await getIpLocation(forwardedFor ?? undefined)
 
-	const { id, expiresAt: sessionExpiresAt } = await prisma.session.create({
-		data: {
-			userId,
-			expiresAt,
-			ipAddress: forwardedFor,
-			// user agent data
-			ua: userAgentData?.ua,
-			isBot: userAgentData?.isBot,
-			browserName: userAgentData?.browser.name,
-			browserVersion: userAgentData?.browser.version,
-			browserMajor: userAgentData?.browser.major,
-			deviceModel: userAgentData?.device.model,
-			deviceType: userAgentData?.device.type,
-			deviceVendor: userAgentData?.device.vendor,
-			engineName: userAgentData?.engine.name,
-			engineVersion: userAgentData?.engine.version,
-			osName: userAgentData?.os.name,
-			osVersion: userAgentData?.os.version,
-			cpuArchitecture: userAgentData?.cpu.architecture,
-			// ip info
-			hostname: ipInfo?.hostname,
-			city: ipInfo?.city,
-			region: ipInfo?.region,
-			country: ipInfo?.country,
-			loc: ipInfo?.loc,
-			org: ipInfo?.org,
-			postal: ipInfo?.postal,
-			timezone: ipInfo?.timezone,
-			context,
-			metadata,
-		},
-	})
+		const { id, expiresAt: sessionExpiresAt } = await prisma.session.create({
+			data: {
+				userId,
+				expiresAt,
+				ipAddress: forwardedFor,
+				// user agent data
+				ua: userAgentData?.ua,
+				isBot: userAgentData?.isBot,
+				browserName: userAgentData?.browser.name,
+				browserVersion: userAgentData?.browser.version,
+				browserMajor: userAgentData?.browser.major,
+				deviceModel: userAgentData?.device.model,
+				deviceType: userAgentData?.device.type,
+				deviceVendor: userAgentData?.device.vendor,
+				engineName: userAgentData?.engine.name,
+				engineVersion: userAgentData?.engine.version,
+				osName: userAgentData?.os.name,
+				osVersion: userAgentData?.os.version,
+				cpuArchitecture: userAgentData?.cpu.architecture,
+				// ip info
+				hostname: ipInfo?.hostname,
+				city: ipInfo?.city,
+				region: ipInfo?.region,
+				country: ipInfo?.country,
+				loc: ipInfo?.loc,
+				org: ipInfo?.org,
+				postal: ipInfo?.postal,
+				timezone: ipInfo?.timezone,
+				context,
+				metadata,
+			},
+		})
 
-	const session = await encrypt({
-		id,
-		expiresAt: sessionExpiresAt ?? undefined,
-	})
+		const session = await encrypt({
+			id,
+			expiresAt: sessionExpiresAt ?? undefined,
+		})
 
-	const cookieStore = await cookies()
-	cookieStore.set('session', session, {
-		httpOnly: true,
-		secure: true,
-		expires: sessionExpiresAt ?? undefined,
-		sameSite: 'strict',
-		path: '/',
-	})
+		const cookieStore = await cookies()
+		cookieStore.set('session', session, {
+			httpOnly: true,
+			secure: true,
+			expires: sessionExpiresAt ?? undefined,
+			sameSite: 'strict',
+			path: '/',
+		})
+	} catch (err) {
+		console.error(err)
+
+		return
+	}
 }
 
 export async function readSession() {
 	const cookie = (await cookies()).get('session')?.value
+
 	const sessionCookie = await decrypt(cookie)
 	const sessionId = sessionCookie?.id as number | undefined
 

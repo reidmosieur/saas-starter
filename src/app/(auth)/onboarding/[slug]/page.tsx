@@ -1,9 +1,10 @@
 import { GalleryVerticalEnd } from 'lucide-react'
 
+import { getUserFromSession } from '@/app/actions/user'
 import {
 	Onboarding,
 	OnboardingStep,
-	OnboardingSteps,
+	OnboardingSlugs,
 } from '@/components/account/onboarding'
 import { appName } from '@/data/app'
 import Link from 'next/link'
@@ -11,9 +12,12 @@ import Link from 'next/link'
 export default async function Page({
 	params,
 }: {
-	params: Promise<{ slug: OnboardingSteps }>
+	params: Promise<{ slug: OnboardingSlugs }>
 }) {
 	const { slug } = await params
+	const user = await getUserFromSession({
+		onboarding: { select: { requiredSteps: true } },
+	})
 	return (
 		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 			<div className="flex w-full max-w-md flex-col gap-6">
@@ -26,7 +30,7 @@ export default async function Page({
 					</div>
 					{appName}
 				</Link>
-				<Onboarding slug={slug}>
+				<Onboarding slug={slug} requiredSteps={user?.onboarding?.requiredSteps}>
 					<OnboardingStep slug={slug} />
 				</Onboarding>
 			</div>

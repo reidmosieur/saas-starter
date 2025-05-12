@@ -1,16 +1,34 @@
 'use client'
 
-import { updateOrganizationInfoSettingsForm } from '@/app/actions/organization'
-import { Form } from '@/components/ui/form'
-import { submitter } from '@/lib/utils'
 import {
+	createOrganizationRole,
+	sendOrganizationInvitation,
+	updateOrganizationInfoSettingsForm,
+} from '@/app/actions/organization'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form'
+import { permissionsArray } from '@/constants/permissions'
+import { Permission, Role, User } from '@/generated/prisma'
+import { cn, submitter } from '@/lib/utils'
+import {
+	inviteUserForm,
+	InviteUserFormProps,
+	newRoleForm,
+	NewRoleFormProps,
 	organizationInfoSettingsForm,
 	OrganizationInfoSettingsFormProps,
 } from '@/schema/organization'
 import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EllipsisVertical, UserPlus } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { ComponentProps, useMemo, useState } from 'react'
+import { useForm, UseFormReturn } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import {
@@ -21,7 +39,21 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../ui/card'
+import { Checkbox } from '../ui/checkbox'
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '../ui/dialog'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { ScrollArea } from '../ui/scroll-area'
 import {
 	Table,
 	TableBody,
@@ -30,9 +62,9 @@ import {
 	TableHeader,
 	TableRow,
 } from '../ui/table'
-import { OrganizationNameField } from './fields'
-import { ComponentProps } from 'react'
-import { Permission, Role, User } from '@/generated/prisma'
+import { OrganizationNameField, SelectRoleField } from './fields'
+import { EmailField } from '../auth/fields'
+import { NameField } from '../account/fields'
 
 export function OrganizationInfoSettingsForm({
 	cardProps,
@@ -80,6 +112,8 @@ export function OrganizationInfoSettingsForm({
 export function OrganizationUsers({
 	cardProps,
 	users,
+	roles,
+	readOnly,
 }: {
 	cardProps: ComponentProps<'div'>
 	users: Array<
@@ -89,6 +123,8 @@ export function OrganizationUsers({
 			}
 		>
 	>
+	roles: Array<Partial<Role>>
+	readOnly: boolean
 }) {
 	return (
 		<Card {...cardProps}>
@@ -97,9 +133,12 @@ export function OrganizationUsers({
 					<CardTitle>Users</CardTitle>
 					<CardDescription>Change your organizations users</CardDescription>
 				</div>
-				<Button variant={'outline'} size={'sm'}>
-					Invite <UserPlus />
-				</Button>
+				{/* 
+					optionally could display and just disable the button
+					but that would require additional form validation
+					the simplest solution is to just never render the invite form
+				*/}
+				{readOnly ? null : <InviteUser roles={roles} />}
 			</CardHeader>
 			<CardContent>
 				<Table>
@@ -115,7 +154,18 @@ export function OrganizationUsers({
 					<TableBody>
 						{users.length > 0
 							? users.map(
-									({ firstName, lastName, email, createdAt, roles }, index) => (
+									(
+										{
+											firstName,
+											lastName,
+											email,
+											onboarded,
+											invitedAt,
+											suspended,
+											roles,
+										},
+										index,
+									) => (
 										<TableRow key={index}>
 											<TableCell>{email}</TableCell>
 											<TableCell>
@@ -124,11 +174,29 @@ export function OrganizationUsers({
 											<TableCell>
 												{roles?.map(({ name }) => name).join(', ')}
 											</TableCell>
-											<TableCell className="text-green-700 dark:text-green-400">
-												{createdAt ? (
+											<TableCell
+												className={cn(
+													suspended && 'text-destructive',
+													onboarded &&
+														!suspended &&
+														'text-green-700 dark:text-green-400',
+													invitedAt && 'text-muted-foreground',
+												)}
+											>
+												{suspended ? (
+													<span>
+														Suspended on{' '}
+														{new Date(suspended).toLocaleDateString()}
+													</span>
+												) : onboarded ? (
 													<span>
 														Active since{' '}
-														{new Date(createdAt).toLocaleDateString()}
+														{new Date(onboarded).toLocaleDateString()}
+													</span>
+												) : invitedAt ? (
+													<span>
+														Invited on{' '}
+														{new Date(invitedAt).toLocaleDateString()}
 													</span>
 												) : null}
 											</TableCell>
@@ -144,7 +212,7 @@ export function OrganizationUsers({
 														className="flex flex-col gap-2"
 													>
 														<Button variant={'outline'}>Edit</Button>
-														<Button variant={'outline'}>Deactivate</Button>
+														<Button variant={'outline'}>Suspend</Button>
 														<Button variant={'destructive'}>Delete</Button>
 													</PopoverContent>
 												</Popover>
@@ -160,9 +228,73 @@ export function OrganizationUsers({
 	)
 }
 
+function InviteUser({ roles }: { roles: Array<Partial<Role>> }) {
+	// 1. Define your form.
+	const form = useForm<InviteUserFormProps>({
+		resolver: zodResolver(inviteUserForm),
+		defaultValues: {
+			email: '',
+			firstName: '',
+			lastName: '',
+		},
+	})
+
+	// 2. Define a submit handler.
+	const onSubmit = submitter(
+		form,
+		async (values: InviteUserFormProps) => {
+			return await sendOrganizationInvitation(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully update your organization name')
+			},
+		},
+	)
+	return (
+		<Dialog>
+			<DialogTrigger asChild>
+				<Button variant={'outline'} size={'sm'}>
+					Invite <UserPlus />
+				</Button>
+			</DialogTrigger>
+			<DialogContent>
+				<Form {...form}>
+					<form onSubmit={onSubmit}>
+						<DialogHeader>
+							<DialogTitle>Invite a user</DialogTitle>
+							<DialogDescription>
+								Enter the email of the user you&apos;d like to invite.
+							</DialogDescription>
+						</DialogHeader>
+						<div className="space-y-8 py-4">
+							<EmailField form={form} />
+							<NameField form={form} />
+							<SelectRoleField
+								form={form}
+								options={roles.map(({ name, id }) => ({
+									label: name,
+									value: id,
+								}))}
+							/>
+						</div>
+						<DialogFooter>
+							<DialogClose asChild>
+								<Button variant={'outline'}>Cancel</Button>
+							</DialogClose>
+							<Button type="submit">Send invitation</Button>
+						</DialogFooter>
+					</form>
+				</Form>
+			</DialogContent>
+		</Dialog>
+	)
+}
+
 export function OrganizationRoles({
 	cardProps,
 	roles,
+	readOnly,
 }: {
 	cardProps: ComponentProps<'div'>
 	roles: Array<
@@ -177,6 +309,7 @@ export function OrganizationRoles({
 			}
 		>
 	>
+	readOnly: boolean
 }) {
 	return (
 		<Card {...cardProps}>
@@ -185,9 +318,12 @@ export function OrganizationRoles({
 					<CardTitle>Roles</CardTitle>
 					<CardDescription>Change your organizations roles</CardDescription>
 				</div>
-				<Button variant={'outline'} size={'sm'}>
-					Add
-				</Button>
+				{/* 
+					optionally could display and just disable the button
+					but that would require additional form validation
+					the simplest solution is to just never render the invite form
+				*/}
+				{readOnly ? null : <AddOrganizationRole />}
 			</CardHeader>
 			<CardContent>
 				<Table>
@@ -238,6 +374,184 @@ export function OrganizationRoles({
 		</Card>
 	)
 }
+
+function AddOrganizationRole() {
+	// 1. Define your form.
+	const form = useForm<NewRoleFormProps>({
+		resolver: zodResolver(newRoleForm),
+		defaultValues: {
+			name: '',
+			permissions: [],
+		},
+	})
+
+	// 2. Define a submit handler.
+	const onSubmit = submitter(
+		form,
+		async (values: NewRoleFormProps) => {
+			return await createOrganizationRole(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully update your organization name')
+			},
+		},
+	)
+	return (
+		<Dialog>
+			<DialogTrigger asChild>
+				<Button variant={'outline'} size={'sm'}>
+					Add
+				</Button>
+			</DialogTrigger>
+			<DialogContent className="sm:max-w-screen-xl">
+				<Form {...form}>
+					<form onSubmit={onSubmit}>
+						<DialogHeader>
+							<DialogTitle>Create Role</DialogTitle>
+							<DialogDescription>
+								Create a role for your organization to control the level of
+								access your organizations users get
+							</DialogDescription>
+						</DialogHeader>
+						<div className="space-y-8 py-4">
+							<FormField
+								control={form.control}
+								name="name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Name</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="name"
+								render={() => <PermissionsField form={form} />}
+							/>
+						</div>
+						<DialogFooter>
+							<DialogClose asChild>
+								<Button variant={'outline'}>Cancel</Button>
+							</DialogClose>
+							<Button>Create</Button>
+						</DialogFooter>
+					</form>
+				</Form>
+			</DialogContent>
+		</Dialog>
+	)
+}
+
+function PermissionsField({
+	form,
+}: {
+	form: UseFormReturn<
+		{
+			permissions: string[]
+			name: string
+		},
+		any,
+		{
+			permissions: string[]
+			name: string
+		}
+	>
+}) {
+	const [filter, setFilter] = useState<string>('')
+
+	const permissions = form.watch('permissions')
+
+	const handleCheckboxChange = (key: string, checked: boolean) => {
+		const current = new Set(form.getValues('permissions'))
+		if (checked) {
+			current.add(key)
+		} else {
+			current.delete(key)
+		}
+		form.setValue('permissions', Array.from(current))
+	}
+
+	const groupedPermissions = useMemo(() => {
+		return permissionsArray.reduce<
+			Record<string, { key: string; entity: string }[]>
+		>((acc, perm) => {
+			if (!acc[perm.entity]) acc[perm.entity] = []
+			acc[perm.entity].push(perm)
+			return acc
+		}, {})
+	}, [])
+
+	return (
+		<FormItem>
+			<FormLabel>Permissions</FormLabel>
+			<FormControl>
+				<ScrollArea className="max-h-64 pr-2">
+					<div className="space-y-8">
+						<div className="grid grid-cols-10 gap-8">
+							<Input
+								className="col-span-9 w-full grow"
+								placeholder="Filter"
+								value={filter}
+								onChange={(e) => setFilter(e.target.value)}
+							/>
+
+							<div className="col-span-1 flex items-center gap-2">
+								<Checkbox
+									id="select-all"
+									checked={permissions.length === permissionsArray.length}
+									onCheckedChange={(checked) =>
+										form.setValue(
+											'permissions',
+											checked ? permissionsArray.map(({ key }) => key) : [],
+										)
+									}
+								/>{' '}
+								<Label htmlFor="select-all" className="grow">
+									Select all
+								</Label>
+							</div>
+						</div>
+
+						{Object.entries(groupedPermissions).map(([entity, perms]) => {
+							const filtered = perms.filter(({ key }) => key.includes(filter))
+
+							if (filtered.length === 0) return null
+
+							return (
+								<div key={entity}>
+									<h4 className="mt-2 mb-2 text-sm font-semibold capitalize">
+										{entity}
+									</h4>
+									<ul className="grid grid-cols-3 gap-4">
+										{filtered.map(({ key }) => (
+											<li key={key} className="flex gap-2">
+												<Checkbox
+													id={key}
+													checked={permissions.includes(key)}
+													onCheckedChange={(checked) =>
+														handleCheckboxChange(key, Boolean(checked))
+													}
+												/>{' '}
+												<Label htmlFor={key}>{key}</Label>
+											</li>
+										))}
+									</ul>
+								</div>
+							)
+						})}
+					</div>
+				</ScrollArea>
+			</FormControl>
+			<FormMessage />
+		</FormItem>
+	)
+}
+
 
 function UsersCell({
 	users,

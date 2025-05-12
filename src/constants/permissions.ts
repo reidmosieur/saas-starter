@@ -270,6 +270,7 @@ export const Permissions = {
 	deleteOrganizationAvatar,
 	deleteOrganizationRole,
 } as const
+export const permissionsArray = Object.values(Permissions)
 
 export type PermissionKey =
 	(typeof Permissions)[keyof typeof Permissions]['key']

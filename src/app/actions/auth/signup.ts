@@ -6,6 +6,7 @@ import { checkExistingUser } from '.'
 import { handleOTPSetup } from './verify'
 import prisma from '@/lib/prisma'
 import { createSession } from '@/lib/session'
+import { verifyCodeRoute } from '@/constants/routes'
 
 const safeError = {
 	errors: {
@@ -68,7 +69,7 @@ export async function initializeEmailSignup({ email }: { email: string }) {
 	// Step 4:
 	// redirect the user to the verification route
 	// the user get's a link emailed as well
-	redirect('/verify')
+	redirect(verifyCodeRoute)
 }
 
 // triggers after user verifies email with OTP

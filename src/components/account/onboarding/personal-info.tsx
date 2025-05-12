@@ -7,7 +7,7 @@ import { personalInfoOnboardingStepSchema } from '@/schema/account'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { NameField, PhoneNumberField } from '../fields'
+import { NameField, PhoneNumberFlagField } from '../fields'
 
 export function PersonalInfoOnboardingStep() {
 	// 1. Define your form.
@@ -16,8 +16,6 @@ export function PersonalInfoOnboardingStep() {
 		defaultValues: {
 			firstName: '',
 			lastName: '',
-			countryCode: '',
-			phoneNumber: '',
 		},
 	})
 
@@ -48,7 +46,7 @@ export function PersonalInfoOnboardingStep() {
 				<div className="grid gap-6">
 					<div className="grid gap-6">
 						<NameField form={form} firstNameInputProps={{ autoFocus: true }} />
-						<PhoneNumberField form={form} />
+						<PhoneNumberFlagField form={form} />
 						{form.formState.errors.root ? (
 							<FormMessage>{form.formState.errors.root.message}</FormMessage>
 						) : null}

@@ -8,4 +8,9 @@ export const defaultUserSelect = {
 			src: true,
 		},
 	},
+	organization: {
+		select: {
+			name: true,
+		},
+	},
 }

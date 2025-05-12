@@ -6,6 +6,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { handleOTPSetup } from './verify'
 import { resetPasswordCookieName } from '@/constants/auth'
+import { verifyCodeRoute } from '@/constants/routes'
 
 const safeError = {
 	errors: {
@@ -75,7 +76,7 @@ export async function initializeForgotPassword({ email }: { email: string }) {
 	// Step 4:
 	// redirect the user to the verification route
 	// the user get's a link emailed as well
-	redirect('/verify')
+	redirect(verifyCodeRoute)
 }
 
 export async function completeForgotPassword({ email }: { email: string }) {

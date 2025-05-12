@@ -11,6 +11,15 @@ import { randomInt } from 'crypto'
 import { cookies } from 'next/headers'
 import { completeEmailSignup } from './signup'
 import { completeForgotPassword } from './forgot-password'
+import { jwtVerify, SignJWT } from 'jose'
+import {
+	loginRoute,
+	onboardingRoute,
+	resetPasswordRoute,
+	verifyRoute,
+} from '@/constants/routes'
+import { OTP } from '@/generated/prisma'
+import { completeOrganizationInvitation } from '../organization'
 
 const safeError = {
 	errors: {
@@ -20,13 +29,19 @@ const safeError = {
 	},
 }
 
+const secretKey = process.env.SESSION_SECRET
+const encodedKey = new TextEncoder().encode(secretKey)
+
+// Expiration duration
+const OTP_EXPIRATION_SECONDS = 10 * 60 // 10 minutes
+
 export async function handleOTPSetup({
 	email,
 	type,
 	redirectTo,
 }: {
 	email: string
-	type: string
+	type: OtpType
 	redirectTo: RedirectTo
 }) {
 	try {
@@ -52,19 +67,35 @@ export async function handleOTPSetup({
 
 		// Step 2:
 		// add the otp id as a server only cookie to reference later
-		const cookieStore = await cookies()
-		cookieStore.set('otp_session', otp.id.toString(), {
-			httpOnly: true,
-			secure: true,
-			sameSite: 'strict',
-			maxAge: 600, // 10 minutes
-			path: '/',
+		// if the generation method isn't an invite
+		if (type !== 'organization-invite') {
+			const cookieStore = await cookies()
+			cookieStore.set('otp_session', otp.id.toString(), {
+				httpOnly: true,
+				secure: true,
+				sameSite: 'strict',
+				maxAge: 600, // 10 minutes
+				path: '/',
+			})
+		}
+
+		const jwt = await new SignJWT({
+			email,
+			type,
+			otpId: otp.id,
+			redirectTo,
 		})
+			.setProtectedHeader({ alg: 'HS256' })
+			.setIssuedAt()
+			.setExpirationTime(`${OTP_EXPIRATION_SECONDS}s`)
+			.sign(encodedKey)
+
+		const verifyUrl = `${process.env.APP_URL}/${verifyRoute}?token=${jwt}`
 
 		// Step 3:
 		// email the code to the user
 		// todo: implement email with resend
-		console.info('The OTP is: ', code)
+		console.info('The OTP is: ', code, '\nVerification url is: ', verifyUrl)
 	} catch (err) {
 		if (err instanceof PrismaClientKnownRequestError) {
 			switch (err.code) {
@@ -84,133 +115,98 @@ export async function handleOTPSetup({
 	}
 }
 
-interface VerifyOTPArgs {
-	code: string
-}
-
-export async function verifyOTP({ code }: VerifyOTPArgs) {
-	// Step 1:
-	// validate email sign up fields
-	// the form is already validated once on the client but it's good
-	// to validate twice to deter bad actors
-	const validatedFields = verifyEmailSchema.safeParse({
-		code,
-	})
-
-	// if any form fields are invalid, return early
-	if (!validatedFields.success) {
-		return {
-			errors: validatedFields.error.flatten().fieldErrors,
-		}
-	}
-
-	// Step 2:
-	// find the users OTP by the OTP cookie
+export async function getOTPFromCookie(): Promise<OTP | null> {
 	const cookieStore = await cookies()
 	const otpIdCookie = cookieStore.get('otp_session')?.value
-
-	if (!otpIdCookie) return safeError
+	if (!otpIdCookie) return null
 
 	const otpId = Number(otpIdCookie)
 
-	const otp = await prisma.oTP.findUnique({
-		where: {
-			id: otpId,
-		},
-		select: {
-			codeHash: true,
-			redirectTo: true,
-			email: true,
-			type: true,
-		},
+	return prisma.oTP.findUnique({
+		where: { id: otpId },
 	})
+}
 
-	if (!otp) {
-		return {
-			errors: {
-				root: {
-					message: 'Something went wrong. Please try again',
-				},
-			},
-		}
+export async function getOTPFromToken(token: string): Promise<OTP | null> {
+	try {
+		const { payload } = await jwtVerify(token, encodedKey)
+		const otpId = payload.otpId as string
+		if (!otpId) return null
+
+		return await prisma.oTP.findUnique({
+			where: { id: Number(otpId) },
+		})
+	} catch (err) {
+		console.error('Invalid or expired OTP token', err)
+		return null
 	}
+}
 
-	// Step 3:
-	// compare the code to make sure it matches
-	const { code: validatedCode } = validatedFields.data
-	const isValid = await bcrypt.compare(validatedCode, otp?.codeHash)
+export async function completeOTPFlow(otp: OTP) {
+	const { type, email, redirectTo, codeHash } = otp
 
-	if (!isValid) {
-		// optional: add in limit to OTP compares
-		return safeError
-	}
-
-	// Step 4:
-	// clean up the database
-	// clean ups are also performed every 30 days with cron jobs
+	// Cleanup
 	await prisma.oTP.delete({
-		where: {
-			codeHash: otp.codeHash,
-		},
+		where: { codeHash },
 	})
 
-	// Step 5:
-	// complete authorization flows based on the OTP type
-	const otpType = otp.type as OtpType
-	const email = otp.email
-
-	switch (otpType) {
+	// Flow-specific logic
+	switch (type as OtpType) {
 		case 'email-signup':
 			await completeEmailSignup({ email })
 			break
-
 		case 'forgot-password':
 			await completeForgotPassword({ email })
 			break
-
-		default:
-			console.log('default reached in otp type block')
+		case 'organization-invite':
+			await completeOrganizationInvitation({ email })
 			break
+		default:
+			console.warn('Unhandled OTP type:', type)
 	}
 
-	// Step 6:
-	// redirect the user based on the authorization flow
-	const redirectTo = otp.redirectTo as RedirectTo
-	switch (redirectTo) {
+	// Redirection
+	switch (redirectTo as RedirectTo) {
 		case 'onboarding':
-			redirect(`/onboarding`)
-
+			redirect(onboardingRoute)
 		case 'reset-password':
-			redirect('/reset-password')
-
-		default: // something weird happened. Let's return safeError
-			console.log('default reached in redirect to block')
+			redirect(resetPasswordRoute)
+		default:
 			return safeError
 	}
 }
 
-export async function handleVerifyOTP({ code }: VerifyOTPArgs) {
-	// validate email sign up fields
-	// the form is already validated once on the client but it's good
-	// to validate twice to deter bad actors
-	const validatedFields = verifyEmailSchema.safeParse({
-		code,
-	})
+export async function verifyOTP({
+	code,
+	token,
+}: {
+	code?: string
+	token?: string
+}) {
+	let otp: OTP | null = null
 
-	// if any form fields are invalid, return early
-	if (!validatedFields.success) {
-		return {
-			errors: validatedFields.error.flatten().fieldErrors,
+	if (token) {
+		otp = await getOTPFromToken(token)
+		if (!otp) {
+			redirect(loginRoute)
 		}
+		// No need to check code if token-based
+		return completeOTPFlow(otp)
 	}
 
-	const values = validatedFields.data
-
-	if (!values) {
-		return safeError
+	// Fallback to code + cookie flow
+	const validatedFields = verifyEmailSchema.safeParse({ code })
+	if (!validatedFields.success) {
+		return { errors: validatedFields.error.flatten().fieldErrors }
 	}
 
-	return await verifyOTP(values)
+	otp = await getOTPFromCookie()
+	if (!otp) return safeError
+
+	const isValid = await bcrypt.compare(validatedFields.data.code, otp.codeHash)
+	if (!isValid) return safeError
+
+	return completeOTPFlow(otp)
 }
 
 export async function generateCleanOTP(length = 6) {
