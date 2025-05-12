@@ -12,31 +12,35 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { appName } from '@/data/app'
-import Link from 'next/link'
-import { NavUser } from './nav-user'
-import { organizationSettings, root, settings } from '@/constants/routes'
+import {
+	organizationSettingsRoute,
+	rootRoute,
+	settingsRoute,
+} from '@/constants/routes'
+import { useOrganization } from '@/context/organization'
 import { IconDashboard } from '@tabler/icons-react'
 import { BriefcaseBusiness, SettingsIcon } from 'lucide-react'
+import Link from 'next/link'
 import { NavMain } from './nav-main'
 import { NavSecondary } from './nav-secondary'
+import { NavUser } from './nav-user'
 
 const navMain = [
 	{
 		title: 'Dashboard',
-		url: root,
+		url: rootRoute,
 		icon: IconDashboard,
 	},
 ]
 const navSecondary = [
 	{
 		title: 'Organization',
-		url: organizationSettings,
+		url: organizationSettingsRoute,
 		icon: BriefcaseBusiness,
 	},
 	{
 		title: 'Settings',
-		url: settings,
+		url: settingsRoute,
 		icon: SettingsIcon,
 	},
 ]
@@ -47,6 +51,7 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & {
 	permittedRoutes: Array<string>
 }) {
+	const { organization } = useOrganization()
 	const filteredNavMain = navMain.filter(({ url }) =>
 		permittedRoutes.includes(url),
 	)
@@ -64,7 +69,9 @@ export function AppSidebar({
 						>
 							<Link href="/" className="text-foreground">
 								<IconInnerShadowTop className="!size-5" />
-								<span className="text-base font-semibold">{appName}</span>
+								<span className="text-base font-semibold">
+									{organization?.name}
+								</span>
 							</Link>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
@@ -75,7 +82,7 @@ export function AppSidebar({
 				<NavSecondary items={filteredNavSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser />
+				<NavUser permitted={permittedRoutes} />
 			</SidebarFooter>
 		</Sidebar>
 	)
