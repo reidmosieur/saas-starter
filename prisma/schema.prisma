@@ -31,16 +31,16 @@ model User {
   resetPasswordInitialized DateTime?
   resetPasswordToken       String?   @unique
 
-  password       Password?     @relation(fields: [passwordId], references: [id])
+  password       Password?     @relation(fields: [passwordId], references: [id], onDelete: Cascade)
   passwordId     Int?          @unique
-  phoneNumber    PhoneNumber?  @relation(fields: [phoneNumberId], references: [id])
+  phoneNumber    PhoneNumber?  @relation(fields: [phoneNumberId], references: [id], onDelete: Cascade)
   phoneNumberId  Int?          @unique
-  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int?
   roles          Role[]
   sessions       Session[]
   onboarding     Onboarding?
-  avatar         Image?        @relation(fields: [avatarId], references: [id])
+  avatar         Image?        @relation(fields: [avatarId], references: [id], onDelete: Cascade)
   avatarId       Int?          @unique
 }
 
