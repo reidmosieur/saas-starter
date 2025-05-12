@@ -217,6 +217,7 @@ exports.Prisma.PermissionScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   name: 'name',
+  key: 'key',
   action: 'action',
   access: 'access',
   entity: 'entity'
