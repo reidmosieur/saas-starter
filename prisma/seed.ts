@@ -114,7 +114,12 @@ async function main() {
 
 	// Create password
 	const passwordHash = await bcrypt.hash('password', 10)
-	const password = await prisma.password.create({
+	const johnPassword = await prisma.password.create({
+		data: {
+			hash: passwordHash,
+		},
+	})
+	const janePassword = await prisma.password.create({
 		data: {
 			hash: passwordHash,
 		},
@@ -146,7 +151,7 @@ async function main() {
 			lastName: 'Doe',
 			fullName: 'John Doe',
 			organization: { connect: { id: org.id } },
-			password: { connect: { id: password.id } },
+			password: { connect: { id: johnPassword.id } },
 			phoneNumber: { connect: { id: phoneNumber.id } },
 			roles: { connect: { id: owner.id } },
 			onboarded: onboardingCompleted,
@@ -243,7 +248,7 @@ async function main() {
 			lastName: 'Doe',
 			fullName: 'Jane Doe',
 			organization: { connect: { id: org.id } },
-			password: { connect: { id: password.id } },
+			password: { connect: { id: janePassword.id } },
 			phoneNumber: { connect: { id: phoneNumber.id } },
 			roles: { connect: { id: employee.id } },
 			onboarded: onboardingCompleted,
