@@ -6879,6 +6879,7 @@ export namespace Prisma {
     updatedAt: number
     currentStep: number
     completedSteps: number
+    requiredSteps: number
     stepTimeStamps: number
     userId: number
     _all: number
@@ -6920,6 +6921,7 @@ export namespace Prisma {
     updatedAt?: true
     currentStep?: true
     completedSteps?: true
+    requiredSteps?: true
     stepTimeStamps?: true
     userId?: true
     _all?: true
@@ -7018,6 +7020,7 @@ export namespace Prisma {
     updatedAt: Date
     currentStep: $Enums.OnboardingSteps
     completedSteps: $Enums.OnboardingSteps[]
+    requiredSteps: $Enums.OnboardingSteps[]
     stepTimeStamps: JsonValue | null
     userId: number
     _count: OnboardingCountAggregateOutputType | null
@@ -7048,6 +7051,7 @@ export namespace Prisma {
     updatedAt?: boolean
     currentStep?: boolean
     completedSteps?: boolean
+    requiredSteps?: boolean
     stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7060,6 +7064,7 @@ export namespace Prisma {
     updatedAt?: boolean
     currentStep?: boolean
     completedSteps?: boolean
+    requiredSteps?: boolean
     stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7072,6 +7077,7 @@ export namespace Prisma {
     updatedAt?: boolean
     currentStep?: boolean
     completedSteps?: boolean
+    requiredSteps?: boolean
     stepTimeStamps?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7084,11 +7090,12 @@ export namespace Prisma {
     updatedAt?: boolean
     currentStep?: boolean
     completedSteps?: boolean
+    requiredSteps?: boolean
     stepTimeStamps?: boolean
     userId?: boolean
   }
 
-  export type OnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startedAt" | "completedAt" | "updatedAt" | "currentStep" | "completedSteps" | "stepTimeStamps" | "userId", ExtArgs["result"]["onboarding"]>
+  export type OnboardingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startedAt" | "completedAt" | "updatedAt" | "currentStep" | "completedSteps" | "requiredSteps" | "stepTimeStamps" | "userId", ExtArgs["result"]["onboarding"]>
   export type OnboardingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7111,6 +7118,7 @@ export namespace Prisma {
       updatedAt: Date
       currentStep: $Enums.OnboardingSteps
       completedSteps: $Enums.OnboardingSteps[]
+      requiredSteps: $Enums.OnboardingSteps[]
       stepTimeStamps: Prisma.JsonValue | null
       userId: number
     }, ExtArgs["result"]["onboarding"]>
@@ -7543,6 +7551,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"Onboarding", 'DateTime'>
     readonly currentStep: FieldRef<"Onboarding", 'OnboardingSteps'>
     readonly completedSteps: FieldRef<"Onboarding", 'OnboardingSteps[]'>
+    readonly requiredSteps: FieldRef<"Onboarding", 'OnboardingSteps[]'>
     readonly stepTimeStamps: FieldRef<"Onboarding", 'Json'>
     readonly userId: FieldRef<"Onboarding", 'Int'>
   }
@@ -13678,6 +13687,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     currentStep: 'currentStep',
     completedSteps: 'completedSteps',
+    requiredSteps: 'requiredSteps',
     stepTimeStamps: 'stepTimeStamps',
     userId: 'userId'
   };
@@ -14315,6 +14325,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
     currentStep?: EnumOnboardingStepsFilter<"Onboarding"> | $Enums.OnboardingSteps
     completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    requiredSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
     stepTimeStamps?: JsonNullableFilter<"Onboarding">
     userId?: IntFilter<"Onboarding"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -14327,6 +14338,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     currentStep?: SortOrder
     completedSteps?: SortOrder
+    requiredSteps?: SortOrder
     stepTimeStamps?: SortOrderInput | SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -14343,6 +14355,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Onboarding"> | Date | string
     currentStep?: EnumOnboardingStepsFilter<"Onboarding"> | $Enums.OnboardingSteps
     completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    requiredSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
     stepTimeStamps?: JsonNullableFilter<"Onboarding">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
@@ -14354,6 +14367,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     currentStep?: SortOrder
     completedSteps?: SortOrder
+    requiredSteps?: SortOrder
     stepTimeStamps?: SortOrderInput | SortOrder
     userId?: SortOrder
     _count?: OnboardingCountOrderByAggregateInput
@@ -14373,6 +14387,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Onboarding"> | Date | string
     currentStep?: EnumOnboardingStepsWithAggregatesFilter<"Onboarding"> | $Enums.OnboardingSteps
     completedSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
+    requiredSteps?: EnumOnboardingStepsNullableListFilter<"Onboarding">
     stepTimeStamps?: JsonNullableWithAggregatesFilter<"Onboarding">
     userId?: IntWithAggregatesFilter<"Onboarding"> | number
   }
@@ -15164,6 +15179,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     currentStep?: $Enums.OnboardingSteps
     completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingCreaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     user: UserCreateNestedOneWithoutOnboardingInput
   }
@@ -15175,6 +15191,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     currentStep?: $Enums.OnboardingSteps
     completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingCreaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
@@ -15185,6 +15202,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     user?: UserUpdateOneRequiredWithoutOnboardingNestedInput
   }
@@ -15196,6 +15214,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -15207,6 +15226,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     currentStep?: $Enums.OnboardingSteps
     completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingCreaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId: number
   }
@@ -15217,6 +15237,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -15227,6 +15248,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -16095,6 +16117,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     currentStep?: SortOrder
     completedSteps?: SortOrder
+    requiredSteps?: SortOrder
     stepTimeStamps?: SortOrder
     userId?: SortOrder
   }
@@ -16607,6 +16630,10 @@ export namespace Prisma {
     set: $Enums.OnboardingSteps[]
   }
 
+  export type OnboardingCreaterequiredStepsInput = {
+    set: $Enums.OnboardingSteps[]
+  }
+
   export type UserCreateNestedOneWithoutOnboardingInput = {
     create?: XOR<UserCreateWithoutOnboardingInput, UserUncheckedCreateWithoutOnboardingInput>
     connectOrCreate?: UserCreateOrConnectWithoutOnboardingInput
@@ -16618,6 +16645,11 @@ export namespace Prisma {
   }
 
   export type OnboardingUpdatecompletedStepsInput = {
+    set?: $Enums.OnboardingSteps[]
+    push?: $Enums.OnboardingSteps | $Enums.OnboardingSteps[]
+  }
+
+  export type OnboardingUpdaterequiredStepsInput = {
     set?: $Enums.OnboardingSteps[]
     push?: $Enums.OnboardingSteps | $Enums.OnboardingSteps[]
   }
@@ -17300,6 +17332,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     currentStep?: $Enums.OnboardingSteps
     completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingCreaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -17310,6 +17343,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     currentStep?: $Enums.OnboardingSteps
     completedSteps?: OnboardingCreatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingCreaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -17508,6 +17542,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -17518,6 +17553,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentStep?: EnumOnboardingStepsFieldUpdateOperationsInput | $Enums.OnboardingSteps
     completedSteps?: OnboardingUpdatecompletedStepsInput | $Enums.OnboardingSteps[]
+    requiredSteps?: OnboardingUpdaterequiredStepsInput | $Enums.OnboardingSteps[]
     stepTimeStamps?: NullableJsonNullValueInput | InputJsonValue
   }
 

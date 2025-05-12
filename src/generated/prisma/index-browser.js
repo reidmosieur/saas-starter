@@ -195,6 +195,7 @@ exports.Prisma.OnboardingScalarFieldEnum = {
   updatedAt: 'updatedAt',
   currentStep: 'currentStep',
   completedSteps: 'completedSteps',
+  requiredSteps: 'requiredSteps',
   stepTimeStamps: 'stepTimeStamps',
   userId: 'userId'
 };
