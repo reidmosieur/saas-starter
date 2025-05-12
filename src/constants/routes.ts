@@ -6,46 +6,47 @@ import {
 } from './permissions'
 
 // app
-export const root = '/'
+export const rootRoute = '/'
 
 // organization settings
-export const organizationSettings = '/organization'
-export const billingSettings = '/organization/billing'
-export const invoices = '/organization/invoices'
+export const organizationSettingsRoute = '/organization'
+export const billingSettingsRoute = '/organization/billing'
+export const invoicesRoute = '/organization/invoices'
 
 // user settings
-export const settings = '/settings'
-export const securitySettings = '/settings/security'
+export const settingsRoute = '/settings'
+export const securitySettingsRoute = '/settings/security'
 
 // auth
-export const logout = '/logout'
-export const login = '/login'
-export const signup = '/signup'
-export const forgotPassword = '/forgot-password'
-export const resetPassword = '/reset-password'
-export const verifyOtp = '/verify'
-export const onboarding = '/onboarding'
-export const privacy = '/privacy'
-export const terms = '/terms'
+export const logoutRoute = '/logout'
+export const loginRoute = '/login'
+export const signupRoute = '/signup'
+export const forgotPasswordRoute = '/forgot-password'
+export const resetPasswordRoute = '/reset-password'
+export const verifyRoute = '/verify'
+export const verifyCodeRoute = '/verify-code'
+export const onboardingRoute = '/onboarding'
+export const privacyRoute = '/privacy'
+export const termsRoute = '/terms'
 
 export const protectedRoutes = [
-	root,
-	organizationSettings,
-	billingSettings,
-	invoices,
-	settings,
-	securitySettings,
+	rootRoute,
+	organizationSettingsRoute,
+	billingSettingsRoute,
+	invoicesRoute,
+	settingsRoute,
+	securitySettingsRoute,
+	logoutRoute,
 ]
 export const publicRoutes = [
-	logout,
-	login,
-	signup,
-	forgotPassword,
-	resetPassword,
-	verifyOtp,
-	onboarding,
-	privacy,
-	terms,
+	loginRoute,
+	signupRoute,
+	forgotPasswordRoute,
+	resetPasswordRoute,
+	verifyRoute,
+	verifyCodeRoute,
+	privacyRoute,
+	termsRoute,
 ]
 
 type RoutePermissions = Array<{
@@ -55,29 +56,29 @@ type RoutePermissions = Array<{
 
 export const routePermissions: RoutePermissions = [
 	{
-		route: root,
+		route: rootRoute,
 		permissions: [readGrantedDashboard].map(({ key }) => key),
 	},
 	{
-		route: organizationSettings,
+		route: organizationSettingsRoute,
 		permissions: [readOrganizationOrganization].map(({ key }) => key),
 	},
 	// billing settings and invoice could have a more granular permission like read:organization:billing
 	// but this works for most simple apps
 	{
-		route: billingSettings,
+		route: billingSettingsRoute,
 		permissions: [readOrganizationOrganization].map(({ key }) => key),
 	},
 	{
-		route: invoices,
+		route: invoicesRoute,
 		permissions: [readOrganizationOrganization].map(({ key }) => key),
 	},
 	{
-		route: settings,
+		route: settingsRoute,
 		permissions: [readOwnUser].map(({ key }) => key),
 	},
 	{
-		route: securitySettings,
+		route: securitySettingsRoute,
 		permissions: [readOwnUser].map(({ key }) => key),
 	},
 ]
