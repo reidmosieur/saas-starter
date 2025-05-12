@@ -1891,7 +1891,7 @@ export namespace Prisma {
     updatedAt: Date | null
     onboarded: Date | null
     emailVerified: Date | null
-    invited: Date | null
+    invitedAt: Date | null
     invitationDeclined: Date | null
     invitationRescinded: Date | null
     suspended: Date | null
@@ -1917,7 +1917,7 @@ export namespace Prisma {
     updatedAt: Date | null
     onboarded: Date | null
     emailVerified: Date | null
-    invited: Date | null
+    invitedAt: Date | null
     invitationDeclined: Date | null
     invitationRescinded: Date | null
     suspended: Date | null
@@ -1943,7 +1943,7 @@ export namespace Prisma {
     updatedAt: number
     onboarded: number
     emailVerified: number
-    invited: number
+    invitedAt: number
     invitationDeclined: number
     invitationRescinded: number
     suspended: number
@@ -1987,7 +1987,7 @@ export namespace Prisma {
     updatedAt?: true
     onboarded?: true
     emailVerified?: true
-    invited?: true
+    invitedAt?: true
     invitationDeclined?: true
     invitationRescinded?: true
     suspended?: true
@@ -2013,7 +2013,7 @@ export namespace Prisma {
     updatedAt?: true
     onboarded?: true
     emailVerified?: true
-    invited?: true
+    invitedAt?: true
     invitationDeclined?: true
     invitationRescinded?: true
     suspended?: true
@@ -2039,7 +2039,7 @@ export namespace Prisma {
     updatedAt?: true
     onboarded?: true
     emailVerified?: true
-    invited?: true
+    invitedAt?: true
     invitationDeclined?: true
     invitationRescinded?: true
     suspended?: true
@@ -2152,7 +2152,7 @@ export namespace Prisma {
     updatedAt: Date
     onboarded: Date | null
     emailVerified: Date | null
-    invited: Date | null
+    invitedAt: Date | null
     invitationDeclined: Date | null
     invitationRescinded: Date | null
     suspended: Date | null
@@ -2197,7 +2197,7 @@ export namespace Prisma {
     updatedAt?: boolean
     onboarded?: boolean
     emailVerified?: boolean
-    invited?: boolean
+    invitedAt?: boolean
     invitationDeclined?: boolean
     invitationRescinded?: boolean
     suspended?: boolean
@@ -2231,7 +2231,7 @@ export namespace Prisma {
     updatedAt?: boolean
     onboarded?: boolean
     emailVerified?: boolean
-    invited?: boolean
+    invitedAt?: boolean
     invitationDeclined?: boolean
     invitationRescinded?: boolean
     suspended?: boolean
@@ -2261,7 +2261,7 @@ export namespace Prisma {
     updatedAt?: boolean
     onboarded?: boolean
     emailVerified?: boolean
-    invited?: boolean
+    invitedAt?: boolean
     invitationDeclined?: boolean
     invitationRescinded?: boolean
     suspended?: boolean
@@ -2291,7 +2291,7 @@ export namespace Prisma {
     updatedAt?: boolean
     onboarded?: boolean
     emailVerified?: boolean
-    invited?: boolean
+    invitedAt?: boolean
     invitationDeclined?: boolean
     invitationRescinded?: boolean
     suspended?: boolean
@@ -2311,7 +2311,7 @@ export namespace Prisma {
     avatarId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "emailVerified" | "invited" | "invitationDeclined" | "invitationRescinded" | "suspended" | "lastLogin" | "lastActivity" | "lastPasswordChange" | "email" | "username" | "firstName" | "lastName" | "fullName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "onboarded" | "emailVerified" | "invitedAt" | "invitationDeclined" | "invitationRescinded" | "suspended" | "lastLogin" | "lastActivity" | "lastPasswordChange" | "email" | "username" | "firstName" | "lastName" | "fullName" | "resetPasswordInitialized" | "resetPasswordToken" | "passwordId" | "phoneNumberId" | "organizationId" | "avatarId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password?: boolean | User$passwordArgs<ExtArgs>
     phoneNumber?: boolean | User$phoneNumberArgs<ExtArgs>
@@ -2352,7 +2352,7 @@ export namespace Prisma {
       updatedAt: Date
       onboarded: Date | null
       emailVerified: Date | null
-      invited: Date | null
+      invitedAt: Date | null
       invitationDeclined: Date | null
       invitationRescinded: Date | null
       suspended: Date | null
@@ -2805,7 +2805,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly onboarded: FieldRef<"User", 'DateTime'>
     readonly emailVerified: FieldRef<"User", 'DateTime'>
-    readonly invited: FieldRef<"User", 'DateTime'>
+    readonly invitedAt: FieldRef<"User", 'DateTime'>
     readonly invitationDeclined: FieldRef<"User", 'DateTime'>
     readonly invitationRescinded: FieldRef<"User", 'DateTime'>
     readonly suspended: FieldRef<"User", 'DateTime'>
@@ -13697,7 +13697,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     onboarded: 'onboarded',
     emailVerified: 'emailVerified',
-    invited: 'invited',
+    invitedAt: 'invitedAt',
     invitationDeclined: 'invitationDeclined',
     invitationRescinded: 'invitationRescinded',
     suspended: 'suspended',
@@ -13999,7 +13999,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
-    invited?: DateTimeNullableFilter<"User"> | Date | string | null
+    invitedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationDeclined?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationRescinded?: DateTimeNullableFilter<"User"> | Date | string | null
     suspended?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14032,7 +14032,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
-    invited?: SortOrderInput | SortOrder
+    invitedAt?: SortOrderInput | SortOrder
     invitationDeclined?: SortOrderInput | SortOrder
     invitationRescinded?: SortOrderInput | SortOrder
     suspended?: SortOrderInput | SortOrder
@@ -14074,7 +14074,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
-    invited?: DateTimeNullableFilter<"User"> | Date | string | null
+    invitedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationDeclined?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationRescinded?: DateTimeNullableFilter<"User"> | Date | string | null
     suspended?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14101,7 +14101,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     onboarded?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
-    invited?: SortOrderInput | SortOrder
+    invitedAt?: SortOrderInput | SortOrder
     invitationDeclined?: SortOrderInput | SortOrder
     invitationRescinded?: SortOrderInput | SortOrder
     suspended?: SortOrderInput | SortOrder
@@ -14135,7 +14135,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     onboarded?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    invited?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    invitedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     invitationDeclined?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     invitationRescinded?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     suspended?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -14836,7 +14836,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -14865,7 +14865,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -14893,7 +14893,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14922,7 +14922,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14951,7 +14951,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -14976,7 +14976,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14998,7 +14998,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15871,7 +15871,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     onboarded?: SortOrder
     emailVerified?: SortOrder
-    invited?: SortOrder
+    invitedAt?: SortOrder
     invitationDeclined?: SortOrder
     invitationRescinded?: SortOrder
     suspended?: SortOrder
@@ -15905,7 +15905,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     onboarded?: SortOrder
     emailVerified?: SortOrder
-    invited?: SortOrder
+    invitedAt?: SortOrder
     invitationDeclined?: SortOrder
     invitationRescinded?: SortOrder
     suspended?: SortOrder
@@ -15931,7 +15931,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     onboarded?: SortOrder
     emailVerified?: SortOrder
-    invited?: SortOrder
+    invitedAt?: SortOrder
     invitationDeclined?: SortOrder
     invitationRescinded?: SortOrder
     suspended?: SortOrder
@@ -17795,7 +17795,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -17823,7 +17823,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -17866,7 +17866,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17894,7 +17894,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17921,7 +17921,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -17949,7 +17949,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -17992,7 +17992,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18020,7 +18020,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18047,7 +18047,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18075,7 +18075,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18118,7 +18118,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18146,7 +18146,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18173,7 +18173,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18201,7 +18201,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18244,7 +18244,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18272,7 +18272,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18299,7 +18299,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18327,7 +18327,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18411,7 +18411,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     onboarded?: DateTimeNullableFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
-    invited?: DateTimeNullableFilter<"User"> | Date | string | null
+    invitedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationDeclined?: DateTimeNullableFilter<"User"> | Date | string | null
     invitationRescinded?: DateTimeNullableFilter<"User"> | Date | string | null
     suspended?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -18536,7 +18536,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18564,7 +18564,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18668,7 +18668,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18696,7 +18696,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18739,7 +18739,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18767,7 +18767,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18947,7 +18947,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     onboarded?: Date | string | null
     emailVerified?: Date | string | null
-    invited?: Date | string | null
+    invitedAt?: Date | string | null
     invitationDeclined?: Date | string | null
     invitationRescinded?: Date | string | null
     suspended?: Date | string | null
@@ -18978,7 +18978,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19006,7 +19006,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19034,7 +19034,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19139,7 +19139,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19167,7 +19167,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19195,7 +19195,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     onboarded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    invited?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationDeclined?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     invitationRescinded?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     suspended?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

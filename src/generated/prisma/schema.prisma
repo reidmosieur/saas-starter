@@ -21,7 +21,7 @@ model User {
   updatedAt           DateTime  @updatedAt
   onboarded           DateTime?
   emailVerified       DateTime?
-  invited             DateTime?
+  invitedAt           DateTime?
   invitationDeclined  DateTime?
   invitationRescinded DateTime?
   suspended           DateTime?

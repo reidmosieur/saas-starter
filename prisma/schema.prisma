@@ -21,7 +21,7 @@ model User {
   updatedAt           DateTime  @updatedAt
   onboarded           DateTime?
   emailVerified       DateTime?
-  invited             DateTime?
+  invitedAt           DateTime?
   invitationDeclined  DateTime?
   invitationRescinded DateTime?
   suspended           DateTime?
@@ -193,6 +193,7 @@ model Role {
   updatedAt DateTime @updatedAt
 
   name String
+  owner Boolean
 
   permissions    Permission[]
   organization   Organization @relation(fields: [organizationId], references: [id])

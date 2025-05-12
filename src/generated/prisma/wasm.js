@@ -126,7 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   onboarded: 'onboarded',
   emailVerified: 'emailVerified',
-  invited: 'invited',
+  invitedAt: 'invitedAt',
   invitationDeclined: 'invitationDeclined',
   invitationRescinded: 'invitationRescinded',
   suspended: 'suspended',
