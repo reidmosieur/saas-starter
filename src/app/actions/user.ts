@@ -4,6 +4,7 @@ import { Prisma } from '@/generated/prisma'
 import { checkUserPermissions } from '@/lib/access-control'
 import prisma from '@/lib/prisma'
 import { readSession } from '@/lib/session'
+import { constructRequiredPermissions } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
 import 'server-only'
@@ -36,7 +37,7 @@ export async function handleUserInitialization() {
 	// Step 1:
 	// get the user
 	const { permitted, user } = await checkUserPermissions({
-		requiredPermissions: [readGrantedDashboard].map(({ key }) => key),
+		requiredPermissions: constructRequiredPermissions([readGrantedDashboard]),
 		additionalSelect: defaultUserSelect,
 	})
 
@@ -49,8 +50,10 @@ export async function handleUserInitialization() {
 
 	// Step 3:
 	// check if the user is permitted by checking "read-dashboard-granted"
+	// this is simpler than checking the "suspended" property since it's the
+	// same as checking if a user is accessing a route they don't have access to
 	if (!permitted) {
-		redirect('/onboarding')
+		redirect('/logout')
 	}
 
 	return user
