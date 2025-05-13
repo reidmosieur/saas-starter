@@ -1,25 +1,34 @@
 'use server'
 
 import {
+	createOrganizationRole as createOrganizationRolePermission,
+	createOrganizationUser,
+	deleteOrganizationUser,
+} from '@/constants/permissions'
+import { checkUserPermissions } from '@/lib/access-control'
+import prisma from '@/lib/prisma'
+import { createSession } from '@/lib/session'
+import { constructRequiredPermissions } from '@/lib/utils'
+import {
 	inviteUserForm,
 	InviteUserFormProps,
 	newRoleForm,
 	NewRoleFormProps,
 	organizationInfoSettingsForm,
 	OrganizationInfoSettingsFormProps,
+	reactivateUserForm,
+	ReactivateUserFormProps,
+	suspendUserForm,
+	SuspendUserFormProps,
+	updateOrganizationUserForm,
+	UpdateOrganizationUserForm,
+	updateRoleForm,
+	UpdateRoleFormProps,
 } from '@/schema/organization'
-import { getUserFromSession } from '../user'
-import prisma from '@/lib/prisma'
-import { checkUserPermissions } from '@/lib/access-control'
-import { constructRequiredPermissions } from '@/lib/utils'
-import {
-	createOrganizationRole as createOrganizationRolePermission,
-	createOrganizationUser,
-} from '@/constants/permissions'
 import { redirect } from 'next/navigation'
-import { handleOTPSetup } from '../auth/verify'
 import { checkExistingUser } from '../auth'
-import { createSession } from '@/lib/session'
+import { handleOTPSetup } from '../auth/verify'
+import { getUserFromSession } from '../user'
 
 const safeError = {
 	errors: {
@@ -113,6 +122,67 @@ export async function createOrganizationRole(values: NewRoleFormProps) {
 				organizationId,
 				permissions: {
 					connect: [
+						...permissions.map((key) => ({ key })),
+						{ key: 'read:granted:dashboard' },
+					],
+				},
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+
+	return
+}
+
+export async function updateOrganizationRole(values: UpdateRoleFormProps) {
+	const { permitted, user } = await checkUserPermissions({
+		additionalSelect: {
+			id: true,
+			organization: { select: { id: true } },
+		},
+		requiredPermissions: constructRequiredPermissions([
+			createOrganizationRolePermission,
+		]),
+	})
+
+	if (!user) {
+		redirect('/logout')
+	}
+
+	const organizationId = user.organization?.id
+
+	if (!permitted || !organizationId) {
+		return safeError
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = updateRoleForm.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { id, name, permissions } = validatedFields.data
+
+	try {
+		await prisma.role.update({
+			where: {
+				id,
+			},
+			data: {
+				name,
+				organizationId,
+				permissions: {
+					set: [
 						...permissions.map((key) => ({ key })),
 						{ key: 'read:granted:dashboard' },
 					],
@@ -240,6 +310,147 @@ export async function completeOrganizationInvitation({
 		})
 
 		return
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+}
+
+export async function updateOrganizationUser(
+	values: UpdateOrganizationUserForm,
+) {
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions: constructRequiredPermissions([createOrganizationUser]),
+	})
+
+	if (!user) {
+		redirect('/logout')
+	}
+
+	if (!permitted) {
+		return safeError
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = updateOrganizationUserForm.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { id, firstName, lastName, role } = validatedFields.data
+
+	try {
+		await prisma.user.update({
+			where: {
+				id: id,
+			},
+			data: {
+				firstName,
+				lastName,
+				roles: {
+					set: [{ id: Number(role) }],
+				},
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+}
+
+export async function suspendUser(values: SuspendUserFormProps) {
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions: constructRequiredPermissions([deleteOrganizationUser]),
+	})
+
+	if (!user) {
+		redirect('/logout')
+	}
+
+	if (!permitted) {
+		return safeError
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = suspendUserForm.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { email } = validatedFields.data
+
+	try {
+		await prisma.user.update({
+			where: {
+				email,
+			},
+			data: {
+				suspended: new Date(),
+				roles: {
+					set: [],
+				},
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+}
+
+export async function reactivateUser(values: ReactivateUserFormProps) {
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions: constructRequiredPermissions([deleteOrganizationUser]),
+	})
+
+	if (!user) {
+		redirect('/logout')
+	}
+
+	if (!permitted) {
+		return safeError
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = reactivateUserForm.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { id } = validatedFields.data
+
+	try {
+		await prisma.user.update({
+			where: {
+				id,
+			},
+			data: {
+				suspended: null,
+			},
+		})
 	} catch (err) {
 		console.error(err)
 

@@ -39,6 +39,13 @@ export const newRoleForm = z.object({
 })
 export type NewRoleFormProps = z.infer<typeof newRoleForm>
 
+export const updateRoleForm = z.object({
+	id: z.number(),
+	name: roleNameSchema,
+	permissions: permissionsSchema,
+})
+export type UpdateRoleFormProps = z.infer<typeof updateRoleForm>
+
 export const inviteUserForm = z.object({
 	email: emailSchema,
 	firstName: firstNameSchema,
@@ -46,3 +53,29 @@ export const inviteUserForm = z.object({
 	role: roleSchema,
 })
 export type InviteUserFormProps = z.infer<typeof inviteUserForm>
+
+export const suspendUserForm = z
+	.object({
+		email: emailSchema,
+		confirmEmail: emailSchema,
+	})
+	.refine((data) => data.email === data.confirmEmail, {
+		message: 'That email does not match',
+		path: ['email'],
+	})
+export type SuspendUserFormProps = z.infer<typeof suspendUserForm>
+
+export const reactivateUserForm = z.object({
+	id: z.number(),
+})
+export type ReactivateUserFormProps = z.infer<typeof reactivateUserForm>
+
+export const updateOrganizationUserForm = z.object({
+	id: z.number(),
+	firstName: firstNameSchema,
+	lastName: lastNameSchema,
+	role: roleSchema,
+})
+export type UpdateOrganizationUserForm = z.infer<
+	typeof updateOrganizationUserForm
+>

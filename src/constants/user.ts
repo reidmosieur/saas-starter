@@ -13,4 +13,9 @@ export const defaultUserSelect = {
 			name: true,
 		},
 	},
+	roles: {
+		select: {
+			permissions: true,
+		},
+	},
 }

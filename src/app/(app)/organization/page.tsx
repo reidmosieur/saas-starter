@@ -1,9 +1,4 @@
 import { checkUserPermissions } from '@/lib/access-control'
-import {
-	OrganizationInfoSettingsForm,
-	OrganizationRoles,
-	OrganizationUsers,
-} from '@/components/organization/settings'
 import { TabsContent } from '@/components/ui/tabs'
 import { redirect } from 'next/navigation'
 import { constructRequiredPermissions } from '@/lib/utils'
@@ -15,6 +10,9 @@ import {
 	updateOrganizationUser,
 } from '@/constants/permissions'
 import { logoutRoute, rootRoute } from '@/constants/routes'
+import { OrganizationInfoSettingsForm } from '@/components/organization/settings/information'
+import { OrganizationUsers } from '@/components/organization/settings/users'
+import { OrganizationRoles } from '@/components/organization/settings/roles'
 
 const requiredPermissions = constructRequiredPermissions([
 	readOrganizationOrganization,
@@ -26,6 +24,7 @@ const additionalSelect = {
 			name: true,
 			users: {
 				select: {
+					id: true,
 					firstName: true,
 					lastName: true,
 					email: true,
@@ -48,9 +47,9 @@ const additionalSelect = {
 					},
 					permissions: {
 						select: {
+							key: true,
 							name: true,
 						},
-						take: 2,
 					},
 					_count: {
 						select: {
