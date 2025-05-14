@@ -49,6 +49,7 @@ model User {
   onboarding     Onboarding?
   avatar         Image?        @relation(fields: [avatarId], references: [id], onDelete: Cascade)
   avatarId       Int?          @unique
+  connections    Connection[]
 }
 
 model Password {
@@ -132,7 +133,7 @@ model Onboarding {
 
   currentStep    OnboardingSteps   @default(CREDENTIALS) // current step
   completedSteps OnboardingSteps[]
-  requiredSteps  OnboardingSteps[]
+  requiredSteps  OnboardingSteps[] @default([CREDENTIALS, PERSONAL_INFO, ORGANIZATION])
   stepTimeStamps Json?
 
   user   User @relation(fields: [userId], references: [id])
@@ -141,6 +142,7 @@ model Onboarding {
 
 enum OnboardingSteps {
   CREDENTIALS
+  USERNAME // for OAuth sign ups
   PERSONAL_INFO
   ORGANIZATION
   COMPLETED
@@ -192,7 +194,8 @@ model Role {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  name String
+  name  String
+  owner Boolean @default(false)
 
   permissions    Permission[]
   organization   Organization @relation(fields: [organizationId], references: [id])
@@ -212,4 +215,24 @@ model Image {
   height Int
 
   avatarOwner User?
+}
+
+model Connection {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  raw               Json
+  provider          ConnectionProvider
+  providerAccountId String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([provider, providerAccountId])
+}
+
+enum ConnectionProvider {
+  GOOGLE
 }

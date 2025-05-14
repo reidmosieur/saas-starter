@@ -39,6 +39,13 @@ export type CredentialsOnboardingStepFormProps = z.infer<
 	typeof credentialsOnboardingStepSchema
 >
 
+export const usernameOnboardingStepSchema = z.object({
+	username: usernameSchema,
+})
+export type UsernameOnboardingStepFormProps = z.infer<
+	typeof usernameOnboardingStepSchema
+>
+
 export const personalInfoOnboardingStepSchema = z.object({
 	firstName: firstNameSchema,
 	lastName: lastNameSchema,

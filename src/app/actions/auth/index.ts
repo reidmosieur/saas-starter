@@ -12,7 +12,7 @@ export async function checkExistingUser({
 	id?: number
 	email?: string
 	username?: string
-}) {
+}): Promise<boolean> {
 	// @ts-expect-error: TS complains because it isn't aware of the extension
 	return await prisma.user.exists({
 		OR: [

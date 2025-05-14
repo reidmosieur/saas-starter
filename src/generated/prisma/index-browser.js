@@ -236,6 +236,7 @@ exports.Prisma.RoleScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   name: 'name',
+  owner: 'owner',
   organizationId: 'organizationId'
 };
 
@@ -249,6 +250,16 @@ exports.Prisma.ImageScalarFieldEnum = {
   height: 'height'
 };
 
+exports.Prisma.ConnectionScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  raw: 'raw',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -256,6 +267,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -276,9 +291,14 @@ exports.Prisma.JsonNullValueFilter = {
 };
 exports.OnboardingSteps = exports.$Enums.OnboardingSteps = {
   CREDENTIALS: 'CREDENTIALS',
+  USERNAME: 'USERNAME',
   PERSONAL_INFO: 'PERSONAL_INFO',
   ORGANIZATION: 'ORGANIZATION',
   COMPLETED: 'COMPLETED'
+};
+
+exports.ConnectionProvider = exports.$Enums.ConnectionProvider = {
+  GOOGLE: 'GOOGLE'
 };
 
 exports.Prisma.ModelName = {
@@ -291,7 +311,8 @@ exports.Prisma.ModelName = {
   Organization: 'Organization',
   Permission: 'Permission',
   Role: 'Role',
-  Image: 'Image'
+  Image: 'Image',
+  Connection: 'Connection'
 };
 
 /**

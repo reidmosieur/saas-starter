@@ -5,12 +5,15 @@ import {
 	credentialsOnboardingStepSchema,
 	organizationOnboardingStepSchema,
 	personalInfoOnboardingStepSchema,
+	UsernameOnboardingStepFormProps,
+	usernameOnboardingStepSchema,
 } from '@/schema/account'
 import { redirect } from 'next/navigation'
 import { hashPassword } from '../auth'
 import { getUserId } from '../user'
 import { Prisma } from '@/generated/prisma'
 import { logoutRoute } from '@/constants/routes'
+import { permissionsArray } from '@/constants/permissions'
 
 const safeError = {
 	errors: {
@@ -50,6 +53,24 @@ export async function completeCredentialsOnboarding(values: {
 	let updatedUser
 
 	try {
+		const currentUser = await prisma.user.findUniqueOrThrow({
+			where: {
+				id: userId,
+			},
+			select: {
+				onboarding: {
+					select: {
+						stepTimeStamps: true,
+						requiredSteps: true,
+					},
+				},
+			},
+		})
+		const completedStep = 'CREDENTIALS'
+		const updatedRequiredSteps = currentUser.onboarding?.requiredSteps.filter(
+			(step) => step !== completedStep,
+		)
+
 		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
@@ -69,6 +90,112 @@ export async function completeCredentialsOnboarding(values: {
 						},
 						stepTimeStamps: {
 							CREDENTIALS: new Date(),
+						},
+						requiredSteps: {
+							set: updatedRequiredSteps,
+						},
+					},
+				},
+			},
+			select: {
+				onboarding: {
+					select: {
+						requiredSteps: true,
+					},
+				},
+			},
+		})
+	} catch (err) {
+		if (err instanceof Prisma.PrismaClientKnownRequestError) {
+			switch (err.code) {
+				case 'P2002': // username failed unique constraint
+					return {
+						errors: {
+							username: {
+								message: 'That username is unavailable',
+							},
+						},
+					}
+
+				default:
+					console.log('default reached')
+			}
+		}
+
+		console.error(err)
+
+		return safeError
+	}
+
+	if (updatedUser.onboarding?.requiredSteps.includes('PERSONAL_INFO')) {
+		redirect('/onboarding/personal-info')
+	} else {
+		redirect('/onboarding/complete')
+	}
+}
+
+export async function completeUsernameOnboarding(
+	values: UsernameOnboardingStepFormProps,
+) {
+	const userId = await getUserId()
+
+	if (!userId) {
+		redirect('/logout')
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = usernameOnboardingStepSchema.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { username } = validatedFields.data
+
+	let updatedUser
+
+	try {
+		const currentUser = await prisma.user.findUniqueOrThrow({
+			where: {
+				id: userId,
+			},
+			select: {
+				onboarding: {
+					select: {
+						stepTimeStamps: true,
+						requiredSteps: true,
+					},
+				},
+			},
+		})
+		const completedStep = 'CREDENTIALS'
+		const updatedRequiredSteps = currentUser.onboarding?.requiredSteps.filter(
+			(step) => step !== completedStep,
+		)
+
+		updatedUser = await prisma.user.update({
+			where: {
+				id: userId,
+			},
+			data: {
+				username,
+				onboarding: {
+					update: {
+						currentStep: 'PERSONAL_INFO',
+						completedSteps: {
+							push: 'USERNAME',
+						},
+						stepTimeStamps: {
+							CREDENTIALS: new Date(),
+						},
+						requiredSteps: {
+							set: updatedRequiredSteps,
 						},
 					},
 				},
@@ -148,6 +275,7 @@ export async function completePersonalInfoOnboarding(values: {
 				onboarding: {
 					select: {
 						stepTimeStamps: true,
+						requiredSteps: true,
 					},
 				},
 			},
@@ -160,6 +288,9 @@ export async function completePersonalInfoOnboarding(values: {
 			...stepTimeStamps,
 			[completedStep]: new Date(),
 		}
+		const updatedRequiredSteps = currentUser.onboarding?.requiredSteps.filter(
+			(step) => step !== completedStep,
+		)
 		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
@@ -183,6 +314,9 @@ export async function completePersonalInfoOnboarding(values: {
 							push: completedStep,
 						},
 						stepTimeStamps: updatedStamps,
+						requiredSteps: {
+							set: updatedRequiredSteps,
+						},
 					},
 				},
 			},
@@ -238,6 +372,7 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 				onboarding: {
 					select: {
 						stepTimeStamps: true,
+						requiredSteps: true,
 					},
 				},
 			},
@@ -250,6 +385,26 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 			...stepTimeStamps,
 			[completedStep]: new Date(),
 		}
+		const updatedRequiredSteps = currentUser.onboarding?.requiredSteps.filter(
+			(step) => step !== completedStep,
+		)
+
+		const newOrganization = await prisma.organization.create({
+			data: {
+				name,
+			},
+		})
+		const newOrganizationId = newOrganization.id
+
+		const newRole = await prisma.role.create({
+			data: {
+				name: 'Organization Owner',
+				permissions: {
+					connect: permissionsArray.map(({ key }) => ({ key })),
+				},
+				organizationId: newOrganizationId,
+			},
+		})
 
 		await prisma.user.update({
 			where: {
@@ -257,8 +412,13 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 			},
 			data: {
 				organization: {
-					create: {
-						name,
+					connect: {
+						id: newOrganizationId,
+					},
+				},
+				roles: {
+					connect: {
+						id: newRole.id,
 					},
 				},
 				onboarding: {
@@ -268,6 +428,9 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 							push: completedStep,
 						},
 						stepTimeStamps: updatedStamps,
+						requiredSteps: {
+							set: updatedRequiredSteps,
+						},
 					},
 				},
 			},

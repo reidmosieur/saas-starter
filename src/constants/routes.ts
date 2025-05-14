@@ -5,6 +5,8 @@ import {
 	readOwnUser,
 } from './permissions'
 
+export const baseUrl = process.env.APP_URL
+
 // app
 export const rootRoute = '/'
 
@@ -25,9 +27,17 @@ export const forgotPasswordRoute = '/forgot-password'
 export const resetPasswordRoute = '/reset-password'
 export const verifyRoute = '/verify'
 export const verifyCodeRoute = '/verify-code'
-export const onboardingRoute = '/onboarding'
 export const privacyRoute = '/privacy'
 export const termsRoute = '/terms'
+export const googleRedirectRoute = '/api/auth/google/callback'
+
+// onboarding
+export const onboardingRoute = '/onboarding'
+export const completedOnboardingRoute = onboardingRoute + '/completed'
+export const credentialsOnboardingRoute = onboardingRoute + '/credentials'
+export const organizationOnboardingRoute = onboardingRoute + '/organization'
+export const personalInfoOnboardingRoute = onboardingRoute + '/personal-info'
+export const usernameOnboardingRoute = onboardingRoute + '/username'
 
 export const protectedRoutes = [
 	rootRoute,

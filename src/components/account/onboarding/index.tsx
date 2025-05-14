@@ -19,28 +19,9 @@ import { OrganizationOnboardingStep } from './organization'
 import { PersonalInfoOnboardingStep } from './personal-info'
 import { Fragment } from 'react'
 import { OnboardingSteps } from '@/generated/prisma'
-
-const onboardingSteps: Array<{
-	id: OnboardingSteps
-	slug: OnboardingSlugs
-	label: string
-}> = [
-	{
-		id: 'CREDENTIALS',
-		slug: 'credentials',
-		label: 'Credentials',
-	},
-	{
-		id: 'PERSONAL_INFO',
-		slug: 'personal-info',
-		label: 'Your Info',
-	},
-	{
-		id: 'ORGANIZATION',
-		slug: 'organization',
-		label: 'Organization Info',
-	},
-]
+import { UsernameOnboardingStep } from './username'
+import { CredentialsOnboardingStep } from './credentials'
+import { onboardingSteps } from '@/constants/onboarding'
 
 export function Onboarding({
 	className,
@@ -56,7 +37,6 @@ export function Onboarding({
 	slug: string
 	requiredSteps?: Array<OnboardingSteps>
 }) {
-	const onboardingStepsLength = onboardingSteps.length
 	const currentStep = onboardingSteps.findIndex(
 		({ slug: stepSlug }) => stepSlug === slug,
 	)
@@ -75,9 +55,11 @@ export function Onboarding({
 						<BreadcrumbList className="justify-between sm:gap-5">
 							{onboardingSteps
 								.filter(({ id }) => requiredSteps.includes(id))
-								.map(({ slug, label }, index) => {
+								.map(({ slug, label }, index, filteredSteps) => {
 									const completed = index < currentStep
 									const current = index === currentStep
+									const isLast = index === filteredSteps.length - 1
+
 									return (
 										<Fragment key={slug}>
 											<BreadcrumbItem
@@ -88,15 +70,15 @@ export function Onboarding({
 											>
 												{label}
 											</BreadcrumbItem>
-											{index < onboardingStepsLength - 2 ? (
+											{!isLast && (
 												<Separator
 													orientation="horizontal"
 													className={cn(
-														'grow data-[orientation=horizontal]:w-fit',
+														'min-w-5 grow data-[orientation=horizontal]:w-fit',
 														completed && 'bg-primary',
 													)}
 												/>
-											) : null}
+											)}
 										</Fragment>
 									)
 								})}
@@ -109,15 +91,21 @@ export function Onboarding({
 	)
 }
 
-export type OnboardingSlugs = 'credentials' | 'personal-info' | 'organization'
+export type OnboardingSlugs =
+	| 'credentials'
+	| 'username'
+	| 'personal-info'
+	| 'organization'
 
 export function OnboardingStep({ slug }: { slug: OnboardingSlugs }) {
 	switch (slug) {
 		// Step 1:
 		// credentials step is at /onboarding
 		case 'credentials':
-		default:
-			redirect('/onboarding')
+			return <CredentialsOnboardingStep />
+
+		case 'username':
+			return <UsernameOnboardingStep />
 
 		// Step 2:
 		case 'personal-info':
@@ -126,5 +114,8 @@ export function OnboardingStep({ slug }: { slug: OnboardingSlugs }) {
 		// Step 3:
 		case 'organization':
 			return <OrganizationOnboardingStep />
+
+		default:
+			redirect('/onboarding')
 	}
 }
