@@ -49,6 +49,8 @@ export async function initializeEmailSignup({ email }: { email: string }) {
 
 		// todo: send an email to the user asking if they're trying to log in
 
+		console.log('There is a user associated with that email')
+
 		return safeError
 	}
 

@@ -13858,6 +13858,7 @@ export namespace Prisma {
     updatedAt: Date | null
     provider: $Enums.ConnectionProvider | null
     providerAccountId: string | null
+    username: string | null
     userId: number | null
   }
 
@@ -13867,6 +13868,7 @@ export namespace Prisma {
     updatedAt: Date | null
     provider: $Enums.ConnectionProvider | null
     providerAccountId: string | null
+    username: string | null
     userId: number | null
   }
 
@@ -13877,6 +13879,7 @@ export namespace Prisma {
     raw: number
     provider: number
     providerAccountId: number
+    username: number
     userId: number
     _all: number
   }
@@ -13898,6 +13901,7 @@ export namespace Prisma {
     updatedAt?: true
     provider?: true
     providerAccountId?: true
+    username?: true
     userId?: true
   }
 
@@ -13907,6 +13911,7 @@ export namespace Prisma {
     updatedAt?: true
     provider?: true
     providerAccountId?: true
+    username?: true
     userId?: true
   }
 
@@ -13917,6 +13922,7 @@ export namespace Prisma {
     raw?: true
     provider?: true
     providerAccountId?: true
+    username?: true
     userId?: true
     _all?: true
   }
@@ -14014,6 +14020,7 @@ export namespace Prisma {
     raw: JsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
     userId: number
     _count: ConnectionCountAggregateOutputType | null
     _avg: ConnectionAvgAggregateOutputType | null
@@ -14043,6 +14050,7 @@ export namespace Prisma {
     raw?: boolean
     provider?: boolean
     providerAccountId?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["connection"]>
@@ -14054,6 +14062,7 @@ export namespace Prisma {
     raw?: boolean
     provider?: boolean
     providerAccountId?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["connection"]>
@@ -14065,6 +14074,7 @@ export namespace Prisma {
     raw?: boolean
     provider?: boolean
     providerAccountId?: boolean
+    username?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["connection"]>
@@ -14076,10 +14086,11 @@ export namespace Prisma {
     raw?: boolean
     provider?: boolean
     providerAccountId?: boolean
+    username?: boolean
     userId?: boolean
   }
 
-  export type ConnectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "raw" | "provider" | "providerAccountId" | "userId", ExtArgs["result"]["connection"]>
+  export type ConnectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "raw" | "provider" | "providerAccountId" | "username" | "userId", ExtArgs["result"]["connection"]>
   export type ConnectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -14102,6 +14113,7 @@ export namespace Prisma {
       raw: Prisma.JsonValue
       provider: $Enums.ConnectionProvider
       providerAccountId: string
+      username: string
       userId: number
     }, ExtArgs["result"]["connection"]>
     composites: {}
@@ -14533,6 +14545,7 @@ export namespace Prisma {
     readonly raw: FieldRef<"Connection", 'Json'>
     readonly provider: FieldRef<"Connection", 'ConnectionProvider'>
     readonly providerAccountId: FieldRef<"Connection", 'String'>
+    readonly username: FieldRef<"Connection", 'String'>
     readonly userId: FieldRef<"Connection", 'Int'>
   }
     
@@ -15129,6 +15142,7 @@ export namespace Prisma {
     raw: 'raw',
     provider: 'provider',
     providerAccountId: 'providerAccountId',
+    username: 'username',
     userId: 'userId'
   };
 
@@ -16155,6 +16169,7 @@ export namespace Prisma {
     raw?: JsonFilter<"Connection">
     provider?: EnumConnectionProviderFilter<"Connection"> | $Enums.ConnectionProvider
     providerAccountId?: StringFilter<"Connection"> | string
+    username?: StringFilter<"Connection"> | string
     userId?: IntFilter<"Connection"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -16166,6 +16181,7 @@ export namespace Prisma {
     raw?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -16181,6 +16197,7 @@ export namespace Prisma {
     raw?: JsonFilter<"Connection">
     provider?: EnumConnectionProviderFilter<"Connection"> | $Enums.ConnectionProvider
     providerAccountId?: StringFilter<"Connection"> | string
+    username?: StringFilter<"Connection"> | string
     userId?: IntFilter<"Connection"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "provider_providerAccountId">
@@ -16192,6 +16209,7 @@ export namespace Prisma {
     raw?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
     _count?: ConnectionCountOrderByAggregateInput
     _avg?: ConnectionAvgOrderByAggregateInput
@@ -16210,6 +16228,7 @@ export namespace Prisma {
     raw?: JsonWithAggregatesFilter<"Connection">
     provider?: EnumConnectionProviderWithAggregatesFilter<"Connection"> | $Enums.ConnectionProvider
     providerAccountId?: StringWithAggregatesFilter<"Connection"> | string
+    username?: StringWithAggregatesFilter<"Connection"> | string
     userId?: IntWithAggregatesFilter<"Connection"> | number
   }
 
@@ -17140,6 +17159,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
     user: UserCreateNestedOneWithoutConnectionsInput
   }
 
@@ -17150,6 +17170,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
     userId: number
   }
 
@@ -17159,6 +17180,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutConnectionsNestedInput
   }
 
@@ -17169,6 +17191,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -17179,6 +17202,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
     userId: number
   }
 
@@ -17188,6 +17212,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConnectionUncheckedUpdateManyInput = {
@@ -17197,6 +17222,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18098,6 +18124,7 @@ export namespace Prisma {
     raw?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -18112,6 +18139,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -18121,6 +18149,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
+    username?: SortOrder
     userId?: SortOrder
   }
 
@@ -19298,6 +19327,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
   }
 
   export type ConnectionUncheckedCreateWithoutUserInput = {
@@ -19307,6 +19337,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
   }
 
   export type ConnectionCreateOrConnectWithoutUserInput = {
@@ -19557,6 +19588,7 @@ export namespace Prisma {
     raw?: JsonFilter<"Connection">
     provider?: EnumConnectionProviderFilter<"Connection"> | $Enums.ConnectionProvider
     providerAccountId?: StringFilter<"Connection"> | string
+    username?: StringFilter<"Connection"> | string
     userId?: IntFilter<"Connection"> | number
   }
 
@@ -20756,6 +20788,7 @@ export namespace Prisma {
     raw: JsonNullValueInput | InputJsonValue
     provider: $Enums.ConnectionProvider
     providerAccountId: string
+    username: string
   }
 
   export type RoleUpdateWithoutUsersInput = {
@@ -20887,6 +20920,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConnectionUncheckedUpdateWithoutUserInput = {
@@ -20896,6 +20930,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConnectionUncheckedUpdateManyWithoutUserInput = {
@@ -20905,6 +20940,7 @@ export namespace Prisma {
     raw?: JsonNullValueInput | InputJsonValue
     provider?: EnumConnectionProviderFieldUpdateOperationsInput | $Enums.ConnectionProvider
     providerAccountId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyOrganizationInput = {

@@ -2,7 +2,7 @@
 
 import { handleChangePassword } from '@/app/actions/auth/reset-password'
 import { Form } from '@/components/ui/form'
-import { Session } from '@/generated/prisma'
+import { ConnectionProvider, Session } from '@/generated/prisma'
 import { cn, stringConcatenator, submitter } from '@/lib/utils'
 import {
 	ManageSessionFormProps,
@@ -37,6 +37,10 @@ import {
 	TableRow,
 } from '../ui/table'
 import { revokeUserSessions } from '@/app/actions/auth/sessions'
+import { ContinueWithGoogle } from '../continue-with-google'
+import { IconBrandGoogle } from '@tabler/icons-react'
+import { Skeleton } from '../ui/skeleton'
+import { baseUrl, googleRedirectRoute } from '@/constants/routes'
 
 const emailSettingsForm = z.object({
 	password: passwordSchema,
@@ -96,7 +100,12 @@ const oauthSettingsForm = z.object({
 
 export function OAuthSettingsForm({
 	cardProps,
-}: CardFormProps<z.infer<typeof oauthSettingsForm>>) {
+	connections,
+	userId,
+}: CardFormProps<z.infer<typeof oauthSettingsForm>> & {
+	connections: Array<{ provider: ConnectionProvider; username: string }>
+	userId: number
+}) {
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof oauthSettingsForm>>({
 		resolver: zodResolver(oauthSettingsForm),
@@ -114,6 +123,9 @@ export function OAuthSettingsForm({
 			console.log(values)
 		},
 	)
+	const googleConnection = connections.find(
+		({ provider }) => provider === 'GOOGLE',
+	)
 
 	return (
 		<Form {...form}>
@@ -121,52 +133,64 @@ export function OAuthSettingsForm({
 				<form onSubmit={onSubmit}>
 					<CardHeader>
 						<CardTitle>SSO Methods</CardTitle>
-						<CardDescription>
-							Change SSO providers, like Google or Apple
-						</CardDescription>
+						<CardDescription>Add SSO providers, like Google</CardDescription>
 					</CardHeader>
 					<CardContent className="grid gap-4 md:gap-6">
 						<div className="flex items-center justify-between gap-4 md:gap-8">
-							<div className="flex items-center gap-6">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									className="h-6 w-6"
-								>
-									<path
-										d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-										fill="currentColor"
-									/>
-								</svg>
-								<div className="flex flex-col">
-									<span className="font-bold">Google</span>
-									<small className="text-muted-foreground">username</small>
+							{googleConnection ? (
+								<div className="flex items-center gap-6">
+									<div className="bg-foreground h-10 w-10 rounded-md p-2">
+										<svg
+											version="1.1"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 48 48"
+											className="LgbsSe-Bz112c"
+										>
+											<g>
+												<path
+													fill="#EA4335"
+													d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+												></path>
+												<path
+													fill="#4285F4"
+													d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+												></path>
+												<path
+													fill="#FBBC05"
+													d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+												></path>
+												<path
+													fill="#34A853"
+													d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+												></path>
+												<path fill="none" d="M0 0h48v48H0z"></path>
+											</g>
+										</svg>
+									</div>
+									<div className="flex flex-col">
+										<span className="font-bold">Google</span>
+										<small className="text-muted-foreground">
+											{googleConnection.username}
+										</small>
+									</div>
 								</div>
-							</div>
-							<Button variant={'ghost'}>
-								<EllipsisVertical />
-							</Button>
-						</div>
-						<div className="flex items-center justify-between gap-4 md:gap-8">
-							<div className="flex items-center gap-6">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									className="h-6 w-6"
-								>
-									<path
-										d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-										fill="currentColor"
+							) : (
+								<div className="flex h-10 w-full items-center gap-6">
+									<ContinueWithGoogle
+										clientComponentProps={{
+											fallback: <Skeleton className="h-10 w-10" />,
+										}}
+										googleButtonProps={{
+											type: 'icon',
+											shape: 'square',
+											loginUri:
+												baseUrl + googleRedirectRoute + `?connect=${userId}`,
+											className: 'w-10',
+										}}
 									/>
-								</svg>
-								<div className="flex flex-col">
-									<span className="font-bold">Apple</span>
-									<small className="text-muted-foreground">username</small>
+									<span className="font-bold">Add your Google account</span>
 								</div>
-							</div>
-							<Button variant={'ghost'}>
-								<EllipsisVertical />
-							</Button>
+							)}
 						</div>
 					</CardContent>
 				</form>

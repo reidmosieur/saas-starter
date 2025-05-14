@@ -257,6 +257,7 @@ exports.Prisma.ConnectionScalarFieldEnum = {
   raw: 'raw',
   provider: 'provider',
   providerAccountId: 'providerAccountId',
+  username: 'username',
   userId: 'userId'
 };
 

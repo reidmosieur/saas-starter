@@ -226,6 +226,7 @@ model Connection {
   raw               Json
   provider          ConnectionProvider
   providerAccountId String
+  username          String
 
   user   User @relation(fields: [userId], references: [id])
   userId Int

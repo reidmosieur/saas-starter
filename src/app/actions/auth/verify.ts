@@ -90,7 +90,7 @@ export async function handleOTPSetup({
 			.setExpirationTime(`${OTP_EXPIRATION_SECONDS}s`)
 			.sign(encodedKey)
 
-		const verifyUrl = `${process.env.APP_URL}/${verifyRoute}?token=${jwt}`
+		const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${verifyRoute}?token=${jwt}`
 
 		// Step 3:
 		// email the code to the user

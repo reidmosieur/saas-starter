@@ -12,6 +12,7 @@ import { redirect } from 'next/navigation'
 
 const requiredPermissions = constructRequiredPermissions([readOwnUser])
 const additionalSelect = {
+	id: true,
 	firstName: true,
 	lastName: true,
 	username: true,
@@ -20,6 +21,12 @@ const additionalSelect = {
 	sessions: {
 		where: {
 			revokedAt: null,
+		},
+	},
+	connections: {
+		select: {
+			username: true,
+			provider: true,
 		},
 	},
 }
@@ -44,7 +51,11 @@ export default async function Page() {
 		<TabsContent value="security" className="py-4 md:py-6">
 			<section className="grid grid-cols-6 gap-4 md:gap-6">
 				<PasswordSettingsForm cardProps={{ className: 'col-span-2' }} />
-				<OAuthSettingsForm cardProps={{ className: 'col-span-2' }} />
+				<OAuthSettingsForm
+					cardProps={{ className: 'col-span-2' }}
+					connections={user.connections}
+					userId={user.id}
+				/>
 				<SessionsTable
 					cardProps={{ className: 'col-span-6' }}
 					sessions={user.sessions}

@@ -6,6 +6,7 @@ import { createSession } from '@/lib/session'
 import { emailLoginSchema } from '@/schema/auth'
 import { redirect } from 'next/navigation'
 import bcrypt from 'bcrypt'
+import { checkForConnection } from '@/lib/utils'
 
 const safeError = {
 	errors: {
@@ -33,14 +34,27 @@ export async function login({ email, password }: LoginArgs) {
 						hash: true,
 					},
 				},
+				connections: {
+					select: {
+						provider: true,
+					},
+				},
 			},
 		})
+		const hasGoogleConnection = checkForConnection(user.connections, 'GOOGLE')
+		const passwordHash = user.password?.hash
 
-		if (!user.password) {
+		if (!passwordHash) {
+			if (hasGoogleConnection) {
+				// optional: trigger an email that the user is trying to sign in
+				// with a username and password but hasn't set them up
+				console.log('This user has a google account connected to their account')
+			}
+
 			return safeError
 		}
 
-		const isValid = await bcrypt.compare(password, user.password?.hash)
+		const isValid = await bcrypt.compare(password, passwordHash)
 
 		if (!isValid) {
 			return {

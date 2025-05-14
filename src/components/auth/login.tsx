@@ -15,12 +15,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { ContinueWithGoogle } from '../continue-with-google'
 import { Form, FormMessage } from '../ui/form'
 import { EmailField, PasswordField } from './fields'
-import { baseUrl, googleRedirectRoute } from '@/constants/routes'
-import { ContinueWithGoogle } from '../continue-with-google'
-
-const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID
 
 export function Login({ className, ...props }: React.ComponentProps<'div'>) {
 	return (

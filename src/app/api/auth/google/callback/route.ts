@@ -8,16 +8,20 @@ import prisma from '@/lib/prisma'
 import { createSession } from '@/lib/session'
 import { OAuth2Client } from 'google-auth-library'
 import { redirect } from 'next/navigation'
+import { NextRequest } from 'next/server'
 
 const oAuth2Client = new OAuth2Client({
-	clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+	clientId: process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID,
 	clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
 	redirectUri: googleRedirectRoute,
 })
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	const formData = await req.text()
 	const credential = new URLSearchParams(formData).get('credential')
+
+	const searchParams = req.nextUrl.searchParams
+	const userId = searchParams.get('connect')
 
 	if (!credential) {
 		return new Response(`Missing credentials`, {
@@ -38,7 +42,7 @@ export async function POST(req: Request) {
 		})
 	}
 
-	const { email, family_name, given_name, sub } = payload
+	const { email, family_name, given_name, sub, email_verified } = payload
 
 	if (!email) {
 		return redirect(signupRoute)
@@ -62,7 +66,8 @@ export async function POST(req: Request) {
 
 	const existingUser = await prisma.user.findUnique({
 		where: {
-			email: normalizedEmail,
+			id: Number(userId) ?? undefined,
+			email: userId ? undefined : normalizedEmail,
 		},
 		select: {
 			id: true,
@@ -105,6 +110,7 @@ export async function POST(req: Request) {
 					provider: 'GOOGLE',
 					providerAccountId: sub,
 					userId: existingUser.id,
+					username: email,
 				},
 			})
 		}
@@ -121,6 +127,7 @@ export async function POST(req: Request) {
 			const user = await prisma.user.create({
 				data: {
 					email: normalizedEmail,
+					emailVerified: email_verified ? new Date() : null,
 					firstName: given_name,
 					lastName: family_name,
 					connections: {
@@ -128,6 +135,7 @@ export async function POST(req: Request) {
 							raw: JSON.stringify(payload),
 							provider: 'GOOGLE',
 							providerAccountId: sub,
+							username: email,
 						},
 					},
 					onboarding: {

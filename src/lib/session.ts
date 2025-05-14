@@ -1,11 +1,10 @@
-import 'server-only'
-import { SignJWT, jwtVerify } from 'jose'
-import { cookies, headers } from 'next/headers'
-import prisma from './prisma'
 import { InputJsonObject } from '@/generated/prisma/runtime/library'
 import { IpInfoResponse } from '@/types/session'
+import { SignJWT, jwtVerify } from 'jose'
+import { cookies, headers } from 'next/headers'
 import { userAgent } from 'next/server'
-import { redirect } from 'next/navigation'
+import 'server-only'
+import prisma from './prisma'
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -86,6 +85,17 @@ export async function createSession({
 				timezone: ipInfo?.timezone,
 				context,
 				metadata,
+			},
+		})
+
+		const now = new Date()
+		await prisma.user.update({
+			where: {
+				id: userId,
+			},
+			data: {
+				lastLogin: now,
+				lastActivity: now,
 			},
 		})
 

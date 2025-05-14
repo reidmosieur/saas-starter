@@ -5,7 +5,7 @@ import {
 	readOwnUser,
 } from './permissions'
 
-export const baseUrl = process.env.APP_URL
+export const baseUrl = process.env.NEXT_PUBLIC_APP_URL
 
 // app
 export const rootRoute = '/'

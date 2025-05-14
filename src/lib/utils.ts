@@ -1,6 +1,6 @@
 import { onboardingSteps } from '@/constants/onboarding'
 import { PermissionKey } from '@/constants/permissions'
-import { OnboardingSteps } from '@/generated/prisma'
+import { ConnectionProvider, OnboardingSteps } from '@/generated/prisma'
 import { clsx, type ClassValue } from 'clsx'
 import { ErrorOption, FieldValues, Path, UseFormReturn } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -142,4 +142,11 @@ export function smartConcat(parts: StringPart[]): string {
 
 export function getCurrentOnboardingSlug(currentStep: OnboardingSteps) {
 	return onboardingSteps.find(({ id }) => id === currentStep)?.slug
+}
+
+export function checkForConnection(
+	connections: Array<{ provider: ConnectionProvider }> | undefined,
+	check: ConnectionProvider,
+) {
+	return connections?.some(({ provider }) => provider === check) ?? false
 }
