@@ -5,6 +5,7 @@ import prisma from './prisma'
 import { InputJsonObject } from '@/generated/prisma/runtime/library'
 import { IpInfoResponse } from '@/types/session'
 import { userAgent } from 'next/server'
+import { redirect } from 'next/navigation'
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -108,11 +109,16 @@ export async function createSession({
 	}
 }
 
-export async function readSession() {
+export async function readSessionId() {
 	const cookie = (await cookies()).get('session')?.value
 
 	const sessionCookie = await decrypt(cookie)
-	const sessionId = sessionCookie?.id as number | undefined
+
+	return sessionCookie?.id as number | undefined
+}
+
+export async function readSession() {
+	const sessionId = await readSessionId()
 
 	const session = await prisma.session.findUnique({
 		where: {
@@ -159,7 +165,7 @@ export async function updateSession({
 	})
 }
 
-export async function deleteSession() {
+export async function revokeCurrentSession() {
 	const session = (await cookies()).get('session')?.value
 	const payload = await decrypt(session)
 
@@ -169,6 +175,10 @@ export async function deleteSession() {
 
 	const sessionId = payload.id as number
 
+	await revokeSession(sessionId)
+}
+
+export async function revokeSession(sessionId: number) {
 	try {
 		await prisma.session.update({
 			where: {
@@ -183,7 +193,16 @@ export async function deleteSession() {
 	}
 
 	const cookieStore = await cookies()
+	const currentSession = cookieStore.get('session')?.value
+	const payload = await decrypt(currentSession)
+	const currentSessionId = payload ? Number(payload.id) : undefined
 	cookieStore.delete('session')
+
+	if (!currentSessionId || currentSessionId === sessionId) {
+		return {
+			logout: true,
+		}
+	}
 }
 
 // ignore missing or local IPs

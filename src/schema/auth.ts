@@ -53,3 +53,8 @@ export const verifyEmailSchema = z.object({
 	code: z.string().min(6, 'Your one-time password must be 6 characters'),
 })
 export type VerifyEmailFormProps = z.infer<typeof verifyEmailSchema>
+
+export const manageSessionSchema = z.object({
+	ids: z.array(z.number()),
+})
+export type ManageSessionFormProps = z.infer<typeof manageSessionSchema>

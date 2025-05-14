@@ -4,7 +4,12 @@ import { handleChangePassword } from '@/app/actions/auth/reset-password'
 import { Form } from '@/components/ui/form'
 import { Session } from '@/generated/prisma'
 import { cn, stringConcatenator, submitter } from '@/lib/utils'
-import { passwordSchema, ResetPasswordFormProps } from '@/schema/auth'
+import {
+	ManageSessionFormProps,
+	manageSessionSchema,
+	passwordSchema,
+	ResetPasswordFormProps,
+} from '@/schema/auth'
 import { CardFormProps } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EllipsisVertical } from 'lucide-react'
@@ -31,6 +36,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '../ui/table'
+import { revokeUserSessions } from '@/app/actions/auth/sessions'
 
 const emailSettingsForm = z.object({
 	password: passwordSchema,
@@ -172,67 +178,129 @@ export function OAuthSettingsForm({
 export function SessionsTable({
 	cardProps,
 	sessions,
+	currentSession,
 }: {
 	cardProps?: ComponentProps<'div'>
 	sessions: Array<Partial<Session>>
+	currentSession: number
 }) {
+	// 1. Define your form.
+	const form = useForm<ManageSessionFormProps>({
+		resolver: zodResolver(manageSessionSchema),
+		defaultValues: {
+			ids: [],
+		},
+	})
+
+	// 2. Define a submit handler.
+	const onSubmit = submitter(form, async (values: ManageSessionFormProps) => {
+		return await revokeUserSessions(values)
+	})
+	const selectedIds = form.watch('ids')
+	const allIds = sessions
+		.filter(({ id }) => typeof id === 'number')
+		.map(({ id }) => id)
+
+	const addIds = (ids: Array<number>) =>
+		form.setValue('ids', Array.from(new Set([...selectedIds, ...ids])), {
+			shouldDirty: true,
+		})
+	const removeIds = (ids: Array<number>) =>
+		form.setValue(
+			'ids',
+			selectedIds.filter((id) => !ids.includes(id)),
+			{ shouldDirty: true },
+		)
+
 	return (
-		<Card {...cardProps}>
-			<CardHeader>
-				<CardTitle>Sessions</CardTitle>
-				<CardDescription>Manage your sessions</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead />
-							<TableHead>Status</TableHead>
-							<TableHead>Context</TableHead>
-							<TableHead>Browser</TableHead>
-							<TableHead>Location</TableHead>
-							<TableHead />
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{sessions.map(
-							(
-								{ createdAt, context, browserName, city, region, revokedAt },
-								index,
-							) => (
-								<TableRow key={index}>
-									<TableCell>
-										<Checkbox />
-									</TableCell>
-									<TableCell
-										className={cn(
-											revokedAt
-												? 'text-muted-foreground'
-												: 'text-green-700 dark:text-green-400',
-										)}
-									>
-										{revokedAt
-											? `Revoked since ${new Date(revokedAt).toLocaleDateString()}`
-											: createdAt
-												? `Active since ${new Date(createdAt).toLocaleDateString()}`
-												: null}
-									</TableCell>
-									<TableCell>{context}</TableCell>
-									<TableCell>{browserName}</TableCell>
-									<TableCell>
-										{stringConcatenator([city, region], ', ')}
-									</TableCell>
-									<TableCell align="right">
-										<Button variant={'ghost'}>
-											<EllipsisVertical />
-										</Button>
-									</TableCell>
+		<Form {...form}>
+			<Card {...cardProps} asChild>
+				<form onSubmit={onSubmit}>
+					<CardHeader className="flex items-start justify-between">
+						<div className="grid grid-cols-1 gap-1.5">
+							<CardTitle>Sessions</CardTitle>
+							<CardDescription>Manage your sessions</CardDescription>
+						</div>
+						{selectedIds.length > 0 ? (
+							<div className="flex gap-2">
+								<Button size={'sm'}>Revoke</Button>
+							</div>
+						) : null}
+					</CardHeader>
+					<CardContent>
+						<Table>
+							<TableHeader>
+								<TableRow>
+									<TableHead>
+										<Checkbox
+											checked={
+												allIds.length > 0 &&
+												allIds.every((id) => selectedIds.includes(id))
+											}
+											onCheckedChange={(checked) =>
+												checked ? addIds(allIds) : removeIds(allIds)
+											}
+										/>
+									</TableHead>
+									<TableHead>Status</TableHead>
+									<TableHead>Context</TableHead>
+									<TableHead>Browser</TableHead>
+									<TableHead>Location</TableHead>
 								</TableRow>
-							),
-						)}
-					</TableBody>
-				</Table>
-			</CardContent>
-		</Card>
+							</TableHeader>
+							<TableBody>
+								{sessions.map(
+									(
+										{
+											id,
+											createdAt,
+											context,
+											browserName,
+											city,
+											region,
+											revokedAt,
+										},
+										index,
+									) => (
+										<TableRow key={index}>
+											<TableCell>
+												<Checkbox
+													checked={!!id && selectedIds.includes(id)}
+													onCheckedChange={(checked) =>
+														!!id && (checked ? addIds([id]) : removeIds([id]))
+													}
+												/>
+											</TableCell>
+											<TableCell
+												className={cn(
+													currentSession === id
+														? 'text-primary'
+														: revokedAt
+															? 'text-muted-foreground'
+															: 'text-green-700 dark:text-green-400',
+												)}
+											>
+												{currentSession === id && createdAt
+													? `Current session since ${new Date(createdAt).toLocaleDateString()}`
+													: revokedAt
+														? `Revoked since ${new Date(revokedAt).toLocaleDateString()}`
+														: createdAt
+															? `Active since ${new Date(createdAt).toLocaleDateString()}`
+															: null}
+											</TableCell>
+											<TableCell>{context}</TableCell>
+											<TableCell>{browserName}</TableCell>
+											<TableCell>
+												{stringConcatenator([city, region], ', ')}
+											</TableCell>
+										</TableRow>
+									),
+								)}
+							</TableBody>
+						</Table>
+					</CardContent>
+				</form>
+			</Card>
+		</Form>
 	)
 }

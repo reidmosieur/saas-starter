@@ -6,6 +6,7 @@ import {
 import { TabsContent } from '@/components/ui/tabs'
 import { readOwnUser } from '@/constants/permissions'
 import { checkUserPermissions } from '@/lib/access-control'
+import { readSessionId } from '@/lib/session'
 import { constructRequiredPermissions } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
@@ -16,7 +17,11 @@ const additionalSelect = {
 	username: true,
 	phoneNumber: true,
 	avatar: true,
-	sessions: true,
+	sessions: {
+		where: {
+			revokedAt: null,
+		},
+	},
 }
 
 export default async function Page() {
@@ -25,13 +30,16 @@ export default async function Page() {
 		additionalSelect,
 	})
 
+	const sessionId = await readSessionId()
+
 	if (!permitted) {
 		redirect('/')
 	}
 
-	if (!user) {
+	if (!user || !sessionId) {
 		redirect('/logout')
 	}
+
 	return (
 		<TabsContent value="security" className="py-4 md:py-6">
 			<section className="grid grid-cols-6 gap-4 md:gap-6">
@@ -40,6 +48,7 @@ export default async function Page() {
 				<SessionsTable
 					cardProps={{ className: 'col-span-6' }}
 					sessions={user.sessions}
+					currentSession={sessionId}
 				/>
 			</section>
 		</TabsContent>
