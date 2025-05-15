@@ -36,6 +36,7 @@ export async function instantiateBillingSettings() {
 		await createSetupIntent(stripeCustomerId),
 		await readPlans(),
 		await readCards(stripeCustomerId),
+		await readInvoices(stripeCustomerId),
 	])
 
 	return {
@@ -114,4 +115,30 @@ export async function readCards(customerId: string) {
 
 export async function removeCard(id: string) {
 	return await stripe.paymentMethods.detach(id)
+}
+
+export async function readInvoices(customerId: string) {
+	const invoices = await stripe.invoices.list({
+		customer: customerId,
+	})
+
+	return invoices.data.map(
+		({
+			id,
+			invoice_pdf,
+			amount_paid,
+			description,
+			period_start,
+			period_end,
+			status,
+		}) => ({
+			id,
+			invoice_pdf,
+			amount_paid,
+			description,
+			period_start,
+			period_end,
+			status,
+		}),
+	)
 }

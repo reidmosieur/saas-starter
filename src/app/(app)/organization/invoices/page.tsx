@@ -1,9 +1,5 @@
+import { readInvoices } from '@/app/actions/stripe'
 import { Button } from '@/components/ui/button'
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from '@/components/ui/popover'
 import {
 	Table,
 	TableBody,
@@ -13,11 +9,12 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import { TabsContent } from '@/components/ui/tabs'
-import { EllipsisVertical } from 'lucide-react'
-import { redirect } from 'next/navigation'
-import { constructRequiredPermissions } from '@/lib/utils'
 import { readOrganizationOrganization } from '@/constants/permissions'
 import { checkUserPermissions } from '@/lib/access-control'
+import { constructRequiredPermissions } from '@/lib/utils'
+import { Download } from 'lucide-react'
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 const requiredPermissions = constructRequiredPermissions([
 	readOrganizationOrganization,
@@ -25,40 +22,7 @@ const requiredPermissions = constructRequiredPermissions([
 const additionalSelect = {
 	organization: {
 		select: {
-			name: true,
-			users: {
-				select: {
-					firstName: true,
-					lastName: true,
-					email: true,
-					roles: true,
-					createdAt: true,
-				},
-			},
-			roles: {
-				select: {
-					name: true,
-					users: {
-						select: {
-							firstName: true,
-							lastName: true,
-						},
-						take: 2,
-					},
-					permissions: {
-						select: {
-							name: true,
-						},
-						take: 2,
-					},
-					_count: {
-						select: {
-							users: true,
-							permissions: true,
-						},
-					},
-				},
-			},
+			stripeCustomerId: true,
 		},
 	},
 }
@@ -69,13 +33,18 @@ export default async function Page() {
 		additionalSelect,
 	})
 
+	const stripeCustomerId = user?.organization?.stripeCustomerId
+
 	if (!permitted) {
 		redirect('/')
 	}
 
-	if (!user) {
+	if (!user || !stripeCustomerId) {
 		redirect('/logout')
 	}
+
+	const invoices = await readInvoices(stripeCustomerId)
+
 	return (
 		<TabsContent value="invoices" className="py-4 md:py-6">
 			<section>
@@ -83,40 +52,47 @@ export default async function Page() {
 					<Table>
 						<TableHeader>
 							<TableRow>
-								<TableHead>Date</TableHead>
-								<TableHead>Plan</TableHead>
-								<TableHead>Total</TableHead>
-								<TableHead>Payment Method</TableHead>
+								<TableHead>Description</TableHead>
+								<TableHead>Start Date</TableHead>
+								<TableHead>End Date</TableHead>
+								<TableHead>Status</TableHead>
+								<TableHead>Amount</TableHead>
 								<TableHead />
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							<TableRow>
-								<TableCell>April 2025</TableCell>
-								<TableCell>Starter</TableCell>
-								<TableCell>$20</TableCell>
-								<TableCell>Visa **** 4242</TableCell>
-								<TableCell align="right">
-									<Popover>
-										<PopoverTrigger asChild>
-											<Button variant={'ghost'}>
-												<EllipsisVertical />
-											</Button>
-										</PopoverTrigger>
-										<PopoverContent
-											align="end"
-											className="flex flex-col gap-2 p-1"
-										>
-											<Button variant={'ghost'} className="justify-start">
-												View
-											</Button>
-											<Button variant={'ghost'} className="justify-start">
-												Download
-											</Button>
-										</PopoverContent>
-									</Popover>
-								</TableCell>
-							</TableRow>
+							{invoices.map(
+								({
+									id,
+									invoice_pdf,
+									amount_paid,
+									description,
+									period_start,
+									period_end,
+									status,
+								}) => (
+									<TableRow key={id}>
+										<TableCell>{description}</TableCell>
+										<TableCell>
+											{new Date(period_start * 1000).toLocaleString()}
+										</TableCell>
+										<TableCell>
+											{new Date(period_end * 1000).toLocaleString()}
+										</TableCell>
+										<TableCell>{status}</TableCell>
+										<TableCell>${amount_paid / 100}</TableCell>
+										<TableCell align="right">
+											{invoice_pdf ? (
+												<Button variant={'ghost'} size={'icon'} asChild>
+													<Link href={invoice_pdf} download>
+														<Download />
+													</Link>
+												</Button>
+											) : null}
+										</TableCell>
+									</TableRow>
+								),
+							)}
 						</TableBody>
 					</Table>
 				</div>
