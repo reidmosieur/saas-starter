@@ -4,12 +4,15 @@ import {
 	createOrganizationRole as createOrganizationRolePermission,
 	createOrganizationUser,
 	deleteOrganizationUser,
+	updateOrganizationOrganization,
 } from '@/constants/permissions'
 import { checkUserPermissions } from '@/lib/access-control'
 import prisma from '@/lib/prisma'
 import { createSession } from '@/lib/session'
 import { constructRequiredPermissions } from '@/lib/utils'
 import {
+	addressForm,
+	AddressFormProps,
 	inviteUserForm,
 	InviteUserFormProps,
 	newRoleForm,
@@ -449,6 +452,108 @@ export async function reactivateUser(values: ReactivateUserFormProps) {
 			},
 			data: {
 				suspended: null,
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+}
+
+export async function addBillingAddress(values: AddressFormProps) {
+	const { permitted, user } = await checkUserPermissions({
+		additionalSelect: {
+			organization: {
+				select: {
+					id: true,
+				},
+			},
+		},
+		requiredPermissions: constructRequiredPermissions([
+			updateOrganizationOrganization,
+		]),
+	})
+
+	if (!user || !user.organization) {
+		redirect('/logout')
+	}
+
+	if (!permitted) {
+		return safeError
+	}
+
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = addressForm.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const { streetOne, streetTwo, zipCode, state, city, country } =
+		validatedFields.data
+
+	const code = Number(zipCode)
+
+	try {
+		await prisma.address.create({
+			data: {
+				streetLineOne: streetOne,
+				streetLineTwo: streetTwo,
+				country,
+				type: 'BILLING',
+				state: {
+					connectOrCreate: {
+						where: {
+							name: state,
+						},
+						create: {
+							name: state,
+							slug: state,
+						},
+					},
+				},
+				city: {
+					connectOrCreate: {
+						where: {
+							name_stateName: {
+								name: city,
+								stateName: state,
+							},
+						},
+						create: {
+							name: city,
+							stateName: state,
+						},
+					},
+				},
+				zip: {
+					connectOrCreate: {
+						where: {
+							cityName_stateName_code: {
+								cityName: city,
+								stateName: state,
+								code,
+							},
+						},
+						create: {
+							code,
+							cityName: city,
+							stateName: state,
+						},
+					},
+				},
+				organization: {
+					connect: {
+						id: user.organization.id,
+					},
+				},
 			},
 		})
 	} catch (err) {

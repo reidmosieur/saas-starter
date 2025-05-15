@@ -217,7 +217,39 @@ exports.Prisma.OrganizationScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  name: 'name'
+  name: 'name',
+  stripeCustomerId: 'stripeCustomerId'
+};
+
+exports.Prisma.StateScalarFieldEnum = {
+  name: 'name',
+  slug: 'slug'
+};
+
+exports.Prisma.CityScalarFieldEnum = {
+  name: 'name',
+  stateName: 'stateName'
+};
+
+exports.Prisma.ZipScalarFieldEnum = {
+  code: 'code',
+  cityName: 'cityName',
+  stateName: 'stateName'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  type: 'type',
+  borough: 'borough',
+  streetLineOne: 'streetLineOne',
+  streetLineTwo: 'streetLineTwo',
+  cityName: 'cityName',
+  zipCode: 'zipCode',
+  stateName: 'stateName',
+  country: 'country',
+  organizationId: 'organizationId'
 };
 
 exports.Prisma.PermissionScalarFieldEnum = {
@@ -295,7 +327,13 @@ exports.OnboardingSteps = exports.$Enums.OnboardingSteps = {
   USERNAME: 'USERNAME',
   PERSONAL_INFO: 'PERSONAL_INFO',
   ORGANIZATION: 'ORGANIZATION',
+  BILLING: 'BILLING',
   COMPLETED: 'COMPLETED'
+};
+
+exports.AddressType = exports.$Enums.AddressType = {
+  BILLING: 'BILLING',
+  MAILING: 'MAILING'
 };
 
 exports.ConnectionProvider = exports.$Enums.ConnectionProvider = {
@@ -310,6 +348,10 @@ exports.Prisma.ModelName = {
   Onboarding: 'Onboarding',
   PhoneNumber: 'PhoneNumber',
   Organization: 'Organization',
+  State: 'State',
+  City: 'City',
+  Zip: 'Zip',
+  Address: 'Address',
   Permission: 'Permission',
   Role: 'Role',
   Image: 'Image',

@@ -49,6 +49,26 @@ export type PhoneNumber = $Result.DefaultSelection<Prisma.$PhoneNumberPayload>
  */
 export type Organization = $Result.DefaultSelection<Prisma.$OrganizationPayload>
 /**
+ * Model State
+ * 
+ */
+export type State = $Result.DefaultSelection<Prisma.$StatePayload>
+/**
+ * Model City
+ * 
+ */
+export type City = $Result.DefaultSelection<Prisma.$CityPayload>
+/**
+ * Model Zip
+ * 
+ */
+export type Zip = $Result.DefaultSelection<Prisma.$ZipPayload>
+/**
+ * Model Address
+ * 
+ */
+export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
  * Model Permission
  * 
  */
@@ -78,10 +98,19 @@ export namespace $Enums {
   USERNAME: 'USERNAME',
   PERSONAL_INFO: 'PERSONAL_INFO',
   ORGANIZATION: 'ORGANIZATION',
+  BILLING: 'BILLING',
   COMPLETED: 'COMPLETED'
 };
 
 export type OnboardingSteps = (typeof OnboardingSteps)[keyof typeof OnboardingSteps]
+
+
+export const AddressType: {
+  BILLING: 'BILLING',
+  MAILING: 'MAILING'
+};
+
+export type AddressType = (typeof AddressType)[keyof typeof AddressType]
 
 
 export const ConnectionProvider: {
@@ -95,6 +124,10 @@ export type ConnectionProvider = (typeof ConnectionProvider)[keyof typeof Connec
 export type OnboardingSteps = $Enums.OnboardingSteps
 
 export const OnboardingSteps: typeof $Enums.OnboardingSteps
+
+export type AddressType = $Enums.AddressType
+
+export const AddressType: typeof $Enums.AddressType
 
 export type ConnectionProvider = $Enums.ConnectionProvider
 
@@ -294,6 +327,46 @@ export class PrismaClient<
     * ```
     */
   get organization(): Prisma.OrganizationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.state`: Exposes CRUD operations for the **State** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more States
+    * const states = await prisma.state.findMany()
+    * ```
+    */
+  get state(): Prisma.StateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.city`: Exposes CRUD operations for the **City** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Cities
+    * const cities = await prisma.city.findMany()
+    * ```
+    */
+  get city(): Prisma.CityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.zip`: Exposes CRUD operations for the **Zip** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Zips
+    * const zips = await prisma.zip.findMany()
+    * ```
+    */
+  get zip(): Prisma.ZipDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.address`: Exposes CRUD operations for the **Address** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Addresses
+    * const addresses = await prisma.address.findMany()
+    * ```
+    */
+  get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
@@ -781,6 +854,10 @@ export namespace Prisma {
     Onboarding: 'Onboarding',
     PhoneNumber: 'PhoneNumber',
     Organization: 'Organization',
+    State: 'State',
+    City: 'City',
+    Zip: 'Zip',
+    Address: 'Address',
     Permission: 'Permission',
     Role: 'Role',
     Image: 'Image',
@@ -803,7 +880,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "password" | "oTP" | "session" | "onboarding" | "phoneNumber" | "organization" | "permission" | "role" | "image" | "connection"
+      modelProps: "user" | "password" | "oTP" | "session" | "onboarding" | "phoneNumber" | "organization" | "state" | "city" | "zip" | "address" | "permission" | "role" | "image" | "connection"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1325,6 +1402,302 @@ export namespace Prisma {
           }
         }
       }
+      State: {
+        payload: Prisma.$StatePayload<ExtArgs>
+        fields: Prisma.StateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          findFirst: {
+            args: Prisma.StateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          findMany: {
+            args: Prisma.StateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>[]
+          }
+          create: {
+            args: Prisma.StateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          createMany: {
+            args: Prisma.StateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>[]
+          }
+          delete: {
+            args: Prisma.StateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          update: {
+            args: Prisma.StateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          deleteMany: {
+            args: Prisma.StateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>[]
+          }
+          upsert: {
+            args: Prisma.StateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StatePayload>
+          }
+          aggregate: {
+            args: Prisma.StateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateState>
+          }
+          groupBy: {
+            args: Prisma.StateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StateCountArgs<ExtArgs>
+            result: $Utils.Optional<StateCountAggregateOutputType> | number
+          }
+        }
+      }
+      City: {
+        payload: Prisma.$CityPayload<ExtArgs>
+        fields: Prisma.CityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          findFirst: {
+            args: Prisma.CityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          findMany: {
+            args: Prisma.CityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>[]
+          }
+          create: {
+            args: Prisma.CityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          createMany: {
+            args: Prisma.CityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>[]
+          }
+          delete: {
+            args: Prisma.CityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          update: {
+            args: Prisma.CityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          deleteMany: {
+            args: Prisma.CityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>[]
+          }
+          upsert: {
+            args: Prisma.CityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CityPayload>
+          }
+          aggregate: {
+            args: Prisma.CityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCity>
+          }
+          groupBy: {
+            args: Prisma.CityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CityCountArgs<ExtArgs>
+            result: $Utils.Optional<CityCountAggregateOutputType> | number
+          }
+        }
+      }
+      Zip: {
+        payload: Prisma.$ZipPayload<ExtArgs>
+        fields: Prisma.ZipFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ZipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ZipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          findFirst: {
+            args: Prisma.ZipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ZipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          findMany: {
+            args: Prisma.ZipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>[]
+          }
+          create: {
+            args: Prisma.ZipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          createMany: {
+            args: Prisma.ZipCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ZipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>[]
+          }
+          delete: {
+            args: Prisma.ZipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          update: {
+            args: Prisma.ZipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          deleteMany: {
+            args: Prisma.ZipDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ZipUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ZipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>[]
+          }
+          upsert: {
+            args: Prisma.ZipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZipPayload>
+          }
+          aggregate: {
+            args: Prisma.ZipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateZip>
+          }
+          groupBy: {
+            args: Prisma.ZipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ZipGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ZipCountArgs<ExtArgs>
+            result: $Utils.Optional<ZipCountAggregateOutputType> | number
+          }
+        }
+      }
+      Address: {
+        payload: Prisma.$AddressPayload<ExtArgs>
+        fields: Prisma.AddressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddressFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddressFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findFirst: {
+            args: Prisma.AddressFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddressFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findMany: {
+            args: Prisma.AddressFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          create: {
+            args: Prisma.AddressCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          createMany: {
+            args: Prisma.AddressCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AddressCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          delete: {
+            args: Prisma.AddressDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          update: {
+            args: Prisma.AddressUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddressDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddressUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AddressUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          upsert: {
+            args: Prisma.AddressUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          aggregate: {
+            args: Prisma.AddressAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAddress>
+          }
+          groupBy: {
+            args: Prisma.AddressGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AddressGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AddressCountArgs<ExtArgs>
+            result: $Utils.Optional<AddressCountAggregateOutputType> | number
+          }
+        }
+      }
       Permission: {
         payload: Prisma.$PermissionPayload<ExtArgs>
         fields: Prisma.PermissionFieldRefs
@@ -1712,6 +2085,10 @@ export namespace Prisma {
     onboarding?: OnboardingOmit
     phoneNumber?: PhoneNumberOmit
     organization?: OrganizationOmit
+    state?: StateOmit
+    city?: CityOmit
+    zip?: ZipOmit
+    address?: AddressOmit
     permission?: PermissionOmit
     role?: RoleOmit
     image?: ImageOmit
@@ -1861,11 +2238,13 @@ export namespace Prisma {
   export type OrganizationCountOutputType = {
     users: number
     roles: number
+    billingAddresses: number
   }
 
   export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | OrganizationCountOutputTypeCountUsersArgs
     roles?: boolean | OrganizationCountOutputTypeCountRolesArgs
+    billingAddresses?: boolean | OrganizationCountOutputTypeCountBillingAddressesArgs
   }
 
   // Custom InputTypes
@@ -1891,6 +2270,133 @@ export namespace Prisma {
    */
   export type OrganizationCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RoleWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountBillingAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * Count Type StateCountOutputType
+   */
+
+  export type StateCountOutputType = {
+    cities: number
+    zipCodes: number
+    addresses: number
+  }
+
+  export type StateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cities?: boolean | StateCountOutputTypeCountCitiesArgs
+    zipCodes?: boolean | StateCountOutputTypeCountZipCodesArgs
+    addresses?: boolean | StateCountOutputTypeCountAddressesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StateCountOutputType
+     */
+    select?: StateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeCountCitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CityWhereInput
+  }
+
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeCountZipCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZipWhereInput
+  }
+
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeCountAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * Count Type CityCountOutputType
+   */
+
+  export type CityCountOutputType = {
+    zipCodes: number
+    addresses: number
+  }
+
+  export type CityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    zipCodes?: boolean | CityCountOutputTypeCountZipCodesArgs
+    addresses?: boolean | CityCountOutputTypeCountAddressesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CityCountOutputType without action
+   */
+  export type CityCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CityCountOutputType
+     */
+    select?: CityCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CityCountOutputType without action
+   */
+  export type CityCountOutputTypeCountZipCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZipWhereInput
+  }
+
+  /**
+   * CityCountOutputType without action
+   */
+  export type CityCountOutputTypeCountAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+  }
+
+
+  /**
+   * Count Type ZipCountOutputType
+   */
+
+  export type ZipCountOutputType = {
+    addresses: number
+  }
+
+  export type ZipCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    addresses?: boolean | ZipCountOutputTypeCountAddressesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ZipCountOutputType without action
+   */
+  export type ZipCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZipCountOutputType
+     */
+    select?: ZipCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ZipCountOutputType without action
+   */
+  export type ZipCountOutputTypeCountAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
   }
 
 
@@ -9295,6 +9801,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     name: string | null
+    stripeCustomerId: string | null
   }
 
   export type OrganizationMaxAggregateOutputType = {
@@ -9302,6 +9809,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     name: string | null
+    stripeCustomerId: string | null
   }
 
   export type OrganizationCountAggregateOutputType = {
@@ -9309,6 +9817,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     name: number
+    stripeCustomerId: number
     _all: number
   }
 
@@ -9326,6 +9835,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     name?: true
+    stripeCustomerId?: true
   }
 
   export type OrganizationMaxAggregateInputType = {
@@ -9333,6 +9843,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     name?: true
+    stripeCustomerId?: true
   }
 
   export type OrganizationCountAggregateInputType = {
@@ -9340,6 +9851,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     name?: true
+    stripeCustomerId?: true
     _all?: true
   }
 
@@ -9434,6 +9946,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     name: string
+    stripeCustomerId: string | null
     _count: OrganizationCountAggregateOutputType | null
     _avg: OrganizationAvgAggregateOutputType | null
     _sum: OrganizationSumAggregateOutputType | null
@@ -9460,8 +9973,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     name?: boolean
+    stripeCustomerId?: boolean
     users?: boolean | Organization$usersArgs<ExtArgs>
     roles?: boolean | Organization$rolesArgs<ExtArgs>
+    billingAddresses?: boolean | Organization$billingAddressesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["organization"]>
 
@@ -9470,6 +9985,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     name?: boolean
+    stripeCustomerId?: boolean
   }, ExtArgs["result"]["organization"]>
 
   export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9477,6 +9993,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     name?: boolean
+    stripeCustomerId?: boolean
   }, ExtArgs["result"]["organization"]>
 
   export type OrganizationSelectScalar = {
@@ -9484,12 +10001,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     name?: boolean
+    stripeCustomerId?: boolean
   }
 
-  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name", ExtArgs["result"]["organization"]>
+  export type OrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "stripeCustomerId", ExtArgs["result"]["organization"]>
   export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Organization$usersArgs<ExtArgs>
     roles?: boolean | Organization$rolesArgs<ExtArgs>
+    billingAddresses?: boolean | Organization$billingAddressesArgs<ExtArgs>
     _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9500,12 +10019,14 @@ export namespace Prisma {
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
       roles: Prisma.$RolePayload<ExtArgs>[]
+      billingAddresses: Prisma.$AddressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
       name: string
+      stripeCustomerId: string | null
     }, ExtArgs["result"]["organization"]>
     composites: {}
   }
@@ -9902,6 +10423,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Organization$usersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles<T extends Organization$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    billingAddresses<T extends Organization$billingAddressesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$billingAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9935,6 +10457,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Organization", 'DateTime'>
     readonly updatedAt: FieldRef<"Organization", 'DateTime'>
     readonly name: FieldRef<"Organization", 'String'>
+    readonly stripeCustomerId: FieldRef<"Organization", 'String'>
   }
     
 
@@ -10371,6 +10894,30 @@ export namespace Prisma {
   }
 
   /**
+   * Organization.billingAddresses
+   */
+  export type Organization$billingAddressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
    * Organization without action
    */
   export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10386,6 +10933,4489 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: OrganizationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model State
+   */
+
+  export type AggregateState = {
+    _count: StateCountAggregateOutputType | null
+    _min: StateMinAggregateOutputType | null
+    _max: StateMaxAggregateOutputType | null
+  }
+
+  export type StateMinAggregateOutputType = {
+    name: string | null
+    slug: string | null
+  }
+
+  export type StateMaxAggregateOutputType = {
+    name: string | null
+    slug: string | null
+  }
+
+  export type StateCountAggregateOutputType = {
+    name: number
+    slug: number
+    _all: number
+  }
+
+
+  export type StateMinAggregateInputType = {
+    name?: true
+    slug?: true
+  }
+
+  export type StateMaxAggregateInputType = {
+    name?: true
+    slug?: true
+  }
+
+  export type StateCountAggregateInputType = {
+    name?: true
+    slug?: true
+    _all?: true
+  }
+
+  export type StateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which State to aggregate.
+     */
+    where?: StateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of States to fetch.
+     */
+    orderBy?: StateOrderByWithRelationInput | StateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` States from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` States.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned States
+    **/
+    _count?: true | StateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StateMaxAggregateInputType
+  }
+
+  export type GetStateAggregateType<T extends StateAggregateArgs> = {
+        [P in keyof T & keyof AggregateState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateState[P]>
+      : GetScalarType<T[P], AggregateState[P]>
+  }
+
+
+
+
+  export type StateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StateWhereInput
+    orderBy?: StateOrderByWithAggregationInput | StateOrderByWithAggregationInput[]
+    by: StateScalarFieldEnum[] | StateScalarFieldEnum
+    having?: StateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StateCountAggregateInputType | true
+    _min?: StateMinAggregateInputType
+    _max?: StateMaxAggregateInputType
+  }
+
+  export type StateGroupByOutputType = {
+    name: string
+    slug: string
+    _count: StateCountAggregateOutputType | null
+    _min: StateMinAggregateOutputType | null
+    _max: StateMaxAggregateOutputType | null
+  }
+
+  type GetStateGroupByPayload<T extends StateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StateGroupByOutputType[P]>
+            : GetScalarType<T[P], StateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    slug?: boolean
+    cities?: boolean | State$citiesArgs<ExtArgs>
+    zipCodes?: boolean | State$zipCodesArgs<ExtArgs>
+    addresses?: boolean | State$addressesArgs<ExtArgs>
+    _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["state"]>
+
+  export type StateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    slug?: boolean
+  }, ExtArgs["result"]["state"]>
+
+  export type StateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    slug?: boolean
+  }, ExtArgs["result"]["state"]>
+
+  export type StateSelectScalar = {
+    name?: boolean
+    slug?: boolean
+  }
+
+  export type StateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"name" | "slug", ExtArgs["result"]["state"]>
+  export type StateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cities?: boolean | State$citiesArgs<ExtArgs>
+    zipCodes?: boolean | State$zipCodesArgs<ExtArgs>
+    addresses?: boolean | State$addressesArgs<ExtArgs>
+    _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type StateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $StatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "State"
+    objects: {
+      cities: Prisma.$CityPayload<ExtArgs>[]
+      zipCodes: Prisma.$ZipPayload<ExtArgs>[]
+      addresses: Prisma.$AddressPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      name: string
+      slug: string
+    }, ExtArgs["result"]["state"]>
+    composites: {}
+  }
+
+  type StateGetPayload<S extends boolean | null | undefined | StateDefaultArgs> = $Result.GetResult<Prisma.$StatePayload, S>
+
+  type StateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StateCountAggregateInputType | true
+    }
+
+  export interface StateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['State'], meta: { name: 'State' } }
+    /**
+     * Find zero or one State that matches the filter.
+     * @param {StateFindUniqueArgs} args - Arguments to find a State
+     * @example
+     * // Get one State
+     * const state = await prisma.state.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StateFindUniqueArgs>(args: SelectSubset<T, StateFindUniqueArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one State that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StateFindUniqueOrThrowArgs} args - Arguments to find a State
+     * @example
+     * // Get one State
+     * const state = await prisma.state.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StateFindUniqueOrThrowArgs>(args: SelectSubset<T, StateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first State that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateFindFirstArgs} args - Arguments to find a State
+     * @example
+     * // Get one State
+     * const state = await prisma.state.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StateFindFirstArgs>(args?: SelectSubset<T, StateFindFirstArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first State that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateFindFirstOrThrowArgs} args - Arguments to find a State
+     * @example
+     * // Get one State
+     * const state = await prisma.state.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StateFindFirstOrThrowArgs>(args?: SelectSubset<T, StateFindFirstOrThrowArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more States that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all States
+     * const states = await prisma.state.findMany()
+     * 
+     * // Get first 10 States
+     * const states = await prisma.state.findMany({ take: 10 })
+     * 
+     * // Only select the `name`
+     * const stateWithNameOnly = await prisma.state.findMany({ select: { name: true } })
+     * 
+     */
+    findMany<T extends StateFindManyArgs>(args?: SelectSubset<T, StateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a State.
+     * @param {StateCreateArgs} args - Arguments to create a State.
+     * @example
+     * // Create one State
+     * const State = await prisma.state.create({
+     *   data: {
+     *     // ... data to create a State
+     *   }
+     * })
+     * 
+     */
+    create<T extends StateCreateArgs>(args: SelectSubset<T, StateCreateArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many States.
+     * @param {StateCreateManyArgs} args - Arguments to create many States.
+     * @example
+     * // Create many States
+     * const state = await prisma.state.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StateCreateManyArgs>(args?: SelectSubset<T, StateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many States and returns the data saved in the database.
+     * @param {StateCreateManyAndReturnArgs} args - Arguments to create many States.
+     * @example
+     * // Create many States
+     * const state = await prisma.state.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many States and only return the `name`
+     * const stateWithNameOnly = await prisma.state.createManyAndReturn({
+     *   select: { name: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StateCreateManyAndReturnArgs>(args?: SelectSubset<T, StateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a State.
+     * @param {StateDeleteArgs} args - Arguments to delete one State.
+     * @example
+     * // Delete one State
+     * const State = await prisma.state.delete({
+     *   where: {
+     *     // ... filter to delete one State
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StateDeleteArgs>(args: SelectSubset<T, StateDeleteArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one State.
+     * @param {StateUpdateArgs} args - Arguments to update one State.
+     * @example
+     * // Update one State
+     * const state = await prisma.state.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StateUpdateArgs>(args: SelectSubset<T, StateUpdateArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more States.
+     * @param {StateDeleteManyArgs} args - Arguments to filter States to delete.
+     * @example
+     * // Delete a few States
+     * const { count } = await prisma.state.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StateDeleteManyArgs>(args?: SelectSubset<T, StateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many States
+     * const state = await prisma.state.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StateUpdateManyArgs>(args: SelectSubset<T, StateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more States and returns the data updated in the database.
+     * @param {StateUpdateManyAndReturnArgs} args - Arguments to update many States.
+     * @example
+     * // Update many States
+     * const state = await prisma.state.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more States and only return the `name`
+     * const stateWithNameOnly = await prisma.state.updateManyAndReturn({
+     *   select: { name: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StateUpdateManyAndReturnArgs>(args: SelectSubset<T, StateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one State.
+     * @param {StateUpsertArgs} args - Arguments to update or create a State.
+     * @example
+     * // Update or create a State
+     * const state = await prisma.state.upsert({
+     *   create: {
+     *     // ... data to create a State
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the State we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StateUpsertArgs>(args: SelectSubset<T, StateUpsertArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateCountArgs} args - Arguments to filter States to count.
+     * @example
+     * // Count the number of States
+     * const count = await prisma.state.count({
+     *   where: {
+     *     // ... the filter for the States we want to count
+     *   }
+     * })
+    **/
+    count<T extends StateCountArgs>(
+      args?: Subset<T, StateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a State.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StateAggregateArgs>(args: Subset<T, StateAggregateArgs>): Prisma.PrismaPromise<GetStateAggregateType<T>>
+
+    /**
+     * Group by State.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StateGroupByArgs['orderBy'] }
+        : { orderBy?: StateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the State model
+   */
+  readonly fields: StateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for State.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cities<T extends State$citiesArgs<ExtArgs> = {}>(args?: Subset<T, State$citiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zipCodes<T extends State$zipCodesArgs<ExtArgs> = {}>(args?: Subset<T, State$zipCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    addresses<T extends State$addressesArgs<ExtArgs> = {}>(args?: Subset<T, State$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the State model
+   */
+  interface StateFieldRefs {
+    readonly name: FieldRef<"State", 'String'>
+    readonly slug: FieldRef<"State", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * State findUnique
+   */
+  export type StateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter, which State to fetch.
+     */
+    where: StateWhereUniqueInput
+  }
+
+  /**
+   * State findUniqueOrThrow
+   */
+  export type StateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter, which State to fetch.
+     */
+    where: StateWhereUniqueInput
+  }
+
+  /**
+   * State findFirst
+   */
+  export type StateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter, which State to fetch.
+     */
+    where?: StateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of States to fetch.
+     */
+    orderBy?: StateOrderByWithRelationInput | StateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for States.
+     */
+    cursor?: StateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` States from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` States.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of States.
+     */
+    distinct?: StateScalarFieldEnum | StateScalarFieldEnum[]
+  }
+
+  /**
+   * State findFirstOrThrow
+   */
+  export type StateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter, which State to fetch.
+     */
+    where?: StateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of States to fetch.
+     */
+    orderBy?: StateOrderByWithRelationInput | StateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for States.
+     */
+    cursor?: StateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` States from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` States.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of States.
+     */
+    distinct?: StateScalarFieldEnum | StateScalarFieldEnum[]
+  }
+
+  /**
+   * State findMany
+   */
+  export type StateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter, which States to fetch.
+     */
+    where?: StateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of States to fetch.
+     */
+    orderBy?: StateOrderByWithRelationInput | StateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing States.
+     */
+    cursor?: StateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` States from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` States.
+     */
+    skip?: number
+    distinct?: StateScalarFieldEnum | StateScalarFieldEnum[]
+  }
+
+  /**
+   * State create
+   */
+  export type StateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a State.
+     */
+    data: XOR<StateCreateInput, StateUncheckedCreateInput>
+  }
+
+  /**
+   * State createMany
+   */
+  export type StateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many States.
+     */
+    data: StateCreateManyInput | StateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * State createManyAndReturn
+   */
+  export type StateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * The data used to create many States.
+     */
+    data: StateCreateManyInput | StateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * State update
+   */
+  export type StateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a State.
+     */
+    data: XOR<StateUpdateInput, StateUncheckedUpdateInput>
+    /**
+     * Choose, which State to update.
+     */
+    where: StateWhereUniqueInput
+  }
+
+  /**
+   * State updateMany
+   */
+  export type StateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update States.
+     */
+    data: XOR<StateUpdateManyMutationInput, StateUncheckedUpdateManyInput>
+    /**
+     * Filter which States to update
+     */
+    where?: StateWhereInput
+    /**
+     * Limit how many States to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * State updateManyAndReturn
+   */
+  export type StateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * The data used to update States.
+     */
+    data: XOR<StateUpdateManyMutationInput, StateUncheckedUpdateManyInput>
+    /**
+     * Filter which States to update
+     */
+    where?: StateWhereInput
+    /**
+     * Limit how many States to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * State upsert
+   */
+  export type StateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the State to update in case it exists.
+     */
+    where: StateWhereUniqueInput
+    /**
+     * In case the State found by the `where` argument doesn't exist, create a new State with this data.
+     */
+    create: XOR<StateCreateInput, StateUncheckedCreateInput>
+    /**
+     * In case the State was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StateUpdateInput, StateUncheckedUpdateInput>
+  }
+
+  /**
+   * State delete
+   */
+  export type StateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+    /**
+     * Filter which State to delete.
+     */
+    where: StateWhereUniqueInput
+  }
+
+  /**
+   * State deleteMany
+   */
+  export type StateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which States to delete
+     */
+    where?: StateWhereInput
+    /**
+     * Limit how many States to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * State.cities
+   */
+  export type State$citiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    where?: CityWhereInput
+    orderBy?: CityOrderByWithRelationInput | CityOrderByWithRelationInput[]
+    cursor?: CityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CityScalarFieldEnum | CityScalarFieldEnum[]
+  }
+
+  /**
+   * State.zipCodes
+   */
+  export type State$zipCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    where?: ZipWhereInput
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    cursor?: ZipWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ZipScalarFieldEnum | ZipScalarFieldEnum[]
+  }
+
+  /**
+   * State.addresses
+   */
+  export type State$addressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * State without action
+   */
+  export type StateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the State
+     */
+    select?: StateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the State
+     */
+    omit?: StateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model City
+   */
+
+  export type AggregateCity = {
+    _count: CityCountAggregateOutputType | null
+    _min: CityMinAggregateOutputType | null
+    _max: CityMaxAggregateOutputType | null
+  }
+
+  export type CityMinAggregateOutputType = {
+    name: string | null
+    stateName: string | null
+  }
+
+  export type CityMaxAggregateOutputType = {
+    name: string | null
+    stateName: string | null
+  }
+
+  export type CityCountAggregateOutputType = {
+    name: number
+    stateName: number
+    _all: number
+  }
+
+
+  export type CityMinAggregateInputType = {
+    name?: true
+    stateName?: true
+  }
+
+  export type CityMaxAggregateInputType = {
+    name?: true
+    stateName?: true
+  }
+
+  export type CityCountAggregateInputType = {
+    name?: true
+    stateName?: true
+    _all?: true
+  }
+
+  export type CityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which City to aggregate.
+     */
+    where?: CityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cities to fetch.
+     */
+    orderBy?: CityOrderByWithRelationInput | CityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Cities
+    **/
+    _count?: true | CityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CityMaxAggregateInputType
+  }
+
+  export type GetCityAggregateType<T extends CityAggregateArgs> = {
+        [P in keyof T & keyof AggregateCity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCity[P]>
+      : GetScalarType<T[P], AggregateCity[P]>
+  }
+
+
+
+
+  export type CityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CityWhereInput
+    orderBy?: CityOrderByWithAggregationInput | CityOrderByWithAggregationInput[]
+    by: CityScalarFieldEnum[] | CityScalarFieldEnum
+    having?: CityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CityCountAggregateInputType | true
+    _min?: CityMinAggregateInputType
+    _max?: CityMaxAggregateInputType
+  }
+
+  export type CityGroupByOutputType = {
+    name: string
+    stateName: string
+    _count: CityCountAggregateOutputType | null
+    _min: CityMinAggregateOutputType | null
+    _max: CityMaxAggregateOutputType | null
+  }
+
+  type GetCityGroupByPayload<T extends CityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CityGroupByOutputType[P]>
+            : GetScalarType<T[P], CityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    stateName?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    zipCodes?: boolean | City$zipCodesArgs<ExtArgs>
+    addresses?: boolean | City$addressesArgs<ExtArgs>
+    _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["city"]>
+
+  export type CitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    stateName?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["city"]>
+
+  export type CitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    name?: boolean
+    stateName?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["city"]>
+
+  export type CitySelectScalar = {
+    name?: boolean
+    stateName?: boolean
+  }
+
+  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"name" | "stateName", ExtArgs["result"]["city"]>
+  export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    zipCodes?: boolean | City$zipCodesArgs<ExtArgs>
+    addresses?: boolean | City$addressesArgs<ExtArgs>
+    _count?: boolean | CityCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }
+  export type CityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }
+
+  export type $CityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "City"
+    objects: {
+      state: Prisma.$StatePayload<ExtArgs>
+      zipCodes: Prisma.$ZipPayload<ExtArgs>[]
+      addresses: Prisma.$AddressPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      name: string
+      stateName: string
+    }, ExtArgs["result"]["city"]>
+    composites: {}
+  }
+
+  type CityGetPayload<S extends boolean | null | undefined | CityDefaultArgs> = $Result.GetResult<Prisma.$CityPayload, S>
+
+  type CityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CityCountAggregateInputType | true
+    }
+
+  export interface CityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['City'], meta: { name: 'City' } }
+    /**
+     * Find zero or one City that matches the filter.
+     * @param {CityFindUniqueArgs} args - Arguments to find a City
+     * @example
+     * // Get one City
+     * const city = await prisma.city.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CityFindUniqueArgs>(args: SelectSubset<T, CityFindUniqueArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one City that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CityFindUniqueOrThrowArgs} args - Arguments to find a City
+     * @example
+     * // Get one City
+     * const city = await prisma.city.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CityFindUniqueOrThrowArgs>(args: SelectSubset<T, CityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first City that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityFindFirstArgs} args - Arguments to find a City
+     * @example
+     * // Get one City
+     * const city = await prisma.city.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CityFindFirstArgs>(args?: SelectSubset<T, CityFindFirstArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first City that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityFindFirstOrThrowArgs} args - Arguments to find a City
+     * @example
+     * // Get one City
+     * const city = await prisma.city.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CityFindFirstOrThrowArgs>(args?: SelectSubset<T, CityFindFirstOrThrowArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Cities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Cities
+     * const cities = await prisma.city.findMany()
+     * 
+     * // Get first 10 Cities
+     * const cities = await prisma.city.findMany({ take: 10 })
+     * 
+     * // Only select the `name`
+     * const cityWithNameOnly = await prisma.city.findMany({ select: { name: true } })
+     * 
+     */
+    findMany<T extends CityFindManyArgs>(args?: SelectSubset<T, CityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a City.
+     * @param {CityCreateArgs} args - Arguments to create a City.
+     * @example
+     * // Create one City
+     * const City = await prisma.city.create({
+     *   data: {
+     *     // ... data to create a City
+     *   }
+     * })
+     * 
+     */
+    create<T extends CityCreateArgs>(args: SelectSubset<T, CityCreateArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Cities.
+     * @param {CityCreateManyArgs} args - Arguments to create many Cities.
+     * @example
+     * // Create many Cities
+     * const city = await prisma.city.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CityCreateManyArgs>(args?: SelectSubset<T, CityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Cities and returns the data saved in the database.
+     * @param {CityCreateManyAndReturnArgs} args - Arguments to create many Cities.
+     * @example
+     * // Create many Cities
+     * const city = await prisma.city.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Cities and only return the `name`
+     * const cityWithNameOnly = await prisma.city.createManyAndReturn({
+     *   select: { name: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CityCreateManyAndReturnArgs>(args?: SelectSubset<T, CityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a City.
+     * @param {CityDeleteArgs} args - Arguments to delete one City.
+     * @example
+     * // Delete one City
+     * const City = await prisma.city.delete({
+     *   where: {
+     *     // ... filter to delete one City
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CityDeleteArgs>(args: SelectSubset<T, CityDeleteArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one City.
+     * @param {CityUpdateArgs} args - Arguments to update one City.
+     * @example
+     * // Update one City
+     * const city = await prisma.city.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CityUpdateArgs>(args: SelectSubset<T, CityUpdateArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Cities.
+     * @param {CityDeleteManyArgs} args - Arguments to filter Cities to delete.
+     * @example
+     * // Delete a few Cities
+     * const { count } = await prisma.city.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CityDeleteManyArgs>(args?: SelectSubset<T, CityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Cities
+     * const city = await prisma.city.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CityUpdateManyArgs>(args: SelectSubset<T, CityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Cities and returns the data updated in the database.
+     * @param {CityUpdateManyAndReturnArgs} args - Arguments to update many Cities.
+     * @example
+     * // Update many Cities
+     * const city = await prisma.city.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Cities and only return the `name`
+     * const cityWithNameOnly = await prisma.city.updateManyAndReturn({
+     *   select: { name: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CityUpdateManyAndReturnArgs>(args: SelectSubset<T, CityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one City.
+     * @param {CityUpsertArgs} args - Arguments to update or create a City.
+     * @example
+     * // Update or create a City
+     * const city = await prisma.city.upsert({
+     *   create: {
+     *     // ... data to create a City
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the City we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CityUpsertArgs>(args: SelectSubset<T, CityUpsertArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Cities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityCountArgs} args - Arguments to filter Cities to count.
+     * @example
+     * // Count the number of Cities
+     * const count = await prisma.city.count({
+     *   where: {
+     *     // ... the filter for the Cities we want to count
+     *   }
+     * })
+    **/
+    count<T extends CityCountArgs>(
+      args?: Subset<T, CityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a City.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CityAggregateArgs>(args: Subset<T, CityAggregateArgs>): Prisma.PrismaPromise<GetCityAggregateType<T>>
+
+    /**
+     * Group by City.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CityGroupByArgs['orderBy'] }
+        : { orderBy?: CityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the City model
+   */
+  readonly fields: CityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for City.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    zipCodes<T extends City$zipCodesArgs<ExtArgs> = {}>(args?: Subset<T, City$zipCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    addresses<T extends City$addressesArgs<ExtArgs> = {}>(args?: Subset<T, City$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the City model
+   */
+  interface CityFieldRefs {
+    readonly name: FieldRef<"City", 'String'>
+    readonly stateName: FieldRef<"City", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * City findUnique
+   */
+  export type CityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter, which City to fetch.
+     */
+    where: CityWhereUniqueInput
+  }
+
+  /**
+   * City findUniqueOrThrow
+   */
+  export type CityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter, which City to fetch.
+     */
+    where: CityWhereUniqueInput
+  }
+
+  /**
+   * City findFirst
+   */
+  export type CityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter, which City to fetch.
+     */
+    where?: CityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cities to fetch.
+     */
+    orderBy?: CityOrderByWithRelationInput | CityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cities.
+     */
+    cursor?: CityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cities.
+     */
+    distinct?: CityScalarFieldEnum | CityScalarFieldEnum[]
+  }
+
+  /**
+   * City findFirstOrThrow
+   */
+  export type CityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter, which City to fetch.
+     */
+    where?: CityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cities to fetch.
+     */
+    orderBy?: CityOrderByWithRelationInput | CityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Cities.
+     */
+    cursor?: CityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Cities.
+     */
+    distinct?: CityScalarFieldEnum | CityScalarFieldEnum[]
+  }
+
+  /**
+   * City findMany
+   */
+  export type CityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter, which Cities to fetch.
+     */
+    where?: CityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Cities to fetch.
+     */
+    orderBy?: CityOrderByWithRelationInput | CityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Cities.
+     */
+    cursor?: CityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Cities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Cities.
+     */
+    skip?: number
+    distinct?: CityScalarFieldEnum | CityScalarFieldEnum[]
+  }
+
+  /**
+   * City create
+   */
+  export type CityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a City.
+     */
+    data: XOR<CityCreateInput, CityUncheckedCreateInput>
+  }
+
+  /**
+   * City createMany
+   */
+  export type CityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Cities.
+     */
+    data: CityCreateManyInput | CityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * City createManyAndReturn
+   */
+  export type CityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * The data used to create many Cities.
+     */
+    data: CityCreateManyInput | CityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * City update
+   */
+  export type CityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a City.
+     */
+    data: XOR<CityUpdateInput, CityUncheckedUpdateInput>
+    /**
+     * Choose, which City to update.
+     */
+    where: CityWhereUniqueInput
+  }
+
+  /**
+   * City updateMany
+   */
+  export type CityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Cities.
+     */
+    data: XOR<CityUpdateManyMutationInput, CityUncheckedUpdateManyInput>
+    /**
+     * Filter which Cities to update
+     */
+    where?: CityWhereInput
+    /**
+     * Limit how many Cities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * City updateManyAndReturn
+   */
+  export type CityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * The data used to update Cities.
+     */
+    data: XOR<CityUpdateManyMutationInput, CityUncheckedUpdateManyInput>
+    /**
+     * Filter which Cities to update
+     */
+    where?: CityWhereInput
+    /**
+     * Limit how many Cities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * City upsert
+   */
+  export type CityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the City to update in case it exists.
+     */
+    where: CityWhereUniqueInput
+    /**
+     * In case the City found by the `where` argument doesn't exist, create a new City with this data.
+     */
+    create: XOR<CityCreateInput, CityUncheckedCreateInput>
+    /**
+     * In case the City was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CityUpdateInput, CityUncheckedUpdateInput>
+  }
+
+  /**
+   * City delete
+   */
+  export type CityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+    /**
+     * Filter which City to delete.
+     */
+    where: CityWhereUniqueInput
+  }
+
+  /**
+   * City deleteMany
+   */
+  export type CityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Cities to delete
+     */
+    where?: CityWhereInput
+    /**
+     * Limit how many Cities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * City.zipCodes
+   */
+  export type City$zipCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    where?: ZipWhereInput
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    cursor?: ZipWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ZipScalarFieldEnum | ZipScalarFieldEnum[]
+  }
+
+  /**
+   * City.addresses
+   */
+  export type City$addressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * City without action
+   */
+  export type CityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the City
+     */
+    select?: CitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the City
+     */
+    omit?: CityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Zip
+   */
+
+  export type AggregateZip = {
+    _count: ZipCountAggregateOutputType | null
+    _avg: ZipAvgAggregateOutputType | null
+    _sum: ZipSumAggregateOutputType | null
+    _min: ZipMinAggregateOutputType | null
+    _max: ZipMaxAggregateOutputType | null
+  }
+
+  export type ZipAvgAggregateOutputType = {
+    code: number | null
+  }
+
+  export type ZipSumAggregateOutputType = {
+    code: number | null
+  }
+
+  export type ZipMinAggregateOutputType = {
+    code: number | null
+    cityName: string | null
+    stateName: string | null
+  }
+
+  export type ZipMaxAggregateOutputType = {
+    code: number | null
+    cityName: string | null
+    stateName: string | null
+  }
+
+  export type ZipCountAggregateOutputType = {
+    code: number
+    cityName: number
+    stateName: number
+    _all: number
+  }
+
+
+  export type ZipAvgAggregateInputType = {
+    code?: true
+  }
+
+  export type ZipSumAggregateInputType = {
+    code?: true
+  }
+
+  export type ZipMinAggregateInputType = {
+    code?: true
+    cityName?: true
+    stateName?: true
+  }
+
+  export type ZipMaxAggregateInputType = {
+    code?: true
+    cityName?: true
+    stateName?: true
+  }
+
+  export type ZipCountAggregateInputType = {
+    code?: true
+    cityName?: true
+    stateName?: true
+    _all?: true
+  }
+
+  export type ZipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Zip to aggregate.
+     */
+    where?: ZipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zips to fetch.
+     */
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ZipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Zips
+    **/
+    _count?: true | ZipCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ZipAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ZipSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ZipMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ZipMaxAggregateInputType
+  }
+
+  export type GetZipAggregateType<T extends ZipAggregateArgs> = {
+        [P in keyof T & keyof AggregateZip]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateZip[P]>
+      : GetScalarType<T[P], AggregateZip[P]>
+  }
+
+
+
+
+  export type ZipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZipWhereInput
+    orderBy?: ZipOrderByWithAggregationInput | ZipOrderByWithAggregationInput[]
+    by: ZipScalarFieldEnum[] | ZipScalarFieldEnum
+    having?: ZipScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ZipCountAggregateInputType | true
+    _avg?: ZipAvgAggregateInputType
+    _sum?: ZipSumAggregateInputType
+    _min?: ZipMinAggregateInputType
+    _max?: ZipMaxAggregateInputType
+  }
+
+  export type ZipGroupByOutputType = {
+    code: number
+    cityName: string
+    stateName: string
+    _count: ZipCountAggregateOutputType | null
+    _avg: ZipAvgAggregateOutputType | null
+    _sum: ZipSumAggregateOutputType | null
+    _min: ZipMinAggregateOutputType | null
+    _max: ZipMaxAggregateOutputType | null
+  }
+
+  type GetZipGroupByPayload<T extends ZipGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ZipGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ZipGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ZipGroupByOutputType[P]>
+            : GetScalarType<T[P], ZipGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ZipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    cityName?: boolean
+    stateName?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    addresses?: boolean | Zip$addressesArgs<ExtArgs>
+    _count?: boolean | ZipCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zip"]>
+
+  export type ZipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    cityName?: boolean
+    stateName?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zip"]>
+
+  export type ZipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    code?: boolean
+    cityName?: boolean
+    stateName?: boolean
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zip"]>
+
+  export type ZipSelectScalar = {
+    code?: boolean
+    cityName?: boolean
+    stateName?: boolean
+  }
+
+  export type ZipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"code" | "cityName" | "stateName", ExtArgs["result"]["zip"]>
+  export type ZipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    addresses?: boolean | Zip$addressesArgs<ExtArgs>
+    _count?: boolean | ZipCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ZipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }
+  export type ZipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
+  }
+
+  export type $ZipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Zip"
+    objects: {
+      city: Prisma.$CityPayload<ExtArgs>
+      state: Prisma.$StatePayload<ExtArgs>
+      addresses: Prisma.$AddressPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      code: number
+      cityName: string
+      stateName: string
+    }, ExtArgs["result"]["zip"]>
+    composites: {}
+  }
+
+  type ZipGetPayload<S extends boolean | null | undefined | ZipDefaultArgs> = $Result.GetResult<Prisma.$ZipPayload, S>
+
+  type ZipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ZipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ZipCountAggregateInputType | true
+    }
+
+  export interface ZipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Zip'], meta: { name: 'Zip' } }
+    /**
+     * Find zero or one Zip that matches the filter.
+     * @param {ZipFindUniqueArgs} args - Arguments to find a Zip
+     * @example
+     * // Get one Zip
+     * const zip = await prisma.zip.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ZipFindUniqueArgs>(args: SelectSubset<T, ZipFindUniqueArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Zip that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ZipFindUniqueOrThrowArgs} args - Arguments to find a Zip
+     * @example
+     * // Get one Zip
+     * const zip = await prisma.zip.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ZipFindUniqueOrThrowArgs>(args: SelectSubset<T, ZipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Zip that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipFindFirstArgs} args - Arguments to find a Zip
+     * @example
+     * // Get one Zip
+     * const zip = await prisma.zip.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ZipFindFirstArgs>(args?: SelectSubset<T, ZipFindFirstArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Zip that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipFindFirstOrThrowArgs} args - Arguments to find a Zip
+     * @example
+     * // Get one Zip
+     * const zip = await prisma.zip.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ZipFindFirstOrThrowArgs>(args?: SelectSubset<T, ZipFindFirstOrThrowArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Zips that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Zips
+     * const zips = await prisma.zip.findMany()
+     * 
+     * // Get first 10 Zips
+     * const zips = await prisma.zip.findMany({ take: 10 })
+     * 
+     * // Only select the `code`
+     * const zipWithCodeOnly = await prisma.zip.findMany({ select: { code: true } })
+     * 
+     */
+    findMany<T extends ZipFindManyArgs>(args?: SelectSubset<T, ZipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Zip.
+     * @param {ZipCreateArgs} args - Arguments to create a Zip.
+     * @example
+     * // Create one Zip
+     * const Zip = await prisma.zip.create({
+     *   data: {
+     *     // ... data to create a Zip
+     *   }
+     * })
+     * 
+     */
+    create<T extends ZipCreateArgs>(args: SelectSubset<T, ZipCreateArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Zips.
+     * @param {ZipCreateManyArgs} args - Arguments to create many Zips.
+     * @example
+     * // Create many Zips
+     * const zip = await prisma.zip.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ZipCreateManyArgs>(args?: SelectSubset<T, ZipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Zips and returns the data saved in the database.
+     * @param {ZipCreateManyAndReturnArgs} args - Arguments to create many Zips.
+     * @example
+     * // Create many Zips
+     * const zip = await prisma.zip.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Zips and only return the `code`
+     * const zipWithCodeOnly = await prisma.zip.createManyAndReturn({
+     *   select: { code: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ZipCreateManyAndReturnArgs>(args?: SelectSubset<T, ZipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Zip.
+     * @param {ZipDeleteArgs} args - Arguments to delete one Zip.
+     * @example
+     * // Delete one Zip
+     * const Zip = await prisma.zip.delete({
+     *   where: {
+     *     // ... filter to delete one Zip
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ZipDeleteArgs>(args: SelectSubset<T, ZipDeleteArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Zip.
+     * @param {ZipUpdateArgs} args - Arguments to update one Zip.
+     * @example
+     * // Update one Zip
+     * const zip = await prisma.zip.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ZipUpdateArgs>(args: SelectSubset<T, ZipUpdateArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Zips.
+     * @param {ZipDeleteManyArgs} args - Arguments to filter Zips to delete.
+     * @example
+     * // Delete a few Zips
+     * const { count } = await prisma.zip.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ZipDeleteManyArgs>(args?: SelectSubset<T, ZipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Zips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Zips
+     * const zip = await prisma.zip.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ZipUpdateManyArgs>(args: SelectSubset<T, ZipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Zips and returns the data updated in the database.
+     * @param {ZipUpdateManyAndReturnArgs} args - Arguments to update many Zips.
+     * @example
+     * // Update many Zips
+     * const zip = await prisma.zip.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Zips and only return the `code`
+     * const zipWithCodeOnly = await prisma.zip.updateManyAndReturn({
+     *   select: { code: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ZipUpdateManyAndReturnArgs>(args: SelectSubset<T, ZipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Zip.
+     * @param {ZipUpsertArgs} args - Arguments to update or create a Zip.
+     * @example
+     * // Update or create a Zip
+     * const zip = await prisma.zip.upsert({
+     *   create: {
+     *     // ... data to create a Zip
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Zip we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ZipUpsertArgs>(args: SelectSubset<T, ZipUpsertArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Zips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipCountArgs} args - Arguments to filter Zips to count.
+     * @example
+     * // Count the number of Zips
+     * const count = await prisma.zip.count({
+     *   where: {
+     *     // ... the filter for the Zips we want to count
+     *   }
+     * })
+    **/
+    count<T extends ZipCountArgs>(
+      args?: Subset<T, ZipCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ZipCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Zip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ZipAggregateArgs>(args: Subset<T, ZipAggregateArgs>): Prisma.PrismaPromise<GetZipAggregateType<T>>
+
+    /**
+     * Group by Zip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZipGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ZipGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ZipGroupByArgs['orderBy'] }
+        : { orderBy?: ZipGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ZipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetZipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Zip model
+   */
+  readonly fields: ZipFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Zip.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ZipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    addresses<T extends Zip$addressesArgs<ExtArgs> = {}>(args?: Subset<T, Zip$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Zip model
+   */
+  interface ZipFieldRefs {
+    readonly code: FieldRef<"Zip", 'Int'>
+    readonly cityName: FieldRef<"Zip", 'String'>
+    readonly stateName: FieldRef<"Zip", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Zip findUnique
+   */
+  export type ZipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter, which Zip to fetch.
+     */
+    where: ZipWhereUniqueInput
+  }
+
+  /**
+   * Zip findUniqueOrThrow
+   */
+  export type ZipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter, which Zip to fetch.
+     */
+    where: ZipWhereUniqueInput
+  }
+
+  /**
+   * Zip findFirst
+   */
+  export type ZipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter, which Zip to fetch.
+     */
+    where?: ZipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zips to fetch.
+     */
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Zips.
+     */
+    cursor?: ZipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Zips.
+     */
+    distinct?: ZipScalarFieldEnum | ZipScalarFieldEnum[]
+  }
+
+  /**
+   * Zip findFirstOrThrow
+   */
+  export type ZipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter, which Zip to fetch.
+     */
+    where?: ZipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zips to fetch.
+     */
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Zips.
+     */
+    cursor?: ZipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Zips.
+     */
+    distinct?: ZipScalarFieldEnum | ZipScalarFieldEnum[]
+  }
+
+  /**
+   * Zip findMany
+   */
+  export type ZipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter, which Zips to fetch.
+     */
+    where?: ZipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Zips to fetch.
+     */
+    orderBy?: ZipOrderByWithRelationInput | ZipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Zips.
+     */
+    cursor?: ZipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Zips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Zips.
+     */
+    skip?: number
+    distinct?: ZipScalarFieldEnum | ZipScalarFieldEnum[]
+  }
+
+  /**
+   * Zip create
+   */
+  export type ZipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Zip.
+     */
+    data: XOR<ZipCreateInput, ZipUncheckedCreateInput>
+  }
+
+  /**
+   * Zip createMany
+   */
+  export type ZipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Zips.
+     */
+    data: ZipCreateManyInput | ZipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Zip createManyAndReturn
+   */
+  export type ZipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * The data used to create many Zips.
+     */
+    data: ZipCreateManyInput | ZipCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Zip update
+   */
+  export type ZipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Zip.
+     */
+    data: XOR<ZipUpdateInput, ZipUncheckedUpdateInput>
+    /**
+     * Choose, which Zip to update.
+     */
+    where: ZipWhereUniqueInput
+  }
+
+  /**
+   * Zip updateMany
+   */
+  export type ZipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Zips.
+     */
+    data: XOR<ZipUpdateManyMutationInput, ZipUncheckedUpdateManyInput>
+    /**
+     * Filter which Zips to update
+     */
+    where?: ZipWhereInput
+    /**
+     * Limit how many Zips to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Zip updateManyAndReturn
+   */
+  export type ZipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * The data used to update Zips.
+     */
+    data: XOR<ZipUpdateManyMutationInput, ZipUncheckedUpdateManyInput>
+    /**
+     * Filter which Zips to update
+     */
+    where?: ZipWhereInput
+    /**
+     * Limit how many Zips to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Zip upsert
+   */
+  export type ZipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Zip to update in case it exists.
+     */
+    where: ZipWhereUniqueInput
+    /**
+     * In case the Zip found by the `where` argument doesn't exist, create a new Zip with this data.
+     */
+    create: XOR<ZipCreateInput, ZipUncheckedCreateInput>
+    /**
+     * In case the Zip was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ZipUpdateInput, ZipUncheckedUpdateInput>
+  }
+
+  /**
+   * Zip delete
+   */
+  export type ZipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+    /**
+     * Filter which Zip to delete.
+     */
+    where: ZipWhereUniqueInput
+  }
+
+  /**
+   * Zip deleteMany
+   */
+  export type ZipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Zips to delete
+     */
+    where?: ZipWhereInput
+    /**
+     * Limit how many Zips to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Zip.addresses
+   */
+  export type Zip$addressesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    cursor?: AddressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Zip without action
+   */
+  export type ZipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Zip
+     */
+    select?: ZipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Zip
+     */
+    omit?: ZipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZipInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Address
+   */
+
+  export type AggregateAddress = {
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  export type AddressAvgAggregateOutputType = {
+    id: number | null
+    zipCode: number | null
+    organizationId: number | null
+  }
+
+  export type AddressSumAggregateOutputType = {
+    id: number | null
+    zipCode: number | null
+    organizationId: number | null
+  }
+
+  export type AddressMinAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    type: $Enums.AddressType | null
+    borough: string | null
+    streetLineOne: string | null
+    streetLineTwo: string | null
+    cityName: string | null
+    zipCode: number | null
+    stateName: string | null
+    country: string | null
+    organizationId: number | null
+  }
+
+  export type AddressMaxAggregateOutputType = {
+    id: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    type: $Enums.AddressType | null
+    borough: string | null
+    streetLineOne: string | null
+    streetLineTwo: string | null
+    cityName: string | null
+    zipCode: number | null
+    stateName: string | null
+    country: string | null
+    organizationId: number | null
+  }
+
+  export type AddressCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    type: number
+    borough: number
+    streetLineOne: number
+    streetLineTwo: number
+    cityName: number
+    zipCode: number
+    stateName: number
+    country: number
+    organizationId: number
+    _all: number
+  }
+
+
+  export type AddressAvgAggregateInputType = {
+    id?: true
+    zipCode?: true
+    organizationId?: true
+  }
+
+  export type AddressSumAggregateInputType = {
+    id?: true
+    zipCode?: true
+    organizationId?: true
+  }
+
+  export type AddressMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    type?: true
+    borough?: true
+    streetLineOne?: true
+    streetLineTwo?: true
+    cityName?: true
+    zipCode?: true
+    stateName?: true
+    country?: true
+    organizationId?: true
+  }
+
+  export type AddressMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    type?: true
+    borough?: true
+    streetLineOne?: true
+    streetLineTwo?: true
+    cityName?: true
+    zipCode?: true
+    stateName?: true
+    country?: true
+    organizationId?: true
+  }
+
+  export type AddressCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    type?: true
+    borough?: true
+    streetLineOne?: true
+    streetLineTwo?: true
+    cityName?: true
+    zipCode?: true
+    stateName?: true
+    country?: true
+    organizationId?: true
+    _all?: true
+  }
+
+  export type AddressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Address to aggregate.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Addresses
+    **/
+    _count?: true | AddressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AddressAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AddressSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type GetAddressAggregateType<T extends AddressAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddress[P]>
+      : GetScalarType<T[P], AggregateAddress[P]>
+  }
+
+
+
+
+  export type AddressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithAggregationInput | AddressOrderByWithAggregationInput[]
+    by: AddressScalarFieldEnum[] | AddressScalarFieldEnum
+    having?: AddressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddressCountAggregateInputType | true
+    _avg?: AddressAvgAggregateInputType
+    _sum?: AddressSumAggregateInputType
+    _min?: AddressMinAggregateInputType
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type AddressGroupByOutputType = {
+    id: number
+    createdAt: Date
+    updatedAt: Date
+    type: $Enums.AddressType
+    borough: string | null
+    streetLineOne: string
+    streetLineTwo: string | null
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+    organizationId: number
+    _count: AddressCountAggregateOutputType | null
+    _avg: AddressAvgAggregateOutputType | null
+    _sum: AddressSumAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddressGroupByOutputType[P]>
+            : GetScalarType<T[P], AddressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    type?: boolean
+    borough?: boolean
+    streetLineOne?: boolean
+    streetLineTwo?: boolean
+    cityName?: boolean
+    zipCode?: boolean
+    stateName?: boolean
+    country?: boolean
+    organizationId?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+  export type AddressSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    type?: boolean
+    borough?: boolean
+    streetLineOne?: boolean
+    streetLineTwo?: boolean
+    cityName?: boolean
+    zipCode?: boolean
+    stateName?: boolean
+    country?: boolean
+    organizationId?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+  export type AddressSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    type?: boolean
+    borough?: boolean
+    streetLineOne?: boolean
+    streetLineTwo?: boolean
+    cityName?: boolean
+    zipCode?: boolean
+    stateName?: boolean
+    country?: boolean
+    organizationId?: boolean
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+  export type AddressSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    type?: boolean
+    borough?: boolean
+    streetLineOne?: boolean
+    streetLineTwo?: boolean
+    cityName?: boolean
+    zipCode?: boolean
+    stateName?: boolean
+    country?: boolean
+    organizationId?: boolean
+  }
+
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "type" | "borough" | "streetLineOne" | "streetLineTwo" | "cityName" | "zipCode" | "stateName" | "country" | "organizationId", ExtArgs["result"]["address"]>
+  export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type AddressIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+  export type AddressIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    state?: boolean | StateDefaultArgs<ExtArgs>
+    city?: boolean | CityDefaultArgs<ExtArgs>
+    zip?: boolean | ZipDefaultArgs<ExtArgs>
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $AddressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Address"
+    objects: {
+      state: Prisma.$StatePayload<ExtArgs>
+      city: Prisma.$CityPayload<ExtArgs>
+      zip: Prisma.$ZipPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      createdAt: Date
+      updatedAt: Date
+      type: $Enums.AddressType
+      borough: string | null
+      streetLineOne: string
+      streetLineTwo: string | null
+      cityName: string
+      zipCode: number
+      stateName: string
+      country: string
+      organizationId: number
+    }, ExtArgs["result"]["address"]>
+    composites: {}
+  }
+
+  type AddressGetPayload<S extends boolean | null | undefined | AddressDefaultArgs> = $Result.GetResult<Prisma.$AddressPayload, S>
+
+  type AddressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AddressCountAggregateInputType | true
+    }
+
+  export interface AddressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Address'], meta: { name: 'Address' } }
+    /**
+     * Find zero or one Address that matches the filter.
+     * @param {AddressFindUniqueArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AddressFindUniqueArgs>(args: SelectSubset<T, AddressFindUniqueArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Address that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AddressFindUniqueOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AddressFindUniqueOrThrowArgs>(args: SelectSubset<T, AddressFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AddressFindFirstArgs>(args?: SelectSubset<T, AddressFindFirstArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AddressFindFirstOrThrowArgs>(args?: SelectSubset<T, AddressFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Addresses
+     * const addresses = await prisma.address.findMany()
+     * 
+     * // Get first 10 Addresses
+     * const addresses = await prisma.address.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addressWithIdOnly = await prisma.address.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AddressFindManyArgs>(args?: SelectSubset<T, AddressFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Address.
+     * @param {AddressCreateArgs} args - Arguments to create a Address.
+     * @example
+     * // Create one Address
+     * const Address = await prisma.address.create({
+     *   data: {
+     *     // ... data to create a Address
+     *   }
+     * })
+     * 
+     */
+    create<T extends AddressCreateArgs>(args: SelectSubset<T, AddressCreateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Addresses.
+     * @param {AddressCreateManyArgs} args - Arguments to create many Addresses.
+     * @example
+     * // Create many Addresses
+     * const address = await prisma.address.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AddressCreateManyArgs>(args?: SelectSubset<T, AddressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Addresses and returns the data saved in the database.
+     * @param {AddressCreateManyAndReturnArgs} args - Arguments to create many Addresses.
+     * @example
+     * // Create many Addresses
+     * const address = await prisma.address.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Addresses and only return the `id`
+     * const addressWithIdOnly = await prisma.address.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AddressCreateManyAndReturnArgs>(args?: SelectSubset<T, AddressCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Address.
+     * @param {AddressDeleteArgs} args - Arguments to delete one Address.
+     * @example
+     * // Delete one Address
+     * const Address = await prisma.address.delete({
+     *   where: {
+     *     // ... filter to delete one Address
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AddressDeleteArgs>(args: SelectSubset<T, AddressDeleteArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Address.
+     * @param {AddressUpdateArgs} args - Arguments to update one Address.
+     * @example
+     * // Update one Address
+     * const address = await prisma.address.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AddressUpdateArgs>(args: SelectSubset<T, AddressUpdateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Addresses.
+     * @param {AddressDeleteManyArgs} args - Arguments to filter Addresses to delete.
+     * @example
+     * // Delete a few Addresses
+     * const { count } = await prisma.address.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AddressDeleteManyArgs>(args?: SelectSubset<T, AddressDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Addresses
+     * const address = await prisma.address.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AddressUpdateManyArgs>(args: SelectSubset<T, AddressUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Addresses and returns the data updated in the database.
+     * @param {AddressUpdateManyAndReturnArgs} args - Arguments to update many Addresses.
+     * @example
+     * // Update many Addresses
+     * const address = await prisma.address.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Addresses and only return the `id`
+     * const addressWithIdOnly = await prisma.address.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AddressUpdateManyAndReturnArgs>(args: SelectSubset<T, AddressUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Address.
+     * @param {AddressUpsertArgs} args - Arguments to update or create a Address.
+     * @example
+     * // Update or create a Address
+     * const address = await prisma.address.upsert({
+     *   create: {
+     *     // ... data to create a Address
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Address we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AddressUpsertArgs>(args: SelectSubset<T, AddressUpsertArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressCountArgs} args - Arguments to filter Addresses to count.
+     * @example
+     * // Count the number of Addresses
+     * const count = await prisma.address.count({
+     *   where: {
+     *     // ... the filter for the Addresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddressCountArgs>(
+      args?: Subset<T, AddressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddressAggregateArgs>(args: Subset<T, AddressAggregateArgs>): Prisma.PrismaPromise<GetAddressAggregateType<T>>
+
+    /**
+     * Group by Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddressGroupByArgs['orderBy'] }
+        : { orderBy?: AddressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Address model
+   */
+  readonly fields: AddressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Address.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    zip<T extends ZipDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ZipDefaultArgs<ExtArgs>>): Prisma__ZipClient<$Result.GetResult<Prisma.$ZipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Address model
+   */
+  interface AddressFieldRefs {
+    readonly id: FieldRef<"Address", 'Int'>
+    readonly createdAt: FieldRef<"Address", 'DateTime'>
+    readonly updatedAt: FieldRef<"Address", 'DateTime'>
+    readonly type: FieldRef<"Address", 'AddressType'>
+    readonly borough: FieldRef<"Address", 'String'>
+    readonly streetLineOne: FieldRef<"Address", 'String'>
+    readonly streetLineTwo: FieldRef<"Address", 'String'>
+    readonly cityName: FieldRef<"Address", 'String'>
+    readonly zipCode: FieldRef<"Address", 'Int'>
+    readonly stateName: FieldRef<"Address", 'String'>
+    readonly country: FieldRef<"Address", 'String'>
+    readonly organizationId: FieldRef<"Address", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Address findUnique
+   */
+  export type AddressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findUniqueOrThrow
+   */
+  export type AddressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findFirst
+   */
+  export type AddressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findFirstOrThrow
+   */
+  export type AddressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findMany
+   */
+  export type AddressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Addresses to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address create
+   */
+  export type AddressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Address.
+     */
+    data: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+  }
+
+  /**
+   * Address createMany
+   */
+  export type AddressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Addresses.
+     */
+    data: AddressCreateManyInput | AddressCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Address createManyAndReturn
+   */
+  export type AddressCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * The data used to create many Addresses.
+     */
+    data: AddressCreateManyInput | AddressCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Address update
+   */
+  export type AddressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Address.
+     */
+    data: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+    /**
+     * Choose, which Address to update.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address updateMany
+   */
+  export type AddressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Addresses.
+     */
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyInput>
+    /**
+     * Filter which Addresses to update
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address updateManyAndReturn
+   */
+  export type AddressUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * The data used to update Addresses.
+     */
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyInput>
+    /**
+     * Filter which Addresses to update
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Address upsert
+   */
+  export type AddressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Address to update in case it exists.
+     */
+    where: AddressWhereUniqueInput
+    /**
+     * In case the Address found by the `where` argument doesn't exist, create a new Address with this data.
+     */
+    create: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+    /**
+     * In case the Address was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+  }
+
+  /**
+   * Address delete
+   */
+  export type AddressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter which Address to delete.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address deleteMany
+   */
+  export type AddressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Addresses to delete
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address without action
+   */
+  export type AddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
   }
 
 
@@ -15090,10 +20120,54 @@ export namespace Prisma {
     id: 'id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    name: 'name'
+    name: 'name',
+    stripeCustomerId: 'stripeCustomerId'
   };
 
   export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
+
+
+  export const StateScalarFieldEnum: {
+    name: 'name',
+    slug: 'slug'
+  };
+
+  export type StateScalarFieldEnum = (typeof StateScalarFieldEnum)[keyof typeof StateScalarFieldEnum]
+
+
+  export const CityScalarFieldEnum: {
+    name: 'name',
+    stateName: 'stateName'
+  };
+
+  export type CityScalarFieldEnum = (typeof CityScalarFieldEnum)[keyof typeof CityScalarFieldEnum]
+
+
+  export const ZipScalarFieldEnum: {
+    code: 'code',
+    cityName: 'cityName',
+    stateName: 'stateName'
+  };
+
+  export type ZipScalarFieldEnum = (typeof ZipScalarFieldEnum)[keyof typeof ZipScalarFieldEnum]
+
+
+  export const AddressScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    type: 'type',
+    borough: 'borough',
+    streetLineOne: 'streetLineOne',
+    streetLineTwo: 'streetLineTwo',
+    cityName: 'cityName',
+    zipCode: 'zipCode',
+    stateName: 'stateName',
+    country: 'country',
+    organizationId: 'organizationId'
+  };
+
+  export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
 
 
   export const PermissionScalarFieldEnum: {
@@ -15276,6 +20350,20 @@ export namespace Prisma {
    * Reference to a field of type 'OnboardingSteps[]'
    */
   export type ListEnumOnboardingStepsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OnboardingSteps[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AddressType'
+   */
+  export type EnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AddressType[]'
+   */
+  export type ListEnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType[]'>
     
 
 
@@ -15904,8 +20992,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Organization"> | Date | string
     updatedAt?: DateTimeFilter<"Organization"> | Date | string
     name?: StringFilter<"Organization"> | string
+    stripeCustomerId?: StringNullableFilter<"Organization"> | string | null
     users?: UserListRelationFilter
     roles?: RoleListRelationFilter
+    billingAddresses?: AddressListRelationFilter
   }
 
   export type OrganizationOrderByWithRelationInput = {
@@ -15913,12 +21003,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     name?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     users?: UserOrderByRelationAggregateInput
     roles?: RoleOrderByRelationAggregateInput
+    billingAddresses?: AddressOrderByRelationAggregateInput
   }
 
   export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    stripeCustomerId?: string
     AND?: OrganizationWhereInput | OrganizationWhereInput[]
     OR?: OrganizationWhereInput[]
     NOT?: OrganizationWhereInput | OrganizationWhereInput[]
@@ -15927,13 +21020,15 @@ export namespace Prisma {
     name?: StringFilter<"Organization"> | string
     users?: UserListRelationFilter
     roles?: RoleListRelationFilter
-  }, "id">
+    billingAddresses?: AddressListRelationFilter
+  }, "id" | "stripeCustomerId">
 
   export type OrganizationOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     name?: SortOrder
+    stripeCustomerId?: SortOrderInput | SortOrder
     _count?: OrganizationCountOrderByAggregateInput
     _avg?: OrganizationAvgOrderByAggregateInput
     _max?: OrganizationMaxOrderByAggregateInput
@@ -15949,6 +21044,256 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
     name?: StringWithAggregatesFilter<"Organization"> | string
+    stripeCustomerId?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+  }
+
+  export type StateWhereInput = {
+    AND?: StateWhereInput | StateWhereInput[]
+    OR?: StateWhereInput[]
+    NOT?: StateWhereInput | StateWhereInput[]
+    name?: StringFilter<"State"> | string
+    slug?: StringFilter<"State"> | string
+    cities?: CityListRelationFilter
+    zipCodes?: ZipListRelationFilter
+    addresses?: AddressListRelationFilter
+  }
+
+  export type StateOrderByWithRelationInput = {
+    name?: SortOrder
+    slug?: SortOrder
+    cities?: CityOrderByRelationAggregateInput
+    zipCodes?: ZipOrderByRelationAggregateInput
+    addresses?: AddressOrderByRelationAggregateInput
+  }
+
+  export type StateWhereUniqueInput = Prisma.AtLeast<{
+    name?: string
+    slug?: string
+    AND?: StateWhereInput | StateWhereInput[]
+    OR?: StateWhereInput[]
+    NOT?: StateWhereInput | StateWhereInput[]
+    cities?: CityListRelationFilter
+    zipCodes?: ZipListRelationFilter
+    addresses?: AddressListRelationFilter
+  }, "name" | "name" | "slug">
+
+  export type StateOrderByWithAggregationInput = {
+    name?: SortOrder
+    slug?: SortOrder
+    _count?: StateCountOrderByAggregateInput
+    _max?: StateMaxOrderByAggregateInput
+    _min?: StateMinOrderByAggregateInput
+  }
+
+  export type StateScalarWhereWithAggregatesInput = {
+    AND?: StateScalarWhereWithAggregatesInput | StateScalarWhereWithAggregatesInput[]
+    OR?: StateScalarWhereWithAggregatesInput[]
+    NOT?: StateScalarWhereWithAggregatesInput | StateScalarWhereWithAggregatesInput[]
+    name?: StringWithAggregatesFilter<"State"> | string
+    slug?: StringWithAggregatesFilter<"State"> | string
+  }
+
+  export type CityWhereInput = {
+    AND?: CityWhereInput | CityWhereInput[]
+    OR?: CityWhereInput[]
+    NOT?: CityWhereInput | CityWhereInput[]
+    name?: StringFilter<"City"> | string
+    stateName?: StringFilter<"City"> | string
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    zipCodes?: ZipListRelationFilter
+    addresses?: AddressListRelationFilter
+  }
+
+  export type CityOrderByWithRelationInput = {
+    name?: SortOrder
+    stateName?: SortOrder
+    state?: StateOrderByWithRelationInput
+    zipCodes?: ZipOrderByRelationAggregateInput
+    addresses?: AddressOrderByRelationAggregateInput
+  }
+
+  export type CityWhereUniqueInput = Prisma.AtLeast<{
+    name_stateName?: CityNameStateNameCompoundUniqueInput
+    AND?: CityWhereInput | CityWhereInput[]
+    OR?: CityWhereInput[]
+    NOT?: CityWhereInput | CityWhereInput[]
+    name?: StringFilter<"City"> | string
+    stateName?: StringFilter<"City"> | string
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    zipCodes?: ZipListRelationFilter
+    addresses?: AddressListRelationFilter
+  }, "name_stateName">
+
+  export type CityOrderByWithAggregationInput = {
+    name?: SortOrder
+    stateName?: SortOrder
+    _count?: CityCountOrderByAggregateInput
+    _max?: CityMaxOrderByAggregateInput
+    _min?: CityMinOrderByAggregateInput
+  }
+
+  export type CityScalarWhereWithAggregatesInput = {
+    AND?: CityScalarWhereWithAggregatesInput | CityScalarWhereWithAggregatesInput[]
+    OR?: CityScalarWhereWithAggregatesInput[]
+    NOT?: CityScalarWhereWithAggregatesInput | CityScalarWhereWithAggregatesInput[]
+    name?: StringWithAggregatesFilter<"City"> | string
+    stateName?: StringWithAggregatesFilter<"City"> | string
+  }
+
+  export type ZipWhereInput = {
+    AND?: ZipWhereInput | ZipWhereInput[]
+    OR?: ZipWhereInput[]
+    NOT?: ZipWhereInput | ZipWhereInput[]
+    code?: IntFilter<"Zip"> | number
+    cityName?: StringFilter<"Zip"> | string
+    stateName?: StringFilter<"Zip"> | string
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    addresses?: AddressListRelationFilter
+  }
+
+  export type ZipOrderByWithRelationInput = {
+    code?: SortOrder
+    cityName?: SortOrder
+    stateName?: SortOrder
+    city?: CityOrderByWithRelationInput
+    state?: StateOrderByWithRelationInput
+    addresses?: AddressOrderByRelationAggregateInput
+  }
+
+  export type ZipWhereUniqueInput = Prisma.AtLeast<{
+    code?: number
+    cityName_stateName_code?: ZipCityNameStateNameCodeCompoundUniqueInput
+    AND?: ZipWhereInput | ZipWhereInput[]
+    OR?: ZipWhereInput[]
+    NOT?: ZipWhereInput | ZipWhereInput[]
+    cityName?: StringFilter<"Zip"> | string
+    stateName?: StringFilter<"Zip"> | string
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    addresses?: AddressListRelationFilter
+  }, "code" | "code" | "cityName_stateName_code">
+
+  export type ZipOrderByWithAggregationInput = {
+    code?: SortOrder
+    cityName?: SortOrder
+    stateName?: SortOrder
+    _count?: ZipCountOrderByAggregateInput
+    _avg?: ZipAvgOrderByAggregateInput
+    _max?: ZipMaxOrderByAggregateInput
+    _min?: ZipMinOrderByAggregateInput
+    _sum?: ZipSumOrderByAggregateInput
+  }
+
+  export type ZipScalarWhereWithAggregatesInput = {
+    AND?: ZipScalarWhereWithAggregatesInput | ZipScalarWhereWithAggregatesInput[]
+    OR?: ZipScalarWhereWithAggregatesInput[]
+    NOT?: ZipScalarWhereWithAggregatesInput | ZipScalarWhereWithAggregatesInput[]
+    code?: IntWithAggregatesFilter<"Zip"> | number
+    cityName?: StringWithAggregatesFilter<"Zip"> | string
+    stateName?: StringWithAggregatesFilter<"Zip"> | string
+  }
+
+  export type AddressWhereInput = {
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    id?: IntFilter<"Address"> | number
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    borough?: StringNullableFilter<"Address"> | string | null
+    streetLineOne?: StringFilter<"Address"> | string
+    streetLineTwo?: StringNullableFilter<"Address"> | string | null
+    cityName?: StringFilter<"Address"> | string
+    zipCode?: IntFilter<"Address"> | number
+    stateName?: StringFilter<"Address"> | string
+    country?: StringFilter<"Address"> | string
+    organizationId?: IntFilter<"Address"> | number
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    zip?: XOR<ZipScalarRelationFilter, ZipWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }
+
+  export type AddressOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    type?: SortOrder
+    borough?: SortOrderInput | SortOrder
+    streetLineOne?: SortOrder
+    streetLineTwo?: SortOrderInput | SortOrder
+    cityName?: SortOrder
+    zipCode?: SortOrder
+    stateName?: SortOrder
+    country?: SortOrder
+    organizationId?: SortOrder
+    state?: StateOrderByWithRelationInput
+    city?: CityOrderByWithRelationInput
+    zip?: ZipOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type AddressWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    streetLineOne_streetLineTwo_cityName_zipCode_stateName_country?: AddressStreetLineOneStreetLineTwoCityNameZipCodeStateNameCountryCompoundUniqueInput
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    borough?: StringNullableFilter<"Address"> | string | null
+    streetLineOne?: StringFilter<"Address"> | string
+    streetLineTwo?: StringNullableFilter<"Address"> | string | null
+    cityName?: StringFilter<"Address"> | string
+    zipCode?: IntFilter<"Address"> | number
+    stateName?: StringFilter<"Address"> | string
+    country?: StringFilter<"Address"> | string
+    organizationId?: IntFilter<"Address"> | number
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
+    city?: XOR<CityScalarRelationFilter, CityWhereInput>
+    zip?: XOR<ZipScalarRelationFilter, ZipWhereInput>
+    organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
+  }, "id" | "streetLineOne_streetLineTwo_cityName_zipCode_stateName_country">
+
+  export type AddressOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    type?: SortOrder
+    borough?: SortOrderInput | SortOrder
+    streetLineOne?: SortOrder
+    streetLineTwo?: SortOrderInput | SortOrder
+    cityName?: SortOrder
+    zipCode?: SortOrder
+    stateName?: SortOrder
+    country?: SortOrder
+    organizationId?: SortOrder
+    _count?: AddressCountOrderByAggregateInput
+    _avg?: AddressAvgOrderByAggregateInput
+    _max?: AddressMaxOrderByAggregateInput
+    _min?: AddressMinOrderByAggregateInput
+    _sum?: AddressSumOrderByAggregateInput
+  }
+
+  export type AddressScalarWhereWithAggregatesInput = {
+    AND?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    OR?: AddressScalarWhereWithAggregatesInput[]
+    NOT?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Address"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Address"> | Date | string
+    type?: EnumAddressTypeWithAggregatesFilter<"Address"> | $Enums.AddressType
+    borough?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    streetLineOne?: StringWithAggregatesFilter<"Address"> | string
+    streetLineTwo?: StringNullableWithAggregatesFilter<"Address"> | string | null
+    cityName?: StringWithAggregatesFilter<"Address"> | string
+    zipCode?: IntWithAggregatesFilter<"Address"> | number
+    stateName?: StringWithAggregatesFilter<"Address"> | string
+    country?: StringWithAggregatesFilter<"Address"> | string
+    organizationId?: IntWithAggregatesFilter<"Address"> | number
   }
 
   export type PermissionWhereInput = {
@@ -16887,8 +22232,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     users?: UserCreateNestedManyWithoutOrganizationInput
     roles?: RoleCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateInput = {
@@ -16896,16 +22243,20 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
     roles?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutOrganizationNestedInput
     roles?: RoleUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateInput = {
@@ -16913,8 +22264,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
     roles?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationCreateManyInput = {
@@ -16922,12 +22275,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
   }
 
   export type OrganizationUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrganizationUncheckedUpdateManyInput = {
@@ -16935,6 +22290,238 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StateCreateInput = {
+    name: string
+    slug: string
+    cities?: CityCreateNestedManyWithoutStateInput
+    zipCodes?: ZipCreateNestedManyWithoutStateInput
+    addresses?: AddressCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateInput = {
+    name: string
+    slug: string
+    cities?: CityUncheckedCreateNestedManyWithoutStateInput
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutStateInput
+    addresses?: AddressUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUpdateManyWithoutStateNestedInput
+    zipCodes?: ZipUpdateManyWithoutStateNestedInput
+    addresses?: AddressUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUncheckedUpdateManyWithoutStateNestedInput
+    zipCodes?: ZipUncheckedUpdateManyWithoutStateNestedInput
+    addresses?: AddressUncheckedUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateCreateManyInput = {
+    name: string
+    slug: string
+  }
+
+  export type StateUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StateUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CityCreateInput = {
+    name: string
+    state: StateCreateNestedOneWithoutCitiesInput
+    zipCodes?: ZipCreateNestedManyWithoutCityInput
+    addresses?: AddressCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateInput = {
+    name: string
+    stateName: string
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutCityInput
+    addresses?: AddressUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutCitiesNestedInput
+    zipCodes?: ZipUpdateManyWithoutCityNestedInput
+    addresses?: AddressUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUncheckedUpdateManyWithoutCityNestedInput
+    addresses?: AddressUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityCreateManyInput = {
+    name: string
+    stateName: string
+  }
+
+  export type CityUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CityUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ZipCreateInput = {
+    code: number
+    city: CityCreateNestedOneWithoutZipCodesInput
+    state: StateCreateNestedOneWithoutZipCodesInput
+    addresses?: AddressCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipUncheckedCreateInput = {
+    code: number
+    cityName: string
+    stateName: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipUpdateInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    city?: CityUpdateOneRequiredWithoutZipCodesNestedInput
+    state?: StateUpdateOneRequiredWithoutZipCodesNestedInput
+    addresses?: AddressUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipUncheckedUpdateInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    cityName?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipCreateManyInput = {
+    code: number
+    cityName: string
+    stateName: string
+  }
+
+  export type ZipUpdateManyMutationInput = {
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ZipUncheckedUpdateManyInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    cityName?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressCreateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    state: StateCreateNestedOneWithoutAddressesInput
+    city: CityCreateNestedOneWithoutAddressesInput
+    zip: ZipCreateNestedOneWithoutAddressesInput
+    organization: OrganizationCreateNestedOneWithoutBillingAddressesInput
+  }
+
+  export type AddressUncheckedCreateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+    organizationId: number
+  }
+
+  export type AddressUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutAddressesNestedInput
+    city?: CityUpdateOneRequiredWithoutAddressesNestedInput
+    zip?: ZipUpdateOneRequiredWithoutAddressesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutBillingAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    stateName?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressCreateManyInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+    organizationId: number
+  }
+
+  export type AddressUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    stateName?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PermissionCreateInput = {
@@ -17895,7 +23482,17 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type AddressListRelationFilter = {
+    every?: AddressWhereInput
+    some?: AddressWhereInput
+    none?: AddressWhereInput
+  }
+
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AddressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17904,6 +23501,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     name?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type OrganizationAvgOrderByAggregateInput = {
@@ -17915,6 +23513,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     name?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type OrganizationMinOrderByAggregateInput = {
@@ -17922,10 +23521,201 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     name?: SortOrder
+    stripeCustomerId?: SortOrder
   }
 
   export type OrganizationSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type CityListRelationFilter = {
+    every?: CityWhereInput
+    some?: CityWhereInput
+    none?: CityWhereInput
+  }
+
+  export type ZipListRelationFilter = {
+    every?: ZipWhereInput
+    some?: ZipWhereInput
+    none?: ZipWhereInput
+  }
+
+  export type CityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ZipOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StateCountOrderByAggregateInput = {
+    name?: SortOrder
+    slug?: SortOrder
+  }
+
+  export type StateMaxOrderByAggregateInput = {
+    name?: SortOrder
+    slug?: SortOrder
+  }
+
+  export type StateMinOrderByAggregateInput = {
+    name?: SortOrder
+    slug?: SortOrder
+  }
+
+  export type StateScalarRelationFilter = {
+    is?: StateWhereInput
+    isNot?: StateWhereInput
+  }
+
+  export type CityNameStateNameCompoundUniqueInput = {
+    name: string
+    stateName: string
+  }
+
+  export type CityCountOrderByAggregateInput = {
+    name?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type CityMaxOrderByAggregateInput = {
+    name?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type CityMinOrderByAggregateInput = {
+    name?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type CityScalarRelationFilter = {
+    is?: CityWhereInput
+    isNot?: CityWhereInput
+  }
+
+  export type ZipCityNameStateNameCodeCompoundUniqueInput = {
+    cityName: string
+    stateName: string
+    code: number
+  }
+
+  export type ZipCountOrderByAggregateInput = {
+    code?: SortOrder
+    cityName?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type ZipAvgOrderByAggregateInput = {
+    code?: SortOrder
+  }
+
+  export type ZipMaxOrderByAggregateInput = {
+    code?: SortOrder
+    cityName?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type ZipMinOrderByAggregateInput = {
+    code?: SortOrder
+    cityName?: SortOrder
+    stateName?: SortOrder
+  }
+
+  export type ZipSumOrderByAggregateInput = {
+    code?: SortOrder
+  }
+
+  export type EnumAddressTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeFilter<$PrismaModel> | $Enums.AddressType
+  }
+
+  export type ZipScalarRelationFilter = {
+    is?: ZipWhereInput
+    isNot?: ZipWhereInput
+  }
+
+  export type OrganizationScalarRelationFilter = {
+    is?: OrganizationWhereInput
+    isNot?: OrganizationWhereInput
+  }
+
+  export type AddressStreetLineOneStreetLineTwoCityNameZipCodeStateNameCountryCompoundUniqueInput = {
+    streetLineOne: string
+    streetLineTwo: string
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+  }
+
+  export type AddressCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    type?: SortOrder
+    borough?: SortOrder
+    streetLineOne?: SortOrder
+    streetLineTwo?: SortOrder
+    cityName?: SortOrder
+    zipCode?: SortOrder
+    stateName?: SortOrder
+    country?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type AddressAvgOrderByAggregateInput = {
+    id?: SortOrder
+    zipCode?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type AddressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    type?: SortOrder
+    borough?: SortOrder
+    streetLineOne?: SortOrder
+    streetLineTwo?: SortOrder
+    cityName?: SortOrder
+    zipCode?: SortOrder
+    stateName?: SortOrder
+    country?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type AddressMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    type?: SortOrder
+    borough?: SortOrder
+    streetLineOne?: SortOrder
+    streetLineTwo?: SortOrder
+    cityName?: SortOrder
+    zipCode?: SortOrder
+    stateName?: SortOrder
+    country?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type AddressSumOrderByAggregateInput = {
+    id?: SortOrder
+    zipCode?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type EnumAddressTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel> | $Enums.AddressType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAddressTypeFilter<$PrismaModel>
+    _max?: NestedEnumAddressTypeFilter<$PrismaModel>
   }
 
   export type PermissionActionAccessEntityCompoundUniqueInput = {
@@ -17984,11 +23774,6 @@ export namespace Prisma {
     every?: PermissionWhereInput
     some?: PermissionWhereInput
     none?: PermissionWhereInput
-  }
-
-  export type OrganizationScalarRelationFilter = {
-    is?: OrganizationWhereInput
-    isNot?: OrganizationWhereInput
   }
 
   export type PermissionOrderByRelationAggregateInput = {
@@ -18576,6 +24361,13 @@ export namespace Prisma {
     connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
   }
 
+  export type AddressCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput> | AddressCreateWithoutOrganizationInput[] | AddressUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutOrganizationInput | AddressCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AddressCreateManyOrganizationInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOrganizationInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -18588,6 +24380,13 @@ export namespace Prisma {
     connectOrCreate?: RoleCreateOrConnectWithoutOrganizationInput | RoleCreateOrConnectWithoutOrganizationInput[]
     createMany?: RoleCreateManyOrganizationInputEnvelope
     connect?: RoleWhereUniqueInput | RoleWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput> | AddressCreateWithoutOrganizationInput[] | AddressUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutOrganizationInput | AddressCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AddressCreateManyOrganizationInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
   }
 
   export type UserUpdateManyWithoutOrganizationNestedInput = {
@@ -18618,6 +24417,20 @@ export namespace Prisma {
     deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
   }
 
+  export type AddressUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput> | AddressCreateWithoutOrganizationInput[] | AddressUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutOrganizationInput | AddressCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutOrganizationInput | AddressUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AddressCreateManyOrganizationInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutOrganizationInput | AddressUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutOrganizationInput | AddressUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutOrganizationNestedInput = {
     create?: XOR<UserCreateWithoutOrganizationInput, UserUncheckedCreateWithoutOrganizationInput> | UserCreateWithoutOrganizationInput[] | UserUncheckedCreateWithoutOrganizationInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOrganizationInput | UserCreateOrConnectWithoutOrganizationInput[]
@@ -18644,6 +24457,374 @@ export namespace Prisma {
     update?: RoleUpdateWithWhereUniqueWithoutOrganizationInput | RoleUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: RoleUpdateManyWithWhereWithoutOrganizationInput | RoleUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: RoleScalarWhereInput | RoleScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput> | AddressCreateWithoutOrganizationInput[] | AddressUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutOrganizationInput | AddressCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutOrganizationInput | AddressUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AddressCreateManyOrganizationInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutOrganizationInput | AddressUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutOrganizationInput | AddressUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type CityCreateNestedManyWithoutStateInput = {
+    create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
+    createMany?: CityCreateManyStateInputEnvelope
+    connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+  }
+
+  export type ZipCreateNestedManyWithoutStateInput = {
+    create?: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput> | ZipCreateWithoutStateInput[] | ZipUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutStateInput | ZipCreateOrConnectWithoutStateInput[]
+    createMany?: ZipCreateManyStateInputEnvelope
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+  }
+
+  export type AddressCreateNestedManyWithoutStateInput = {
+    create?: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput> | AddressCreateWithoutStateInput[] | AddressUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutStateInput | AddressCreateOrConnectWithoutStateInput[]
+    createMany?: AddressCreateManyStateInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type CityUncheckedCreateNestedManyWithoutStateInput = {
+    create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
+    createMany?: CityCreateManyStateInputEnvelope
+    connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+  }
+
+  export type ZipUncheckedCreateNestedManyWithoutStateInput = {
+    create?: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput> | ZipCreateWithoutStateInput[] | ZipUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutStateInput | ZipCreateOrConnectWithoutStateInput[]
+    createMany?: ZipCreateManyStateInputEnvelope
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutStateInput = {
+    create?: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput> | AddressCreateWithoutStateInput[] | AddressUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutStateInput | AddressCreateOrConnectWithoutStateInput[]
+    createMany?: AddressCreateManyStateInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type CityUpdateManyWithoutStateNestedInput = {
+    create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
+    upsert?: CityUpsertWithWhereUniqueWithoutStateInput | CityUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: CityCreateManyStateInputEnvelope
+    set?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    disconnect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    delete?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    update?: CityUpdateWithWhereUniqueWithoutStateInput | CityUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: CityUpdateManyWithWhereWithoutStateInput | CityUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: CityScalarWhereInput | CityScalarWhereInput[]
+  }
+
+  export type ZipUpdateManyWithoutStateNestedInput = {
+    create?: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput> | ZipCreateWithoutStateInput[] | ZipUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutStateInput | ZipCreateOrConnectWithoutStateInput[]
+    upsert?: ZipUpsertWithWhereUniqueWithoutStateInput | ZipUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: ZipCreateManyStateInputEnvelope
+    set?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    disconnect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    delete?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    update?: ZipUpdateWithWhereUniqueWithoutStateInput | ZipUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: ZipUpdateManyWithWhereWithoutStateInput | ZipUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: ZipScalarWhereInput | ZipScalarWhereInput[]
+  }
+
+  export type AddressUpdateManyWithoutStateNestedInput = {
+    create?: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput> | AddressCreateWithoutStateInput[] | AddressUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutStateInput | AddressCreateOrConnectWithoutStateInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutStateInput | AddressUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: AddressCreateManyStateInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutStateInput | AddressUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutStateInput | AddressUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type CityUncheckedUpdateManyWithoutStateNestedInput = {
+    create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
+    upsert?: CityUpsertWithWhereUniqueWithoutStateInput | CityUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: CityCreateManyStateInputEnvelope
+    set?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    disconnect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    delete?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
+    update?: CityUpdateWithWhereUniqueWithoutStateInput | CityUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: CityUpdateManyWithWhereWithoutStateInput | CityUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: CityScalarWhereInput | CityScalarWhereInput[]
+  }
+
+  export type ZipUncheckedUpdateManyWithoutStateNestedInput = {
+    create?: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput> | ZipCreateWithoutStateInput[] | ZipUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutStateInput | ZipCreateOrConnectWithoutStateInput[]
+    upsert?: ZipUpsertWithWhereUniqueWithoutStateInput | ZipUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: ZipCreateManyStateInputEnvelope
+    set?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    disconnect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    delete?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    update?: ZipUpdateWithWhereUniqueWithoutStateInput | ZipUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: ZipUpdateManyWithWhereWithoutStateInput | ZipUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: ZipScalarWhereInput | ZipScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutStateNestedInput = {
+    create?: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput> | AddressCreateWithoutStateInput[] | AddressUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutStateInput | AddressCreateOrConnectWithoutStateInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutStateInput | AddressUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: AddressCreateManyStateInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutStateInput | AddressUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutStateInput | AddressUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type StateCreateNestedOneWithoutCitiesInput = {
+    create?: XOR<StateCreateWithoutCitiesInput, StateUncheckedCreateWithoutCitiesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutCitiesInput
+    connect?: StateWhereUniqueInput
+  }
+
+  export type ZipCreateNestedManyWithoutCityInput = {
+    create?: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput> | ZipCreateWithoutCityInput[] | ZipUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutCityInput | ZipCreateOrConnectWithoutCityInput[]
+    createMany?: ZipCreateManyCityInputEnvelope
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+  }
+
+  export type AddressCreateNestedManyWithoutCityInput = {
+    create?: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput> | AddressCreateWithoutCityInput[] | AddressUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCityInput | AddressCreateOrConnectWithoutCityInput[]
+    createMany?: AddressCreateManyCityInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type ZipUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput> | ZipCreateWithoutCityInput[] | ZipUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutCityInput | ZipCreateOrConnectWithoutCityInput[]
+    createMany?: ZipCreateManyCityInputEnvelope
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutCityInput = {
+    create?: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput> | AddressCreateWithoutCityInput[] | AddressUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCityInput | AddressCreateOrConnectWithoutCityInput[]
+    createMany?: AddressCreateManyCityInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type StateUpdateOneRequiredWithoutCitiesNestedInput = {
+    create?: XOR<StateCreateWithoutCitiesInput, StateUncheckedCreateWithoutCitiesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutCitiesInput
+    upsert?: StateUpsertWithoutCitiesInput
+    connect?: StateWhereUniqueInput
+    update?: XOR<XOR<StateUpdateToOneWithWhereWithoutCitiesInput, StateUpdateWithoutCitiesInput>, StateUncheckedUpdateWithoutCitiesInput>
+  }
+
+  export type ZipUpdateManyWithoutCityNestedInput = {
+    create?: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput> | ZipCreateWithoutCityInput[] | ZipUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutCityInput | ZipCreateOrConnectWithoutCityInput[]
+    upsert?: ZipUpsertWithWhereUniqueWithoutCityInput | ZipUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: ZipCreateManyCityInputEnvelope
+    set?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    disconnect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    delete?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    update?: ZipUpdateWithWhereUniqueWithoutCityInput | ZipUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: ZipUpdateManyWithWhereWithoutCityInput | ZipUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: ZipScalarWhereInput | ZipScalarWhereInput[]
+  }
+
+  export type AddressUpdateManyWithoutCityNestedInput = {
+    create?: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput> | AddressCreateWithoutCityInput[] | AddressUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCityInput | AddressCreateOrConnectWithoutCityInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutCityInput | AddressUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: AddressCreateManyCityInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutCityInput | AddressUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutCityInput | AddressUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type ZipUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput> | ZipCreateWithoutCityInput[] | ZipUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: ZipCreateOrConnectWithoutCityInput | ZipCreateOrConnectWithoutCityInput[]
+    upsert?: ZipUpsertWithWhereUniqueWithoutCityInput | ZipUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: ZipCreateManyCityInputEnvelope
+    set?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    disconnect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    delete?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    connect?: ZipWhereUniqueInput | ZipWhereUniqueInput[]
+    update?: ZipUpdateWithWhereUniqueWithoutCityInput | ZipUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: ZipUpdateManyWithWhereWithoutCityInput | ZipUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: ZipScalarWhereInput | ZipScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutCityNestedInput = {
+    create?: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput> | AddressCreateWithoutCityInput[] | AddressUncheckedCreateWithoutCityInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutCityInput | AddressCreateOrConnectWithoutCityInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutCityInput | AddressUpsertWithWhereUniqueWithoutCityInput[]
+    createMany?: AddressCreateManyCityInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutCityInput | AddressUpdateWithWhereUniqueWithoutCityInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutCityInput | AddressUpdateManyWithWhereWithoutCityInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type CityCreateNestedOneWithoutZipCodesInput = {
+    create?: XOR<CityCreateWithoutZipCodesInput, CityUncheckedCreateWithoutZipCodesInput>
+    connectOrCreate?: CityCreateOrConnectWithoutZipCodesInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type StateCreateNestedOneWithoutZipCodesInput = {
+    create?: XOR<StateCreateWithoutZipCodesInput, StateUncheckedCreateWithoutZipCodesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutZipCodesInput
+    connect?: StateWhereUniqueInput
+  }
+
+  export type AddressCreateNestedManyWithoutZipInput = {
+    create?: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput> | AddressCreateWithoutZipInput[] | AddressUncheckedCreateWithoutZipInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutZipInput | AddressCreateOrConnectWithoutZipInput[]
+    createMany?: AddressCreateManyZipInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedManyWithoutZipInput = {
+    create?: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput> | AddressCreateWithoutZipInput[] | AddressUncheckedCreateWithoutZipInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutZipInput | AddressCreateOrConnectWithoutZipInput[]
+    createMany?: AddressCreateManyZipInputEnvelope
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+  }
+
+  export type CityUpdateOneRequiredWithoutZipCodesNestedInput = {
+    create?: XOR<CityCreateWithoutZipCodesInput, CityUncheckedCreateWithoutZipCodesInput>
+    connectOrCreate?: CityCreateOrConnectWithoutZipCodesInput
+    upsert?: CityUpsertWithoutZipCodesInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutZipCodesInput, CityUpdateWithoutZipCodesInput>, CityUncheckedUpdateWithoutZipCodesInput>
+  }
+
+  export type StateUpdateOneRequiredWithoutZipCodesNestedInput = {
+    create?: XOR<StateCreateWithoutZipCodesInput, StateUncheckedCreateWithoutZipCodesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutZipCodesInput
+    upsert?: StateUpsertWithoutZipCodesInput
+    connect?: StateWhereUniqueInput
+    update?: XOR<XOR<StateUpdateToOneWithWhereWithoutZipCodesInput, StateUpdateWithoutZipCodesInput>, StateUncheckedUpdateWithoutZipCodesInput>
+  }
+
+  export type AddressUpdateManyWithoutZipNestedInput = {
+    create?: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput> | AddressCreateWithoutZipInput[] | AddressUncheckedCreateWithoutZipInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutZipInput | AddressCreateOrConnectWithoutZipInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutZipInput | AddressUpsertWithWhereUniqueWithoutZipInput[]
+    createMany?: AddressCreateManyZipInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutZipInput | AddressUpdateWithWhereUniqueWithoutZipInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutZipInput | AddressUpdateManyWithWhereWithoutZipInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type AddressUncheckedUpdateManyWithoutZipNestedInput = {
+    create?: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput> | AddressCreateWithoutZipInput[] | AddressUncheckedCreateWithoutZipInput[]
+    connectOrCreate?: AddressCreateOrConnectWithoutZipInput | AddressCreateOrConnectWithoutZipInput[]
+    upsert?: AddressUpsertWithWhereUniqueWithoutZipInput | AddressUpsertWithWhereUniqueWithoutZipInput[]
+    createMany?: AddressCreateManyZipInputEnvelope
+    set?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    disconnect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    delete?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    connect?: AddressWhereUniqueInput | AddressWhereUniqueInput[]
+    update?: AddressUpdateWithWhereUniqueWithoutZipInput | AddressUpdateWithWhereUniqueWithoutZipInput[]
+    updateMany?: AddressUpdateManyWithWhereWithoutZipInput | AddressUpdateManyWithWhereWithoutZipInput[]
+    deleteMany?: AddressScalarWhereInput | AddressScalarWhereInput[]
+  }
+
+  export type StateCreateNestedOneWithoutAddressesInput = {
+    create?: XOR<StateCreateWithoutAddressesInput, StateUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutAddressesInput
+    connect?: StateWhereUniqueInput
+  }
+
+  export type CityCreateNestedOneWithoutAddressesInput = {
+    create?: XOR<CityCreateWithoutAddressesInput, CityUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: CityCreateOrConnectWithoutAddressesInput
+    connect?: CityWhereUniqueInput
+  }
+
+  export type ZipCreateNestedOneWithoutAddressesInput = {
+    create?: XOR<ZipCreateWithoutAddressesInput, ZipUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: ZipCreateOrConnectWithoutAddressesInput
+    connect?: ZipWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutBillingAddressesInput = {
+    create?: XOR<OrganizationCreateWithoutBillingAddressesInput, OrganizationUncheckedCreateWithoutBillingAddressesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBillingAddressesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumAddressTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AddressType
+  }
+
+  export type StateUpdateOneRequiredWithoutAddressesNestedInput = {
+    create?: XOR<StateCreateWithoutAddressesInput, StateUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: StateCreateOrConnectWithoutAddressesInput
+    upsert?: StateUpsertWithoutAddressesInput
+    connect?: StateWhereUniqueInput
+    update?: XOR<XOR<StateUpdateToOneWithWhereWithoutAddressesInput, StateUpdateWithoutAddressesInput>, StateUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type CityUpdateOneRequiredWithoutAddressesNestedInput = {
+    create?: XOR<CityCreateWithoutAddressesInput, CityUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: CityCreateOrConnectWithoutAddressesInput
+    upsert?: CityUpsertWithoutAddressesInput
+    connect?: CityWhereUniqueInput
+    update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAddressesInput, CityUpdateWithoutAddressesInput>, CityUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type ZipUpdateOneRequiredWithoutAddressesNestedInput = {
+    create?: XOR<ZipCreateWithoutAddressesInput, ZipUncheckedCreateWithoutAddressesInput>
+    connectOrCreate?: ZipCreateOrConnectWithoutAddressesInput
+    upsert?: ZipUpsertWithoutAddressesInput
+    connect?: ZipWhereUniqueInput
+    update?: XOR<XOR<ZipUpdateToOneWithWhereWithoutAddressesInput, ZipUpdateWithoutAddressesInput>, ZipUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutBillingAddressesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutBillingAddressesInput, OrganizationUncheckedCreateWithoutBillingAddressesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutBillingAddressesInput
+    upsert?: OrganizationUpsertWithoutBillingAddressesInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutBillingAddressesInput, OrganizationUpdateWithoutBillingAddressesInput>, OrganizationUncheckedUpdateWithoutBillingAddressesInput>
   }
 
   export type RoleCreateNestedManyWithoutPermissionsInput = {
@@ -19069,6 +25250,23 @@ export namespace Prisma {
     _max?: NestedEnumOnboardingStepsFilter<$PrismaModel>
   }
 
+  export type NestedEnumAddressTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeFilter<$PrismaModel> | $Enums.AddressType
+  }
+
+  export type NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AddressType | EnumAddressTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AddressType[] | ListEnumAddressTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAddressTypeWithAggregatesFilter<$PrismaModel> | $Enums.AddressType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAddressTypeFilter<$PrismaModel>
+    _max?: NestedEnumAddressTypeFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -19158,7 +25356,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     roles?: RoleCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutUsersInput = {
@@ -19166,7 +25366,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     roles?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutUsersInput = {
@@ -19409,7 +25611,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     roles?: RoleUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutUsersInput = {
@@ -19417,7 +25621,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     roles?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type RoleUpsertWithWhereUniqueWithoutUsersInput = {
@@ -20208,6 +26414,43 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AddressCreateWithoutOrganizationInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    state: StateCreateNestedOneWithoutAddressesInput
+    city: CityCreateNestedOneWithoutAddressesInput
+    zip: ZipCreateNestedOneWithoutAddressesInput
+  }
+
+  export type AddressUncheckedCreateWithoutOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+  }
+
+  export type AddressCreateOrConnectWithoutOrganizationInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AddressCreateManyOrganizationInputEnvelope = {
+    data: AddressCreateManyOrganizationInput | AddressCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutOrganizationInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutOrganizationInput, UserUncheckedUpdateWithoutOrganizationInput>
@@ -20267,6 +26510,632 @@ export namespace Prisma {
   export type RoleUpdateManyWithWhereWithoutOrganizationInput = {
     where: RoleScalarWhereInput
     data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutOrganizationInput, AddressUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<AddressCreateWithoutOrganizationInput, AddressUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutOrganizationInput, AddressUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutOrganizationInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type AddressScalarWhereInput = {
+    AND?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    OR?: AddressScalarWhereInput[]
+    NOT?: AddressScalarWhereInput | AddressScalarWhereInput[]
+    id?: IntFilter<"Address"> | number
+    createdAt?: DateTimeFilter<"Address"> | Date | string
+    updatedAt?: DateTimeFilter<"Address"> | Date | string
+    type?: EnumAddressTypeFilter<"Address"> | $Enums.AddressType
+    borough?: StringNullableFilter<"Address"> | string | null
+    streetLineOne?: StringFilter<"Address"> | string
+    streetLineTwo?: StringNullableFilter<"Address"> | string | null
+    cityName?: StringFilter<"Address"> | string
+    zipCode?: IntFilter<"Address"> | number
+    stateName?: StringFilter<"Address"> | string
+    country?: StringFilter<"Address"> | string
+    organizationId?: IntFilter<"Address"> | number
+  }
+
+  export type CityCreateWithoutStateInput = {
+    name: string
+    zipCodes?: ZipCreateNestedManyWithoutCityInput
+    addresses?: AddressCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutStateInput = {
+    name: string
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutCityInput
+    addresses?: AddressUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutStateInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput>
+  }
+
+  export type CityCreateManyStateInputEnvelope = {
+    data: CityCreateManyStateInput | CityCreateManyStateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ZipCreateWithoutStateInput = {
+    code: number
+    city: CityCreateNestedOneWithoutZipCodesInput
+    addresses?: AddressCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipUncheckedCreateWithoutStateInput = {
+    code: number
+    cityName: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipCreateOrConnectWithoutStateInput = {
+    where: ZipWhereUniqueInput
+    create: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput>
+  }
+
+  export type ZipCreateManyStateInputEnvelope = {
+    data: ZipCreateManyStateInput | ZipCreateManyStateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AddressCreateWithoutStateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    city: CityCreateNestedOneWithoutAddressesInput
+    zip: ZipCreateNestedOneWithoutAddressesInput
+    organization: OrganizationCreateNestedOneWithoutBillingAddressesInput
+  }
+
+  export type AddressUncheckedCreateWithoutStateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    country: string
+    organizationId: number
+  }
+
+  export type AddressCreateOrConnectWithoutStateInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput>
+  }
+
+  export type AddressCreateManyStateInputEnvelope = {
+    data: AddressCreateManyStateInput | AddressCreateManyStateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CityUpsertWithWhereUniqueWithoutStateInput = {
+    where: CityWhereUniqueInput
+    update: XOR<CityUpdateWithoutStateInput, CityUncheckedUpdateWithoutStateInput>
+    create: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput>
+  }
+
+  export type CityUpdateWithWhereUniqueWithoutStateInput = {
+    where: CityWhereUniqueInput
+    data: XOR<CityUpdateWithoutStateInput, CityUncheckedUpdateWithoutStateInput>
+  }
+
+  export type CityUpdateManyWithWhereWithoutStateInput = {
+    where: CityScalarWhereInput
+    data: XOR<CityUpdateManyMutationInput, CityUncheckedUpdateManyWithoutStateInput>
+  }
+
+  export type CityScalarWhereInput = {
+    AND?: CityScalarWhereInput | CityScalarWhereInput[]
+    OR?: CityScalarWhereInput[]
+    NOT?: CityScalarWhereInput | CityScalarWhereInput[]
+    name?: StringFilter<"City"> | string
+    stateName?: StringFilter<"City"> | string
+  }
+
+  export type ZipUpsertWithWhereUniqueWithoutStateInput = {
+    where: ZipWhereUniqueInput
+    update: XOR<ZipUpdateWithoutStateInput, ZipUncheckedUpdateWithoutStateInput>
+    create: XOR<ZipCreateWithoutStateInput, ZipUncheckedCreateWithoutStateInput>
+  }
+
+  export type ZipUpdateWithWhereUniqueWithoutStateInput = {
+    where: ZipWhereUniqueInput
+    data: XOR<ZipUpdateWithoutStateInput, ZipUncheckedUpdateWithoutStateInput>
+  }
+
+  export type ZipUpdateManyWithWhereWithoutStateInput = {
+    where: ZipScalarWhereInput
+    data: XOR<ZipUpdateManyMutationInput, ZipUncheckedUpdateManyWithoutStateInput>
+  }
+
+  export type ZipScalarWhereInput = {
+    AND?: ZipScalarWhereInput | ZipScalarWhereInput[]
+    OR?: ZipScalarWhereInput[]
+    NOT?: ZipScalarWhereInput | ZipScalarWhereInput[]
+    code?: IntFilter<"Zip"> | number
+    cityName?: StringFilter<"Zip"> | string
+    stateName?: StringFilter<"Zip"> | string
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutStateInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutStateInput, AddressUncheckedUpdateWithoutStateInput>
+    create: XOR<AddressCreateWithoutStateInput, AddressUncheckedCreateWithoutStateInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutStateInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutStateInput, AddressUncheckedUpdateWithoutStateInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutStateInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutStateInput>
+  }
+
+  export type StateCreateWithoutCitiesInput = {
+    name: string
+    slug: string
+    zipCodes?: ZipCreateNestedManyWithoutStateInput
+    addresses?: AddressCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateWithoutCitiesInput = {
+    name: string
+    slug: string
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutStateInput
+    addresses?: AddressUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateCreateOrConnectWithoutCitiesInput = {
+    where: StateWhereUniqueInput
+    create: XOR<StateCreateWithoutCitiesInput, StateUncheckedCreateWithoutCitiesInput>
+  }
+
+  export type ZipCreateWithoutCityInput = {
+    code: number
+    state: StateCreateNestedOneWithoutZipCodesInput
+    addresses?: AddressCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipUncheckedCreateWithoutCityInput = {
+    code: number
+    addresses?: AddressUncheckedCreateNestedManyWithoutZipInput
+  }
+
+  export type ZipCreateOrConnectWithoutCityInput = {
+    where: ZipWhereUniqueInput
+    create: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput>
+  }
+
+  export type ZipCreateManyCityInputEnvelope = {
+    data: ZipCreateManyCityInput | ZipCreateManyCityInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AddressCreateWithoutCityInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    state: StateCreateNestedOneWithoutAddressesInput
+    zip: ZipCreateNestedOneWithoutAddressesInput
+    organization: OrganizationCreateNestedOneWithoutBillingAddressesInput
+  }
+
+  export type AddressUncheckedCreateWithoutCityInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    zipCode: number
+    country: string
+    organizationId: number
+  }
+
+  export type AddressCreateOrConnectWithoutCityInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput>
+  }
+
+  export type AddressCreateManyCityInputEnvelope = {
+    data: AddressCreateManyCityInput | AddressCreateManyCityInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StateUpsertWithoutCitiesInput = {
+    update: XOR<StateUpdateWithoutCitiesInput, StateUncheckedUpdateWithoutCitiesInput>
+    create: XOR<StateCreateWithoutCitiesInput, StateUncheckedCreateWithoutCitiesInput>
+    where?: StateWhereInput
+  }
+
+  export type StateUpdateToOneWithWhereWithoutCitiesInput = {
+    where?: StateWhereInput
+    data: XOR<StateUpdateWithoutCitiesInput, StateUncheckedUpdateWithoutCitiesInput>
+  }
+
+  export type StateUpdateWithoutCitiesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUpdateManyWithoutStateNestedInput
+    addresses?: AddressUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateWithoutCitiesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUncheckedUpdateManyWithoutStateNestedInput
+    addresses?: AddressUncheckedUpdateManyWithoutStateNestedInput
+  }
+
+  export type ZipUpsertWithWhereUniqueWithoutCityInput = {
+    where: ZipWhereUniqueInput
+    update: XOR<ZipUpdateWithoutCityInput, ZipUncheckedUpdateWithoutCityInput>
+    create: XOR<ZipCreateWithoutCityInput, ZipUncheckedCreateWithoutCityInput>
+  }
+
+  export type ZipUpdateWithWhereUniqueWithoutCityInput = {
+    where: ZipWhereUniqueInput
+    data: XOR<ZipUpdateWithoutCityInput, ZipUncheckedUpdateWithoutCityInput>
+  }
+
+  export type ZipUpdateManyWithWhereWithoutCityInput = {
+    where: ZipScalarWhereInput
+    data: XOR<ZipUpdateManyMutationInput, ZipUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutCityInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutCityInput, AddressUncheckedUpdateWithoutCityInput>
+    create: XOR<AddressCreateWithoutCityInput, AddressUncheckedCreateWithoutCityInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutCityInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutCityInput, AddressUncheckedUpdateWithoutCityInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutCityInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutCityInput>
+  }
+
+  export type CityCreateWithoutZipCodesInput = {
+    name: string
+    state: StateCreateNestedOneWithoutCitiesInput
+    addresses?: AddressCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutZipCodesInput = {
+    name: string
+    stateName: string
+    addresses?: AddressUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutZipCodesInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutZipCodesInput, CityUncheckedCreateWithoutZipCodesInput>
+  }
+
+  export type StateCreateWithoutZipCodesInput = {
+    name: string
+    slug: string
+    cities?: CityCreateNestedManyWithoutStateInput
+    addresses?: AddressCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateWithoutZipCodesInput = {
+    name: string
+    slug: string
+    cities?: CityUncheckedCreateNestedManyWithoutStateInput
+    addresses?: AddressUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateCreateOrConnectWithoutZipCodesInput = {
+    where: StateWhereUniqueInput
+    create: XOR<StateCreateWithoutZipCodesInput, StateUncheckedCreateWithoutZipCodesInput>
+  }
+
+  export type AddressCreateWithoutZipInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    state: StateCreateNestedOneWithoutAddressesInput
+    city: CityCreateNestedOneWithoutAddressesInput
+    organization: OrganizationCreateNestedOneWithoutBillingAddressesInput
+  }
+
+  export type AddressUncheckedCreateWithoutZipInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    organizationId: number
+  }
+
+  export type AddressCreateOrConnectWithoutZipInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput>
+  }
+
+  export type AddressCreateManyZipInputEnvelope = {
+    data: AddressCreateManyZipInput | AddressCreateManyZipInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CityUpsertWithoutZipCodesInput = {
+    update: XOR<CityUpdateWithoutZipCodesInput, CityUncheckedUpdateWithoutZipCodesInput>
+    create: XOR<CityCreateWithoutZipCodesInput, CityUncheckedCreateWithoutZipCodesInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutZipCodesInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutZipCodesInput, CityUncheckedUpdateWithoutZipCodesInput>
+  }
+
+  export type CityUpdateWithoutZipCodesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutCitiesNestedInput
+    addresses?: AddressUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutZipCodesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type StateUpsertWithoutZipCodesInput = {
+    update: XOR<StateUpdateWithoutZipCodesInput, StateUncheckedUpdateWithoutZipCodesInput>
+    create: XOR<StateCreateWithoutZipCodesInput, StateUncheckedCreateWithoutZipCodesInput>
+    where?: StateWhereInput
+  }
+
+  export type StateUpdateToOneWithWhereWithoutZipCodesInput = {
+    where?: StateWhereInput
+    data: XOR<StateUpdateWithoutZipCodesInput, StateUncheckedUpdateWithoutZipCodesInput>
+  }
+
+  export type StateUpdateWithoutZipCodesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUpdateManyWithoutStateNestedInput
+    addresses?: AddressUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateWithoutZipCodesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUncheckedUpdateManyWithoutStateNestedInput
+    addresses?: AddressUncheckedUpdateManyWithoutStateNestedInput
+  }
+
+  export type AddressUpsertWithWhereUniqueWithoutZipInput = {
+    where: AddressWhereUniqueInput
+    update: XOR<AddressUpdateWithoutZipInput, AddressUncheckedUpdateWithoutZipInput>
+    create: XOR<AddressCreateWithoutZipInput, AddressUncheckedCreateWithoutZipInput>
+  }
+
+  export type AddressUpdateWithWhereUniqueWithoutZipInput = {
+    where: AddressWhereUniqueInput
+    data: XOR<AddressUpdateWithoutZipInput, AddressUncheckedUpdateWithoutZipInput>
+  }
+
+  export type AddressUpdateManyWithWhereWithoutZipInput = {
+    where: AddressScalarWhereInput
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyWithoutZipInput>
+  }
+
+  export type StateCreateWithoutAddressesInput = {
+    name: string
+    slug: string
+    cities?: CityCreateNestedManyWithoutStateInput
+    zipCodes?: ZipCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateWithoutAddressesInput = {
+    name: string
+    slug: string
+    cities?: CityUncheckedCreateNestedManyWithoutStateInput
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateCreateOrConnectWithoutAddressesInput = {
+    where: StateWhereUniqueInput
+    create: XOR<StateCreateWithoutAddressesInput, StateUncheckedCreateWithoutAddressesInput>
+  }
+
+  export type CityCreateWithoutAddressesInput = {
+    name: string
+    state: StateCreateNestedOneWithoutCitiesInput
+    zipCodes?: ZipCreateNestedManyWithoutCityInput
+  }
+
+  export type CityUncheckedCreateWithoutAddressesInput = {
+    name: string
+    stateName: string
+    zipCodes?: ZipUncheckedCreateNestedManyWithoutCityInput
+  }
+
+  export type CityCreateOrConnectWithoutAddressesInput = {
+    where: CityWhereUniqueInput
+    create: XOR<CityCreateWithoutAddressesInput, CityUncheckedCreateWithoutAddressesInput>
+  }
+
+  export type ZipCreateWithoutAddressesInput = {
+    code: number
+    city: CityCreateNestedOneWithoutZipCodesInput
+    state: StateCreateNestedOneWithoutZipCodesInput
+  }
+
+  export type ZipUncheckedCreateWithoutAddressesInput = {
+    code: number
+    cityName: string
+    stateName: string
+  }
+
+  export type ZipCreateOrConnectWithoutAddressesInput = {
+    where: ZipWhereUniqueInput
+    create: XOR<ZipCreateWithoutAddressesInput, ZipUncheckedCreateWithoutAddressesInput>
+  }
+
+  export type OrganizationCreateWithoutBillingAddressesInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    stripeCustomerId?: string | null
+    users?: UserCreateNestedManyWithoutOrganizationInput
+    roles?: RoleCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutBillingAddressesInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    name: string
+    stripeCustomerId?: string | null
+    users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    roles?: RoleUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutBillingAddressesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutBillingAddressesInput, OrganizationUncheckedCreateWithoutBillingAddressesInput>
+  }
+
+  export type StateUpsertWithoutAddressesInput = {
+    update: XOR<StateUpdateWithoutAddressesInput, StateUncheckedUpdateWithoutAddressesInput>
+    create: XOR<StateCreateWithoutAddressesInput, StateUncheckedCreateWithoutAddressesInput>
+    where?: StateWhereInput
+  }
+
+  export type StateUpdateToOneWithWhereWithoutAddressesInput = {
+    where?: StateWhereInput
+    data: XOR<StateUpdateWithoutAddressesInput, StateUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type StateUpdateWithoutAddressesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUpdateManyWithoutStateNestedInput
+    zipCodes?: ZipUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateWithoutAddressesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    cities?: CityUncheckedUpdateManyWithoutStateNestedInput
+    zipCodes?: ZipUncheckedUpdateManyWithoutStateNestedInput
+  }
+
+  export type CityUpsertWithoutAddressesInput = {
+    update: XOR<CityUpdateWithoutAddressesInput, CityUncheckedUpdateWithoutAddressesInput>
+    create: XOR<CityCreateWithoutAddressesInput, CityUncheckedCreateWithoutAddressesInput>
+    where?: CityWhereInput
+  }
+
+  export type CityUpdateToOneWithWhereWithoutAddressesInput = {
+    where?: CityWhereInput
+    data: XOR<CityUpdateWithoutAddressesInput, CityUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type CityUpdateWithoutAddressesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutCitiesNestedInput
+    zipCodes?: ZipUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutAddressesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type ZipUpsertWithoutAddressesInput = {
+    update: XOR<ZipUpdateWithoutAddressesInput, ZipUncheckedUpdateWithoutAddressesInput>
+    create: XOR<ZipCreateWithoutAddressesInput, ZipUncheckedCreateWithoutAddressesInput>
+    where?: ZipWhereInput
+  }
+
+  export type ZipUpdateToOneWithWhereWithoutAddressesInput = {
+    where?: ZipWhereInput
+    data: XOR<ZipUpdateWithoutAddressesInput, ZipUncheckedUpdateWithoutAddressesInput>
+  }
+
+  export type ZipUpdateWithoutAddressesInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    city?: CityUpdateOneRequiredWithoutZipCodesNestedInput
+    state?: StateUpdateOneRequiredWithoutZipCodesNestedInput
+  }
+
+  export type ZipUncheckedUpdateWithoutAddressesInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    cityName?: StringFieldUpdateOperationsInput | string
+    stateName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationUpsertWithoutBillingAddressesInput = {
+    update: XOR<OrganizationUpdateWithoutBillingAddressesInput, OrganizationUncheckedUpdateWithoutBillingAddressesInput>
+    create: XOR<OrganizationCreateWithoutBillingAddressesInput, OrganizationUncheckedCreateWithoutBillingAddressesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutBillingAddressesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutBillingAddressesInput, OrganizationUncheckedUpdateWithoutBillingAddressesInput>
+  }
+
+  export type OrganizationUpdateWithoutBillingAddressesInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutOrganizationNestedInput
+    roles?: RoleUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutBillingAddressesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type RoleCreateWithoutPermissionsInput = {
@@ -20339,7 +27208,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     users?: UserCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationUncheckedCreateWithoutRolesInput = {
@@ -20347,7 +27218,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     name: string
+    stripeCustomerId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutOrganizationInput
+    billingAddresses?: AddressUncheckedCreateNestedManyWithoutOrganizationInput
   }
 
   export type OrganizationCreateOrConnectWithoutRolesInput = {
@@ -20462,7 +27335,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUpdateManyWithoutOrganizationNestedInput
   }
 
   export type OrganizationUncheckedUpdateWithoutRolesInput = {
@@ -20470,7 +27345,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    stripeCustomerId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput
+    billingAddresses?: AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutRolesInput = {
@@ -20976,6 +27853,20 @@ export namespace Prisma {
     owner?: boolean
   }
 
+  export type AddressCreateManyOrganizationInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    stateName: string
+    country: string
+  }
+
   export type UserUpdateWithoutOrganizationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21083,6 +27974,264 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     owner?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AddressUpdateWithoutOrganizationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutAddressesNestedInput
+    city?: CityUpdateOneRequiredWithoutAddressesNestedInput
+    zip?: ZipUpdateOneRequiredWithoutAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    stateName?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    stateName?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CityCreateManyStateInput = {
+    name: string
+  }
+
+  export type ZipCreateManyStateInput = {
+    code: number
+    cityName: string
+  }
+
+  export type AddressCreateManyStateInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    cityName: string
+    zipCode: number
+    country: string
+    organizationId: number
+  }
+
+  export type CityUpdateWithoutStateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUpdateManyWithoutCityNestedInput
+    addresses?: AddressUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutStateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    zipCodes?: ZipUncheckedUpdateManyWithoutCityNestedInput
+    addresses?: AddressUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateManyWithoutStateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ZipUpdateWithoutStateInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    city?: CityUpdateOneRequiredWithoutZipCodesNestedInput
+    addresses?: AddressUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipUncheckedUpdateWithoutStateInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    cityName?: StringFieldUpdateOperationsInput | string
+    addresses?: AddressUncheckedUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipUncheckedUpdateManyWithoutStateInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    cityName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUpdateWithoutStateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    city?: CityUpdateOneRequiredWithoutAddressesNestedInput
+    zip?: ZipUpdateOneRequiredWithoutAddressesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutBillingAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutStateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressUncheckedUpdateManyWithoutStateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    cityName?: StringFieldUpdateOperationsInput | string
+    zipCode?: IntFieldUpdateOperationsInput | number
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ZipCreateManyCityInput = {
+    code: number
+  }
+
+  export type AddressCreateManyCityInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    zipCode: number
+    country: string
+    organizationId: number
+  }
+
+  export type ZipUpdateWithoutCityInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    state?: StateUpdateOneRequiredWithoutZipCodesNestedInput
+    addresses?: AddressUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipUncheckedUpdateWithoutCityInput = {
+    code?: IntFieldUpdateOperationsInput | number
+    addresses?: AddressUncheckedUpdateManyWithoutZipNestedInput
+  }
+
+  export type ZipUncheckedUpdateManyWithoutCityInput = {
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressUpdateWithoutCityInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutAddressesNestedInput
+    zip?: ZipUpdateOneRequiredWithoutAddressesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutBillingAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutCityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: IntFieldUpdateOperationsInput | number
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressUncheckedUpdateManyWithoutCityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: IntFieldUpdateOperationsInput | number
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressCreateManyZipInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    type: $Enums.AddressType
+    borough?: string | null
+    streetLineOne: string
+    streetLineTwo?: string | null
+    country: string
+    organizationId: number
+  }
+
+  export type AddressUpdateWithoutZipInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    state?: StateUpdateOneRequiredWithoutAddressesNestedInput
+    city?: CityUpdateOneRequiredWithoutAddressesNestedInput
+    organization?: OrganizationUpdateOneRequiredWithoutBillingAddressesNestedInput
+  }
+
+  export type AddressUncheckedUpdateWithoutZipInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AddressUncheckedUpdateManyWithoutZipInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+    borough?: NullableStringFieldUpdateOperationsInput | string | null
+    streetLineOne?: StringFieldUpdateOperationsInput | string
+    streetLineTwo?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    organizationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type RoleUpdateWithoutPermissionsInput = {

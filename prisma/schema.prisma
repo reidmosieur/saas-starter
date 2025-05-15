@@ -145,6 +145,7 @@ enum OnboardingSteps {
   USERNAME // for OAuth sign ups
   PERSONAL_INFO
   ORGANIZATION
+  BILLING
   COMPLETED
 }
 
@@ -167,8 +168,73 @@ model Organization {
 
   name String
 
-  users User[]
-  roles Role[]
+  stripeCustomerId String? @unique
+
+  users            User[]
+  roles            Role[]
+  billingAddresses Address[]
+}
+
+model State {
+  name String @id @unique
+  slug String @unique
+
+  cities    City[]
+  zipCodes  Zip[]
+  addresses Address[]
+}
+
+model City {
+  name      String
+  stateName String
+
+  state     State     @relation(fields: [stateName], references: [name])
+  zipCodes  Zip[]
+  addresses Address[]
+
+  @@unique([name, stateName])
+}
+
+model Zip {
+  code      Int    @id @unique
+  cityName  String
+  stateName String
+
+  city      City      @relation(fields: [cityName, stateName], references: [name, stateName])
+  state     State     @relation(fields: [stateName], references: [name])
+  addresses Address[]
+
+  @@unique([cityName, stateName, code])
+}
+
+model Address {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type AddressType
+
+  borough        String?
+  streetLineOne  String
+  streetLineTwo  String?
+  cityName       String
+  zipCode        Int
+  stateName      String
+  country        String
+  organizationId Int
+
+  state        State        @relation(fields: [stateName], references: [name])
+  city         City         @relation(fields: [cityName, stateName], references: [name, stateName])
+  zip          Zip          @relation(fields: [cityName, stateName, zipCode], references: [cityName, stateName, code])
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([streetLineOne, streetLineTwo, cityName, zipCode, stateName, country])
+}
+
+enum AddressType {
+  BILLING
+  MAILING
 }
 
 model Permission {

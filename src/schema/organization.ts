@@ -7,6 +7,13 @@ import {
 	organizationNameSchema,
 } from './shared'
 
+export const streetOneSchema = z.string()
+export const streetTwoSchema = z.string().optional()
+export const citySchema = z.string()
+export const stateSchema = z.string()
+export const zipCodeSchema = z.string()
+export const countrySchema = z.string()
+
 // for use with a select
 export const roleSchema = z.string()
 
@@ -25,6 +32,16 @@ export const selectedPermissionSchema = z.enum(
 	permissionsArray.map(({ key }) => key) as [string, ...string[]],
 )
 export const permissionsSchema = z.array(selectedPermissionSchema)
+
+export const addressForm = z.object({
+	streetOne: streetOneSchema,
+	streetTwo: streetTwoSchema,
+	city: citySchema,
+	state: stateSchema,
+	zipCode: zipCodeSchema,
+	country: countrySchema,
+})
+export type AddressFormProps = z.infer<typeof addressForm>
 
 export const organizationInfoSettingsForm = z.object({
 	name: organizationNameSchema,
