@@ -5,9 +5,10 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useTheme } from 'next-themes'
 
-const stripePromise = loadStripe(
-	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
-)
+const stripePK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+export const hideStripeDependents = typeof stripePK === 'undefined'
+
+const stripePromise = loadStripe(stripePK ?? '')
 
 interface StripeElementsProviderProps {
 	children?: ReactNode
