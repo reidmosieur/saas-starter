@@ -1,8 +1,10 @@
 'use client'
 
-import { changeSubscription } from '@/app/actions/stripe'
+import { cancelSubscription, changeSubscription } from '@/app/actions/stripe'
 import { capitalize, submitter } from '@/lib/utils'
 import {
+	cancelSubscriptionForm,
+	CancelSubscriptionFormProps,
 	modifySubscriptionForm,
 	ModifySubscriptionFormProps,
 } from '@/schema/organization'
@@ -202,23 +204,49 @@ export function SelectNewPlan({ newPriceId }: { newPriceId?: string }) {
 }
 
 export function CancelPlan() {
+	const { subscriptionId } = useBilling()
+
+	// 1. Define your form.
+	const form = useForm<CancelSubscriptionFormProps>({
+		resolver: zodResolver(cancelSubscriptionForm),
+		defaultValues: {
+			subscriptionId,
+		},
+	})
+
+	// 2. Define a submit handler.
+	const onSubmit = submitter(
+		form,
+		async (values: CancelSubscriptionFormProps) => {
+			return await cancelSubscription(values)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Successfully added a new billing address')
+			},
+		},
+	)
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<Button variant={'outline'}>Cancel</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
-				<AlertDialogHeader>
-					<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-					<AlertDialogDescription>
-						You will lose access to this application after your current period
-						ends.
-					</AlertDialogDescription>
-				</AlertDialogHeader>
-				<AlertDialogFooter>
-					<AlertDialogCancel>No, keep my subscription</AlertDialogCancel>
-					<Button>Yes, cancel my subscription</Button>
-				</AlertDialogFooter>
+				<Form {...form}>
+					<form onSubmit={onSubmit}>
+						<AlertDialogHeader>
+							<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+							<AlertDialogDescription>
+								You will lose access to this application after your current
+								period ends.
+							</AlertDialogDescription>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogCancel>No, keep my subscription</AlertDialogCancel>
+							<Button>Yes, cancel my subscription</Button>
+						</AlertDialogFooter>
+					</form>
+				</Form>
 			</AlertDialogContent>
 		</AlertDialog>
 	)

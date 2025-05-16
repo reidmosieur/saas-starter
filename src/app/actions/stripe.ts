@@ -3,6 +3,7 @@ import { updateOrganizationOrganization } from '@/constants/permissions'
 import { Address } from '@/generated/prisma'
 import { checkUserPermissions } from '@/lib/access-control'
 import { constructRequiredPermissions } from '@/lib/utils'
+import { CancelSubscriptionFormProps } from '@/schema/organization'
 import { redirect } from 'next/navigation'
 import { Stripe } from 'stripe'
 
@@ -288,4 +289,24 @@ export async function getCurrentPlan(customerId: string) {
 	}
 
 	return { id, subscriptionItemId: subscriptionItem.id, planId: plan.id }
+}
+
+export async function cancelSubscription({
+	subscriptionId,
+}: CancelSubscriptionFormProps) {
+	try {
+		await stripe.subscriptions.cancel(subscriptionId)
+
+		return
+	} catch (err) {
+		console.error(err)
+
+		return {
+			errors: {
+				root: {
+					message: 'Something went wrong',
+				},
+			},
+		}
+	}
 }

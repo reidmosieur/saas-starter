@@ -96,3 +96,17 @@ export const updateOrganizationUserForm = z.object({
 export type UpdateOrganizationUserForm = z.infer<
 	typeof updateOrganizationUserForm
 >
+
+export const modifySubscriptionForm = z.object({
+	subscriptionId: z.string(),
+	subscriptionItemId: z.string(),
+	priceId: z.string().optional(),
+	paymentMethodId: z.string().optional(),
+	promoCode: z.string().optional(),
+})
+export type ModifySubscriptionFormProps = z.infer<typeof modifySubscriptionForm>
+
+export const cancelSubscriptionForm = z.object({
+	subscriptionId: z.string(),
+})
+export type CancelSubscriptionFormProps = z.infer<typeof cancelSubscriptionForm>
