@@ -146,4 +146,12 @@
   a {
     @apply text-primary hover:underline;
   }
+
+  code {
+    @apply bg-muted text-pink-400 py-1 px-2 rounded-md
+  }
+
+  dt {
+    @apply font-bold
+  }
 }

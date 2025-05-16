@@ -2,11 +2,24 @@ import { jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { loginRoute, publicRoutes, rootRoute } from './constants/routes'
+import { setup } from './constants/setup'
 
 export default async function middleware(req: NextRequest) {
 	// 2. Check if the current route is public
 	const path = req.nextUrl.pathname
 	const isPublicRoute = publicRoutes.includes(path)
+
+	const missingRequiredEnv = Object.values(setup.required).some(
+		(value) => !value,
+	)
+
+	if (missingRequiredEnv) {
+		if (path === '/setup') {
+			return NextResponse.next()
+		} else {
+			return NextResponse.redirect(new URL('/setup', req.nextUrl))
+		}
+	}
 
 	// 3. Decrypt the session from the cookie
 	const cookie = (await cookies()).get('session')?.value
