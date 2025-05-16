@@ -1,4 +1,6 @@
 import { readInvoices } from '@/app/actions/stripe'
+import { hideStripeDependents } from '@/components/stripe-elements-provider'
+import { StripeMissing } from '@/components/stripe-missing'
 import { Button } from '@/components/ui/button'
 import {
 	Table,
@@ -43,7 +45,37 @@ export default async function Page() {
 		redirect('/logout')
 	}
 
-	const invoices = await readInvoices(stripeCustomerId)
+	const invoices = hideStripeDependents
+		? [
+				{
+					id: 'in_001',
+					invoice_pdf: 'https://example.com/invoices/in_001.pdf',
+					amount_paid: 2000,
+					description: 'Pro Plan - Monthly Subscription',
+					period_start: 1714521600, // May 1, 2024
+					period_end: 1717199999, // May 31, 2024
+					status: 'paid',
+				},
+				{
+					id: 'in_002',
+					invoice_pdf: 'https://example.com/invoices/in_002.pdf',
+					amount_paid: 2000,
+					description: 'Pro Plan - Monthly Subscription',
+					period_start: 1711939200, // April 1, 2024
+					period_end: 1714521599, // April 30, 2024
+					status: 'paid',
+				},
+				{
+					id: 'in_003',
+					invoice_pdf: null,
+					amount_paid: 0,
+					description: 'Pro Plan - Monthly Subscription',
+					period_start: 1709356800, // March 1, 2024
+					period_end: 1711939199, // March 31, 2024
+					status: 'open',
+				},
+			]
+		: await readInvoices(stripeCustomerId)
 
 	return (
 		<TabsContent value="invoices" className="py-4 md:py-6">
@@ -82,7 +114,9 @@ export default async function Page() {
 										<TableCell>{status}</TableCell>
 										<TableCell>${amount_paid / 100}</TableCell>
 										<TableCell align="right">
-											{invoice_pdf ? (
+											{hideStripeDependents ? (
+												<StripeMissing />
+											) : invoice_pdf ? (
 												<Button variant={'ghost'} size={'icon'} asChild>
 													<Link href={invoice_pdf} download>
 														<Download />

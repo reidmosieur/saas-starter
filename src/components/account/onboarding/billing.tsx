@@ -2,6 +2,8 @@
 
 import { completeBillingOnboarding } from '@/app/actions/account/onboarding'
 import { AddressFields } from '@/components/billing/fields'
+import { hideStripeDependents } from '@/components/stripe-elements-provider'
+import { StripeMissing } from '@/components/stripe-missing'
 import { Button } from '@/components/ui/button'
 import { Form, FormMessage } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'
@@ -95,7 +97,11 @@ export function BillingOnboardingStep() {
 					<div className="grid gap-6">
 						<div className="grid gap-1.5">
 							<Label>Card</Label>
-							<CardElement className="border-input text-foreground h-9 rounded-md border bg-white px-2 py-2" />
+							{hideStripeDependents ? (
+								<StripeMissing />
+							) : (
+								<CardElement className="border-input text-foreground h-9 rounded-md border bg-white px-2 py-2" />
+							)}
 							{cardError ? (
 								<small className="text-destructive">{cardError}</small>
 							) : null}

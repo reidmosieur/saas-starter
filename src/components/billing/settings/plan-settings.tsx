@@ -48,6 +48,7 @@ import {
 } from '../../ui/select'
 import { useBilling } from '../context'
 import { PromoCodeField } from '../fields'
+import { hideStripeDependents } from '@/components/stripe-elements-provider'
 
 export function PlanSettingsForm({
 	cardProps,
@@ -130,7 +131,17 @@ export function SelectNewPlan({ newPriceId }: { newPriceId?: string }) {
 	const onSubmit = submitter(
 		form,
 		async (values: ModifySubscriptionFormProps) => {
-			return await changeSubscription(values)
+			if (hideStripeDependents) {
+				return {
+					errors: {
+						root: {
+							message: 'Stripe API information is missing',
+						},
+					},
+				}
+			} else {
+				return await changeSubscription(values)
+			}
 		},
 		{
 			onSuccess: () => {
@@ -145,6 +156,8 @@ export function SelectNewPlan({ newPriceId }: { newPriceId?: string }) {
 			label: `${capitalize(brand)} **** ${last4} - Expires ${exp_month.toString().padStart(2, '0')}/${exp_year}`,
 		}),
 	)
+
+	const rootErrors = form.formState.errors.root?.message
 
 	return (
 		<AlertDialog>
@@ -191,6 +204,7 @@ export function SelectNewPlan({ newPriceId }: { newPriceId?: string }) {
 								)}
 							/>
 							<PromoCodeField form={form} />
+							{rootErrors ? <FormMessage>{rootErrors}</FormMessage> : null}
 						</div>
 						<AlertDialogFooter>
 							<AlertDialogCancel>Cancel</AlertDialogCancel>

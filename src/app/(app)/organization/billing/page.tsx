@@ -3,7 +3,12 @@ import { BillingContextProvider } from '@/components/billing/context'
 import { BillingAddressSettingsForm } from '@/components/billing/settings/billing-addresses'
 import { PaymentMethodSettingsForm } from '@/components/billing/settings/payment-methods'
 import { PlanSettingsForm } from '@/components/billing/settings/plan-settings'
-import { StripeElementsProvider } from '@/components/stripe-elements-provider'
+import {
+	ConditionalStripeElementsProvider,
+	hideStripeDependents,
+	StripeElementsProvider,
+} from '@/components/stripe-elements-provider'
+import { StripeMissing } from '@/components/stripe-missing'
 import {
 	Card,
 	CardDescription,
@@ -56,6 +61,7 @@ const additionalSelect = {
 					},
 				},
 			},
+			billingAddresses: true,
 		},
 	},
 }
@@ -74,18 +80,84 @@ export default async function Page() {
 		redirect('/logout')
 	}
 
-	const data = await instantiateBillingSettings()
+	const data = hideStripeDependents ? null : await instantiateBillingSettings()
 
-	if (!data) {
-		return <p>Something went wrong</p>
+	const { plans, setupIntent, cards, subscription } = data ?? {
+		subscriptionId: 'sub_1234567890',
+		subscriptionItemId: 'si_0987654321',
+		currentPlan: 'price_123pro',
+		setupIntent: {
+			client_secret: '1234',
+		},
+		plans: [
+			{
+				name: 'pro',
+				default_price: {
+					id: 'price_123pro',
+					unit_amount_decimal: '2000', // $20.00
+					recurring: {
+						interval: 'month',
+					},
+				},
+			},
+			{
+				name: 'business',
+				default_price: {
+					id: 'price_456biz',
+					unit_amount_decimal: '5000', // $50.00
+					recurring: {
+						interval: 'month',
+					},
+				},
+			},
+			{
+				name: 'pro',
+				default_price: {
+					id: 'price_123proyear',
+					unit_amount_decimal: '20000', // $200.00
+					recurring: {
+						interval: 'year',
+					},
+				},
+			},
+			{
+				name: 'business',
+				default_price: {
+					id: 'price_456bizyear',
+					unit_amount_decimal: '50000', // $500.00
+					recurring: {
+						interval: 'year',
+					},
+				},
+			},
+		],
+		cards: [
+			{
+				id: 'card_abc123',
+				brand: 'visa',
+				exp_month: 12,
+				exp_year: 2026,
+				last4: '4242',
+			},
+			{
+				id: 'card_def456',
+				brand: 'mastercard',
+				exp_month: 5,
+				exp_year: 2025,
+				last4: '5555',
+			},
+		],
 	}
 
-	const { plans, setupIntent, cards, subscription, billingAddresses } = data
+	const { client_secret } = setupIntent!
 
-	const { client_secret } = setupIntent
+	const billingAddresses = user.organization?.billingAddresses
 
 	return (
-		<StripeElementsProvider clientSecret={client_secret}>
+		<ConditionalStripeElementsProvider
+			provideElements={!hideStripeDependents}
+			clientSecret={client_secret}
+		>
 			<BillingContextProvider
 				defaultValues={{
 					subscriptionId: subscription?.id ?? '',
@@ -119,6 +191,6 @@ export default async function Page() {
 					</section>
 				</TabsContent>
 			</BillingContextProvider>
-		</StripeElementsProvider>
+		</ConditionalStripeElementsProvider>
 	)
 }

@@ -33,6 +33,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../../ui/card'
+import { hideStripeDependents } from '@/components/stripe-elements-provider'
+import { StripeMissing } from '@/components/stripe-missing'
 
 export function PaymentMethodSettingsForm({
 	cardProps,
@@ -57,16 +59,20 @@ export function PaymentMethodSettingsForm({
 					<CardDescription>Add payment methods for your plan</CardDescription>
 				</div>
 				<div className="flex items-start gap-4">
-					<AlertDialog>
-						<AlertDialogTrigger asChild>
-							<Button size={'sm'}>
-								Add <CreditCard />
-							</Button>
-						</AlertDialogTrigger>
-						<AlertDialogContent>
-							<AddCardForm clientSecret={clientSecret} />
-						</AlertDialogContent>
-					</AlertDialog>
+					{hideStripeDependents ? (
+						<StripeMissing />
+					) : (
+						<AlertDialog>
+							<AlertDialogTrigger asChild>
+								<Button size={'sm'}>
+									Add <CreditCard />
+								</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AddCardForm clientSecret={clientSecret} />
+							</AlertDialogContent>
+						</AlertDialog>
+					)}
 				</div>
 			</CardHeader>
 			<CardContent className="grid gap-4 md:gap-6">
@@ -90,6 +96,7 @@ export function PaymentMethodSettingsForm({
 	)
 }
 
+// todo: convert this form to use react-hook-form
 function AddCardForm({ clientSecret }: { clientSecret: string | null }) {
 	const [stripeError, setStripeError] = useState<undefined | string>(undefined)
 	const [submittingCard, setSubmittingCard] = useState(false)

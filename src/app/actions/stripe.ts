@@ -7,14 +7,15 @@ import { CancelSubscriptionFormProps } from '@/schema/organization'
 import { redirect } from 'next/navigation'
 import { Stripe } from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '')
+const secretKey = process.env.STRIPE_SECRET_KEY
+const stripe = secretKey ? new Stripe(secretKey) : null
 
 const requiredPermissions = constructRequiredPermissions([
 	updateOrganizationOrganization,
 ])
 
 export async function createCustomer(email: string) {
-	return await stripe.customers.create({
+	return await stripe?.customers.create({
 		email,
 	})
 }
@@ -23,7 +24,7 @@ export async function instantiateBillingSettings() {
 	const { permitted, user } = await checkUserPermissions({
 		additionalSelect: {
 			organization: {
-				select: { stripeCustomerId: true, billingAddresses: true },
+				select: { stripeCustomerId: true },
 			},
 		},
 		requiredPermissions,
@@ -34,7 +35,6 @@ export async function instantiateBillingSettings() {
 	}
 
 	const stripeCustomerId = user.organization?.stripeCustomerId
-	const billingAddresses: Array<Address> = user.organization?.billingAddresses
 
 	if (!stripeCustomerId) {
 		return null
@@ -52,24 +52,23 @@ export async function instantiateBillingSettings() {
 		plans,
 		subscription,
 		cards,
-		billingAddresses,
 	}
 }
 
 export async function createSetupIntent(customerId: string) {
-	return await stripe.setupIntents.create({
+	return await stripe?.setupIntents.create({
 		usage: 'off_session',
 		customer: customerId,
 	})
 }
 
 export async function readPlans() {
-	const products = await stripe.products.list({
+	const products = await stripe?.products.list({
 		active: true,
 	})
 	const priceIds = products.data.map(({ default_price }) => default_price)
 	const pricesPromises = priceIds.map(
-		async (id) => await stripe.prices.retrieve(id),
+		async (id) => await stripe?.prices.retrieve(id),
 	)
 	const prices = await Promise.all(pricesPromises)
 
@@ -94,20 +93,20 @@ export async function readPlans() {
 }
 
 export async function verifyPromoCode(code: string) {
-	return await stripe.promotionCodes.list({
+	return await stripe?.promotionCodes.list({
 		code,
 		active: true,
 	})
 }
 
 export async function addCard(customerId: string, source: string) {
-	return await stripe.customers.createSource(customerId, {
+	return await stripe?.customers.createSource(customerId, {
 		source,
 	})
 }
 
 export async function readCards(customerId: string) {
-	const cards = await stripe.customers.listPaymentMethods(customerId, {
+	const cards = await stripe?.customers.listPaymentMethods(customerId, {
 		type: 'card',
 	})
 	return cards.data.map(({ id, card }) => ({
@@ -120,11 +119,11 @@ export async function readCards(customerId: string) {
 }
 
 export async function removeCard(id: string) {
-	return await stripe.paymentMethods.detach(id)
+	return await stripe?.paymentMethods.detach(id)
 }
 
 export async function readInvoices(customerId: string) {
-	const invoices = await stripe.invoices.list({
+	const invoices = await stripe?.invoices.list({
 		customer: customerId,
 	})
 
@@ -183,7 +182,7 @@ export async function startSubscription({
 		return redirect('/logout')
 	}
 
-	await stripe.subscriptions.create({
+	await stripe?.subscriptions.create({
 		customer: customerId,
 		items: [
 			{
@@ -230,7 +229,7 @@ export async function changeSubscription({
 
 	if (priceId || promoCode) {
 		try {
-			await stripe.subscriptionItems.update(subscriptionItemId, {
+			await stripe?.subscriptionItems.update(subscriptionItemId, {
 				price: priceId,
 				discounts: [
 					{
@@ -244,7 +243,7 @@ export async function changeSubscription({
 	}
 
 	if (paymentMethodId) {
-		await stripe.subscriptions.update(subscriptionId, {
+		await stripe?.subscriptions.update(subscriptionId, {
 			default_payment_method: paymentMethodId,
 		})
 	}
@@ -253,7 +252,7 @@ export async function changeSubscription({
 }
 
 export async function getCurrentPlan(customerId: string) {
-	const subscriptionList = await stripe.subscriptions.list({
+	const subscriptionList = await stripe?.subscriptions.list({
 		limit: 1,
 		customer: customerId,
 	})
@@ -301,7 +300,7 @@ export async function cancelSubscription({
 	subscriptionId,
 }: CancelSubscriptionFormProps) {
 	try {
-		await stripe.subscriptions.cancel(subscriptionId)
+		await stripe?.subscriptions.cancel(subscriptionId)
 
 		return
 	} catch (err) {

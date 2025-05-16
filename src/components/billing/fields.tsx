@@ -20,6 +20,8 @@ import {
 } from '../ui/select'
 import { cn } from '@/lib/utils'
 import { Label } from '../ui/label'
+import { hideStripeDependents } from '../stripe-elements-provider'
+import { StripeMissing } from '../stripe-missing'
 
 export function StreetOneField<T extends { streetOne: string }>({
 	form,
@@ -207,26 +209,46 @@ export function PromoCodeField<T extends { promoCode?: string | undefined }>({
 			form.clearErrors('promoCode' as Path<T>)
 			return
 		}
+		setValidating(true)
 
 		const timeout = setTimeout(async () => {
-			setValidating(true)
+			if (hideStripeDependents) {
+				const timeout = setTimeout(() => {
+					const random = Math.round(Math.random())
 
-			const result = await verifyPromoCode(code)
-			const promoCode = result.data.at(0)
+					if (random === 1) {
+						setValid(true)
+						form.clearErrors('promoCode' as Path<T>)
+					} else {
+						setValid(false)
+						form.setError('promoCode' as Path<T>, {
+							message: 'That promo code is invalid',
+						})
+					}
+				}, 250)
 
-			setValidating(false)
-
-			if (!promoCode || !promoCode?.active) {
-				setValid(false)
-				form.setError('promoCode' as Path<T>, {
-					message: 'That promo code is invalid',
-				})
+				return () => {
+					clearTimeout(timeout)
+				}
 			} else {
-				setValid(true)
-				form.clearErrors('promoCode' as Path<T>)
-				form.setValue('promoCode' as Path<T>, promoCode.id)
+				setValidating(true)
+				const result = await verifyPromoCode(code)
+				const promoCode = result.data.at(0)
+
+				if (!promoCode || !promoCode?.active) {
+					setValid(false)
+					form.setError('promoCode' as Path<T>, {
+						message: 'That promo code is invalid',
+					})
+				} else {
+					setValid(true)
+					form.clearErrors('promoCode' as Path<T>)
+					form.setValue('promoCode' as Path<T>, promoCode.id)
+				}
+				setValidating(false)
 			}
 		}, 500) // debounce delay
+		setValidating(false)
 
 		return () => clearTimeout(timeout)
 	}, [form, code])
@@ -234,20 +256,25 @@ export function PromoCodeField<T extends { promoCode?: string | undefined }>({
 	return (
 		<div className="grid gap-1.5">
 			<Label>Promo Code</Label>
-			<div className="relative">
-				<Input
-					{...inputProps}
-					className={cn(
-						inputProps?.className,
-						valid && 'border-green-700 bg-green-100',
-					)}
-					onChange={(e) => setCode(e.target.value)}
-				/>
+			<div className="flex gap-2">
+				<div className="relative w-full">
+					<Input
+						{...inputProps}
+						className={cn(
+							inputProps?.className,
+							valid && 'border-green-700 bg-green-100',
+						)}
+						onChange={(e) => setCode(e.target.value)}
+					/>
 
-				{validating ? (
-					<Loader className="absolute top-1/2 right-2 z-10 size-5 -translate-y-1/2 animate-spin" />
-				) : valid ? (
-					<Check className="absolute top-1/2 right-2 z-10 size-5 -translate-y-1/2 text-green-700 dark:text-green-400" />
+					{validating ? (
+						<Loader className="absolute top-1/2 right-2 z-10 size-5 -translate-y-1/2 animate-spin" />
+					) : valid ? (
+						<Check className="absolute top-1/2 right-2 z-10 size-5 -translate-y-1/2 text-green-700 dark:text-green-400" />
+					) : null}
+				</div>
+				{hideStripeDependents ? (
+					<StripeMissing additionalAlert="This is currently mocking the search." />
 				) : null}
 			</div>
 			{errors ? <small className="text-destructive">{errors}</small> : null}
