@@ -41,7 +41,7 @@ export default async function Page() {
 		redirect('/')
 	}
 
-	if (!user || !stripeCustomerId) {
+	if (!user) {
 		redirect('/logout')
 	}
 
@@ -75,7 +75,7 @@ export default async function Page() {
 					status: 'open',
 				},
 			]
-		: await readInvoices(stripeCustomerId)
+		: await readInvoices(stripeCustomerId!)
 
 	return (
 		<TabsContent value="invoices" className="py-4 md:py-6">
