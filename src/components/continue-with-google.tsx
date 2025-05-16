@@ -47,7 +47,7 @@ function GoogleButton({
 	const { resolvedTheme } = useTheme()
 	const dataTheme = resolvedTheme === 'dark' ? 'filled_black' : 'outline'
 	return (
-		<div {...props} className={cn('h-10', props.className)}>
+		<>
 			<div
 				id="g_id_onload"
 				data-client_id={clientId}
@@ -65,6 +65,7 @@ function GoogleButton({
 				data-size="large"
 				data-logo_alignment="left"
 			></div>
-		</div>
+			<small className="text-muted">Google seems to bug here</small>
+		</>
 	)
 }
