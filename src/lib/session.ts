@@ -218,11 +218,11 @@ export async function revokeSession(sessionId: number) {
 // ignore missing or local IPs
 const ignoredIps = ['::1', undefined]
 export async function getIpLocation(ip: string | undefined) {
-	if (ignoredIps.includes(ip)) return undefined
+		const ipInfoApiKey = process.env.IP_INFO_API_KEY
+		if (ignoredIps.includes(ip) || typeof ipInfoApiKey === 'undefined')
+			return undefined
 
 	try {
-		const ipInfoApiKey = process.env.IP_INFO_API_KEY
-
 		if (!ipInfoApiKey) throw new Error('IPinfo API key is required')
 
 		const response = await fetch(
