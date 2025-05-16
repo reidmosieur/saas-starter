@@ -5,6 +5,13 @@ import {
 	updateOrganizationRole,
 } from '@/app/actions/organization'
 import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
 	Form,
 	FormControl,
 	FormField,
@@ -46,7 +53,6 @@ import {
 	DialogTrigger,
 } from '../../ui/dialog'
 import { Input } from '../../ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 import { ScrollArea, ScrollBar } from '../../ui/scroll-area'
 import {
 	Table,
@@ -56,13 +62,6 @@ import {
 	TableHeader,
 	TableRow,
 } from '../../ui/table'
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 
 export function OrganizationRoles({
 	cardProps,
