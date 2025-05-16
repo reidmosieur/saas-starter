@@ -3,6 +3,7 @@ import { updateOrganizationOrganization } from '@/constants/permissions'
 import { Address } from '@/generated/prisma'
 import { checkUserPermissions } from '@/lib/access-control'
 import { constructRequiredPermissions } from '@/lib/utils'
+import { redirect } from 'next/navigation'
 import { Stripe } from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '')
@@ -32,16 +33,17 @@ export async function instantiateBillingSettings() {
 		return null
 	}
 
-	const [setupIntent, plans, cards] = await Promise.all([
+	const [setupIntent, plans, subscription, cards] = await Promise.all([
 		await createSetupIntent(stripeCustomerId),
 		await readPlans(),
+		await getCurrentPlan(stripeCustomerId),
 		await readCards(stripeCustomerId),
-		await readInvoices(stripeCustomerId),
 	])
 
 	return {
 		setupIntent,
 		plans,
+		subscription,
 		cards,
 		billingAddresses,
 	}
@@ -71,11 +73,12 @@ export async function readPlans() {
 			return { name }
 		}
 
-		const { unit_amount_decimal, recurring } = price
+		const { unit_amount_decimal, recurring, id } = price
 
 		return {
 			name,
 			default_price: {
+				id,
 				unit_amount_decimal,
 				recurring: { interval: recurring?.interval },
 			},
@@ -83,15 +86,11 @@ export async function readPlans() {
 	})
 }
 
-export async function checkForDiscount(code: string) {
+export async function verifyPromoCode(code: string) {
 	return await stripe.promotionCodes.list({
 		code,
 		active: true,
 	})
-}
-
-export async function applyDiscount(code: string) {
-	const { data } = await checkForDiscount(code)
 }
 
 export async function addCard(customerId: string, source: string) {
@@ -141,4 +140,152 @@ export async function readInvoices(customerId: string) {
 			status,
 		}),
 	)
+}
+
+export async function startSubscription({
+	priceId,
+	paymentMethodId,
+	promoCode,
+}: {
+	priceId?: string
+	paymentMethodId?: string
+	promoCode?: string
+}) {
+	const { permitted, user } = await checkUserPermissions({
+		additionalSelect: {
+			organization: {
+				select: { stripeCustomerId: true, billingAddresses: true },
+			},
+		},
+		requiredPermissions,
+	})
+
+	if (!permitted || !user) {
+		return {
+			errors: {
+				root: {
+					message: 'You are not allowed to modify the subscription',
+				},
+			},
+		}
+	}
+
+	const customerId = user.organization?.stripeCustomerId
+
+	if (!customerId) {
+		return redirect('/logout')
+	}
+
+	await stripe.subscriptions.create({
+		customer: customerId,
+		items: [
+			{
+				discounts: [
+					{
+						promotion_code: promoCode,
+					},
+				],
+				price: priceId,
+			},
+		],
+		default_payment_method: paymentMethodId,
+	})
+
+	return
+}
+
+export async function changeSubscription({
+	subscriptionId,
+	subscriptionItemId,
+	priceId,
+	paymentMethodId,
+	promoCode,
+}: {
+	subscriptionId: string
+	subscriptionItemId: string
+	priceId?: string
+	paymentMethodId?: string
+	promoCode?: string
+}) {
+	const { permitted, user } = await checkUserPermissions({
+		requiredPermissions,
+	})
+
+	if (!permitted || !user) {
+		return {
+			errors: {
+				root: {
+					message: 'You are not allowed to modify the subscription',
+				},
+			},
+		}
+	}
+
+	if (priceId || promoCode) {
+		try {
+			await stripe.subscriptionItems.update(subscriptionItemId, {
+				price: priceId,
+				discounts: [
+					{
+						promotion_code: promoCode,
+					},
+				],
+			})
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	if (paymentMethodId) {
+		await stripe.subscriptions.update(subscriptionId, {
+			default_payment_method: paymentMethodId,
+		})
+	}
+
+	return
+}
+
+export async function getCurrentPlan(customerId: string) {
+	const subscriptionList = await stripe.subscriptions.list({
+		limit: 1,
+		customer: customerId,
+	})
+
+	if (subscriptionList.has_more) {
+		// there shouldn't be more. Log it
+		console.error(
+			'There is a user with more than one subscription: ',
+			customerId,
+		)
+	}
+
+	const subscription = subscriptionList.data.at(0)
+
+	if (!subscription) {
+		return null
+	}
+
+	const { id, items } = subscription
+	const subscriptionItem = items.data.at(0)
+	const plan = subscriptionItem?.plan
+
+	if (items.data.length > 1) {
+		// there shouldn't be more. Log it
+		console.error(
+			'There is a user with more than one item on their plan: ',
+			customerId,
+		)
+	}
+
+	if (!plan || !subscriptionItem) {
+		return {
+			errors: {
+				root: {
+					message: 'There was an error',
+				},
+			},
+		}
+	}
+
+	return { id, subscriptionItemId: subscriptionItem.id, planId: plan.id }
 }
