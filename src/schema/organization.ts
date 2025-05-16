@@ -110,3 +110,14 @@ export const cancelSubscriptionForm = z.object({
 	subscriptionId: z.string(),
 })
 export type CancelSubscriptionFormProps = z.infer<typeof cancelSubscriptionForm>
+
+export const billingOnboardingSchema = z.object({
+	hasCard: z.boolean().optional(),
+	streetOne: streetOneSchema,
+	streetTwo: streetTwoSchema,
+	city: citySchema,
+	state: stateSchema,
+	zipCode: zipCodeSchema,
+	country: countrySchema,
+})
+export type BillingOnboardingFormProps = z.infer<typeof billingOnboardingSchema>

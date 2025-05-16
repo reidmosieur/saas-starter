@@ -26,4 +26,9 @@ export const onboardingSteps: Array<{
 		slug: 'organization',
 		label: 'Organization Info',
 	},
+	{
+		id: 'BILLING',
+		slug: 'billing',
+		label: 'Billing Info',
+	},
 ]

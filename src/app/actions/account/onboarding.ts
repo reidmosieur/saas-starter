@@ -10,10 +10,14 @@ import {
 } from '@/schema/account'
 import { redirect } from 'next/navigation'
 import { hashPassword } from '../auth'
-import { getUserId } from '../user'
+import { getUserFromSession, getUserId } from '../user'
 import { Prisma } from '@/generated/prisma'
 import { logoutRoute } from '@/constants/routes'
 import { permissionsArray } from '@/constants/permissions'
+import {
+	BillingOnboardingFormProps,
+	billingOnboardingSchema,
+} from '@/schema/organization'
 
 const safeError = {
 	errors: {
@@ -363,6 +367,8 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 
 	const { name } = validatedFields.data
 
+	let updatedUser
+
 	try {
 		const currentUser = await prisma.user.findUniqueOrThrow({
 			where: {
@@ -406,7 +412,7 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 			},
 		})
 
-		await prisma.user.update({
+		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
 			},
@@ -434,6 +440,13 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 					},
 				},
 			},
+			select: {
+				onboarding: {
+					select: {
+						requiredSteps: true,
+					},
+				},
+			},
 		})
 	} catch (err) {
 		console.error(err)
@@ -442,5 +455,140 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 	}
 
 	// here we'll mark onboarding as complete if everything looks good
+	if (updatedUser.onboarding?.requiredSteps.includes('ORGANIZATION')) {
+		redirect('/onboarding/organization')
+	} else {
+		redirect('/onboarding/complete')
+	}
+}
+
+export async function completeBillingOnboarding(
+	values: BillingOnboardingFormProps,
+) {
+	// Step 1:
+	// validate email sign up fields
+	// the form is already validated once on the client but it's good
+	// to validate twice to deter bad actors
+	const validatedFields = billingOnboardingSchema.safeParse(values)
+
+	// if any form fields are invalid, return early
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+		}
+	}
+
+	const user = await getUserFromSession({
+		id: true,
+		organization: { select: { id: true } },
+		onboarding: {
+			select: {
+				stepTimeStamps: true,
+				requiredSteps: true,
+			},
+		},
+	})
+
+	if (!user || !user.organization) {
+		redirect('/logout')
+	}
+
+	const { streetOne, streetTwo, state, city, zipCode, country } =
+		validatedFields.data
+
+	try {
+		const completedStep = 'BILLING'
+		const stepTimeStamps = (user.onboarding?.stepTimeStamps ??
+			{}) as unknown as Record<string, Date>
+		const updatedStamps = {
+			...stepTimeStamps,
+			[completedStep]: new Date(),
+		}
+		const updatedRequiredSteps = user.onboarding?.requiredSteps.filter(
+			(step) => step !== completedStep,
+		)
+
+		await prisma.organization.update({
+			where: {
+				id: user.organization?.id,
+			},
+			data: {
+				billingAddresses: {
+					create: {
+						type: 'BILLING',
+						streetLineOne: streetOne,
+						streetLineTwo: streetTwo,
+						country,
+						state: {
+							connectOrCreate: {
+								where: {
+									name: state,
+								},
+								create: {
+									name: state,
+									slug: state,
+								},
+							},
+						},
+						city: {
+							connectOrCreate: {
+								where: {
+									name_stateName: {
+										name: city,
+										stateName: state,
+									},
+								},
+								create: {
+									name: city,
+									stateName: state,
+								},
+							},
+						},
+						zip: {
+							connectOrCreate: {
+								where: {
+									cityName_stateName_code: {
+										cityName: city,
+										stateName: state,
+										code: Number(zipCode),
+									},
+								},
+								create: {
+									cityName: city,
+									stateName: state,
+									code: Number(zipCode),
+								},
+							},
+						},
+					},
+				},
+			},
+		})
+
+		await prisma.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				onboarding: {
+					update: {
+						currentStep: 'COMPLETED',
+						completedSteps: {
+							push: completedStep,
+						},
+						stepTimeStamps: updatedStamps,
+						requiredSteps: {
+							set: updatedRequiredSteps,
+						},
+					},
+				},
+			},
+		})
+	} catch (err) {
+		console.error(err)
+
+		return safeError
+	}
+
 	redirect('/onboarding/complete')
 }

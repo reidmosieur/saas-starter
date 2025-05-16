@@ -133,7 +133,7 @@ model Onboarding {
 
   currentStep    OnboardingSteps   @default(CREDENTIALS) // current step
   completedSteps OnboardingSteps[]
-  requiredSteps  OnboardingSteps[] @default([CREDENTIALS, PERSONAL_INFO, ORGANIZATION])
+  requiredSteps  OnboardingSteps[] @default([CREDENTIALS, PERSONAL_INFO, ORGANIZATION, BILLING])
   stepTimeStamps Json?
 
   user   User @relation(fields: [userId], references: [id])

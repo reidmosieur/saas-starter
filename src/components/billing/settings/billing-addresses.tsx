@@ -30,6 +30,7 @@ import {
 } from '../../ui/dialog'
 import { Form } from '../../ui/form'
 import {
+	AddressFields,
 	CityField,
 	CountryField,
 	StateField,
@@ -125,14 +126,7 @@ function AddBillingAddressForm() {
 							</DialogDescription>
 						</DialogHeader>
 						<div className="space-y-4 py-6">
-							<StreetOneField form={form} />
-							<StreetTwoField form={form} />
-							<div className="grid grid-cols-2 gap-x-2 gap-y-4">
-								<CityField form={form} />
-								<StateField form={form} />
-								<ZipCodeField form={form} />
-								<CountryField form={form} />
-							</div>
+							<AddressFields form={form} />
 						</div>
 						<AlertDialogFooter>
 							<DialogClose>Cancel</DialogClose>

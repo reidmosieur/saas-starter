@@ -1,6 +1,6 @@
 import { verifyPromoCode } from '@/app/actions/stripe'
 import { Check, Loader } from 'lucide-react'
-import { ComponentProps, useEffect, useState } from 'react'
+import { ComponentProps, Fragment, useEffect, useState } from 'react'
 import { Path, WatchObserver } from 'react-hook-form'
 import { FieldProps, LabeledInputField } from '../fields'
 import {
@@ -128,6 +128,30 @@ export function CountryField<T extends { country: string }>({
 			}}
 			inputProps={inputProps}
 		/>
+	)
+}
+
+export function AddressFields<
+	T extends {
+		streetOne: string
+		streetTwo?: string
+		city: string
+		state: string
+		zipCode: string
+		country: string
+	},
+>({ form }: FieldProps<T>) {
+	return (
+		<Fragment>
+			<StreetOneField form={form} />
+			<StreetTwoField form={form} />
+			<div className="grid grid-cols-2 gap-x-2 gap-y-4">
+				<CityField form={form} />
+				<StateField form={form} />
+				<ZipCodeField form={form} />
+				<CountryField form={form} />
+			</div>
+		</Fragment>
 	)
 }
 
