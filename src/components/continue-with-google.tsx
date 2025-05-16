@@ -7,6 +7,7 @@ import { Skeleton } from './ui/skeleton'
 import Script from 'next/script'
 import { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
+import { GoogleMissing } from './google-missing'
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
 
@@ -19,6 +20,10 @@ export function ContinueWithGoogle({
 	clientComponentProps?: ClientComponentProps
 	googleButtonProps?: GoogleButtonProps
 }) {
+	if (!clientId) {
+		return <GoogleMissing />
+	}
+
 	return (
 		<ClientComponent {...clientComponentProps}>
 			<Script src="https://accounts.google.com/gsi/client" async />
