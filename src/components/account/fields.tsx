@@ -2,7 +2,7 @@
 
 import { Check, ChevronDown } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button, ButtonProps } from '@/components/ui/button'
 import {
 	Command,
 	CommandEmpty,
@@ -128,10 +128,25 @@ export function PhoneNumberField<
 	)
 }
 
+type CountriesComboboxProps<
+	T extends {
+		countryCode?: string | undefined
+	},
+> = {
+	form: UseFormReturn<T>
+}
+
 countries.registerLocale(countriesLocale)
-export function CountriesCombobox<
-	T extends { countryCode: string; phoneNumber: string },
->({ form }: PhoneNumberProps<T>) {
+export function CountriesCombobox<T extends { countryCode: string }>({
+	form,
+	buttonProps = {
+		variant: 'ghost',
+		role: 'combobox',
+		className: 'w-fit justify-between',
+	},
+}: CountriesComboboxProps<T> & {
+	buttonProps?: ButtonProps
+}) {
 	const countryCodesObject = countries.getAlpha2Codes()
 	const countryCodes = Object.entries(countryCodesObject)
 
@@ -143,22 +158,17 @@ export function CountriesCombobox<
 				<FormItem>
 					<Popover>
 						<PopoverTrigger asChild>
-							<Button
-								variant="ghost"
-								role="combobox"
-								className="w-fit justify-between"
-							>
+							<Button {...buttonProps}>
 								<span
 									className={cn(
 										'fi',
 										`fi-${field.value ? field.value.toLowerCase() : 'us'}`,
 									)}
 								></span>
-								{field.value}
 								<ChevronDown />
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-fit p-0" align="start">
+						<PopoverContent className="z-[9999] w-fit p-0" align="start">
 							<Command>
 								<CommandInput placeholder="Country" />
 								<CommandList>
