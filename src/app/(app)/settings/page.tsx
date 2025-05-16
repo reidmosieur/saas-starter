@@ -38,16 +38,16 @@ export default async function Page() {
 
 	return (
 		<TabsContent value="account" className="py-4 md:py-6">
-			<section className="grid grid-cols-6 gap-4 md:gap-6">
+			<section className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-6">
 				<PersonalInfoSettingsForm
-					cardProps={{ className: 'col-span-2 h-fit' }}
+					cardProps={{ className: 'xl:col-span-2 h-fit' }}
 					defaultValues={{
 						firstName: firstName ?? '',
 						lastName: lastName ?? '',
 						username: username ?? '',
 					}}
 				/>
-				<div className="col-span-2 grid gap-4 md:gap-6">
+				<div className="grid gap-4 md:gap-6 xl:col-span-2">
 					<EmailSettingsForm defaultValues={{ email }} />
 					<PhonenumberSettingsForm
 						defaultValues={{
@@ -57,7 +57,7 @@ export default async function Page() {
 					/>
 				</div>
 				<AvatarSettingsForm
-					cardProps={{ className: 'col-span-2' }}
+					cardProps={{ className: 'xl:col-span-2' }}
 					currentImage={avatar?.src}
 				/>
 			</section>

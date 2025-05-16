@@ -10,6 +10,8 @@ export async function GET() {
 		redirect('/logout')
 	}
 
+	// todo: implement verification of required onboarding information
+
 	await prisma.user.update({
 		where: {
 			id: user.id,

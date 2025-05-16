@@ -49,15 +49,17 @@ export default async function Page() {
 
 	return (
 		<TabsContent value="security" className="py-4 md:py-6">
-			<section className="grid grid-cols-6 gap-4 md:gap-6">
-				<PasswordSettingsForm cardProps={{ className: 'col-span-2' }} />
+			<section className="grid gap-4 md:gap-6 xl:grid-cols-6">
+				<PasswordSettingsForm cardProps={{ className: 'xl:col-span-2' }} />
 				<OAuthSettingsForm
-					cardProps={{ className: 'col-span-2' }}
+					cardProps={{ className: 'xl:col-span-2' }}
 					connections={user.connections}
 					userId={user.id}
 				/>
 				<SessionsTable
-					cardProps={{ className: 'col-span-6' }}
+					cardProps={{
+						className: 'xl:col-span-6',
+					}}
 					sessions={user.sessions}
 					currentSession={sessionId}
 				/>

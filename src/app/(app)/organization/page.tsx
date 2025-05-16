@@ -102,21 +102,21 @@ export default async function Page() {
 
 	return (
 		<TabsContent value="general" className="py-4 md:py-6">
-			<section className="grid grid-cols-6 gap-4 md:gap-6">
+			<section className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-6">
 				<OrganizationInfoSettingsForm
-					cardProps={{ className: 'col-span-2 h-fit' }}
+					cardProps={{ className: 'xl:col-span-2 h-fit' }}
 					defaultValues={{
 						name: user?.organization?.name,
 					}}
 				/>
 				<OrganizationUsers
-					cardProps={{ className: 'col-span-4' }}
+					cardProps={{ className: 'xl:col-span-4' }}
 					users={user.organization?.users}
 					readOnly={readOnlyUsersTable}
 					roles={user.organization?.roles}
 				/>
 				<OrganizationRoles
-					cardProps={{ className: 'col-span-4' }}
+					cardProps={{ className: 'xl:col-span-4' }}
 					roles={user.organization?.roles}
 					readOnly={readOnlyRolesTable}
 				/>

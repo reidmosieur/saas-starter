@@ -251,7 +251,7 @@ export function SessionsTable({
 							</div>
 						) : null}
 					</CardHeader>
-					<CardContent>
+					<CardContent className="max-w-xs sm:max-w-sm md:max-w-md lg:w-full lg:max-w-none">
 						<Table>
 							<TableHeader>
 								<TableRow>
