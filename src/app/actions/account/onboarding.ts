@@ -18,6 +18,7 @@ import {
 	BillingOnboardingFormProps,
 	billingOnboardingSchema,
 } from '@/schema/organization'
+import { createCustomer } from '../stripe'
 
 const safeError = {
 	errors: {
@@ -178,7 +179,7 @@ export async function completeUsernameOnboarding(
 				},
 			},
 		})
-		const completedStep = 'CREDENTIALS'
+		const completedStep = 'USERNAME'
 		const updatedRequiredSteps = currentUser.onboarding?.requiredSteps.filter(
 			(step) => step !== completedStep,
 		)
@@ -375,6 +376,7 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 				id: userId,
 			},
 			select: {
+				email: true,
 				onboarding: {
 					select: {
 						stepTimeStamps: true,
@@ -412,6 +414,8 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 			},
 		})
 
+		const stripeCustomer = await createCustomer(currentUser.email)
+
 		updatedUser = await prisma.user.update({
 			where: {
 				id: userId,
@@ -420,6 +424,9 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 				organization: {
 					connect: {
 						id: newOrganizationId,
+					},
+					update: {
+						stripeCustomerId: stripeCustomer.id,
 					},
 				},
 				roles: {
@@ -455,8 +462,8 @@ export async function completeOrganizationOnboarding(values: { name: string }) {
 	}
 
 	// here we'll mark onboarding as complete if everything looks good
-	if (updatedUser.onboarding?.requiredSteps.includes('ORGANIZATION')) {
-		redirect('/onboarding/organization')
+	if (updatedUser.onboarding?.requiredSteps.includes('BILLING')) {
+		redirect('/onboarding/billing')
 	} else {
 		redirect('/onboarding/complete')
 	}

@@ -141,7 +141,12 @@ export async function POST(req: NextRequest) {
 					onboarding: {
 						create: {
 							currentStep: 'USERNAME',
-							requiredSteps: ['USERNAME', 'PERSONAL_INFO', 'ORGANIZATION'],
+							requiredSteps: [
+								'USERNAME',
+								'PERSONAL_INFO',
+								'ORGANIZATION',
+								'BILLING',
+							],
 						},
 					},
 				},

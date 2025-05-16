@@ -13,6 +13,12 @@ const requiredPermissions = constructRequiredPermissions([
 	updateOrganizationOrganization,
 ])
 
+export async function createCustomer(email: string) {
+	return await stripe.customers.create({
+		email,
+	})
+}
+
 export async function instantiateBillingSettings() {
 	const { permitted, user } = await checkUserPermissions({
 		additionalSelect: {

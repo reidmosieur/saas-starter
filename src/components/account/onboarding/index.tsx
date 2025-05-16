@@ -22,6 +22,7 @@ import { OnboardingSteps } from '@/generated/prisma'
 import { UsernameOnboardingStep } from './username'
 import { CredentialsOnboardingStep } from './credentials'
 import { onboardingSteps } from '@/constants/onboarding'
+import { BillingOnboardingStep } from './billing'
 
 export function Onboarding({
 	className,
@@ -96,6 +97,7 @@ export type OnboardingSlugs =
 	| 'username'
 	| 'personal-info'
 	| 'organization'
+	| 'billing'
 
 export function OnboardingStep({ slug }: { slug: OnboardingSlugs }) {
 	switch (slug) {
@@ -114,6 +116,10 @@ export function OnboardingStep({ slug }: { slug: OnboardingSlugs }) {
 		// Step 3:
 		case 'organization':
 			return <OrganizationOnboardingStep />
+
+		// Step 4:
+		case 'billing':
+			return <BillingOnboardingStep />
 
 		default:
 			redirect('/onboarding')
