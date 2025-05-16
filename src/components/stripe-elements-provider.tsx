@@ -4,11 +4,11 @@ import { Fragment, ReactNode } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useTheme } from 'next-themes'
+import { hideStripeDependents } from '@/constants/setup'
 
-const stripePK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-export const hideStripeDependents = typeof stripePK === 'undefined'
-
-const stripePromise = loadStripe(stripePK ?? '')
+const stripePromise = loadStripe(
+	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '',
+)
 
 interface StripeElementsProviderProps {
 	children?: ReactNode

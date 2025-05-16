@@ -48,7 +48,7 @@ import {
 } from '../../ui/select'
 import { useBilling } from '../context'
 import { PromoCodeField } from '../fields'
-import { hideStripeDependents } from '@/components/stripe-elements-provider'
+import { hideStripeDependents } from '@/constants/setup'
 
 export function PlanSettingsForm({
 	cardProps,

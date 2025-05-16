@@ -33,7 +33,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '../../ui/card'
-import { hideStripeDependents } from '@/components/stripe-elements-provider'
+import { hideStripeDependents } from '@/constants/setup'
 import { StripeMissing } from '@/components/stripe-missing'
 
 export function PaymentMethodSettingsForm({

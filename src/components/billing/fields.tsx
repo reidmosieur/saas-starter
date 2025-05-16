@@ -20,7 +20,7 @@ import {
 } from '../ui/select'
 import { cn } from '@/lib/utils'
 import { Label } from '../ui/label'
-import { hideStripeDependents } from '../stripe-elements-provider'
+import { hideStripeDependents } from '@/constants/setup'
 import { StripeMissing } from '../stripe-missing'
 
 export function StreetOneField<T extends { streetOne: string }>({

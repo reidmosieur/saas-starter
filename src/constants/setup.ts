@@ -15,3 +15,5 @@ export const setup = {
 		hasStripeSecretKey: typeof process.env.STRIPE_SECRET_KEY !== 'undefined',
 	},
 }
+
+export const hideStripeDependents = true

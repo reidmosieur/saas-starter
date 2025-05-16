@@ -3,12 +3,9 @@ import { BillingContextProvider } from '@/components/billing/context'
 import { BillingAddressSettingsForm } from '@/components/billing/settings/billing-addresses'
 import { PaymentMethodSettingsForm } from '@/components/billing/settings/payment-methods'
 import { PlanSettingsForm } from '@/components/billing/settings/plan-settings'
-import {
-	ConditionalStripeElementsProvider,
-	hideStripeDependents,
-	StripeElementsProvider,
-} from '@/components/stripe-elements-provider'
+import { ConditionalStripeElementsProvider } from '@/components/stripe-elements-provider'
 import { StripeMissing } from '@/components/stripe-missing'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import {
 	Card,
 	CardDescription,
@@ -17,8 +14,10 @@ import {
 } from '@/components/ui/card'
 import { TabsContent } from '@/components/ui/tabs'
 import { readOrganizationOrganization } from '@/constants/permissions'
+import { hideStripeDependents } from '@/constants/setup'
 import { checkUserPermissions } from '@/lib/access-control'
 import { constructRequiredPermissions } from '@/lib/utils'
+import { User } from 'lucide-react'
 import { redirect } from 'next/navigation'
 
 const requiredPermissions = constructRequiredPermissions([
@@ -87,7 +86,7 @@ export default async function Page() {
 		subscriptionItemId: 'si_0987654321',
 		currentPlan: 'price_123pro',
 		setupIntent: {
-			client_secret: '1234',
+			client_secret: undefined,
 		},
 		plans: [
 			{
@@ -155,7 +154,7 @@ export default async function Page() {
 
 	return (
 		<ConditionalStripeElementsProvider
-			provideElements={!hideStripeDependents}
+			provideElements={!hideStripeDependents && Boolean(client_secret)}
 			clientSecret={client_secret}
 		>
 			<BillingContextProvider
@@ -168,24 +167,34 @@ export default async function Page() {
 				}}
 			>
 				<TabsContent value="billing" className="py-4 md:py-6">
-					<section className="grid grid-cols-6 gap-4 md:gap-6">
-						<Card className="col-span-2 h-fit">
+					<section className="grid grid-cols-1 gap-4 md:gap-6 xl:grid-cols-6">
+						{!client_secret ? (
+							<Alert>
+								<User className="h-4 w-4" />
+								<AlertTitle>Heads up!</AlertTitle>
+								<AlertDescription>
+									There is no customer associated with this user. Some or all of
+									the data displayed is mocked.
+								</AlertDescription>
+							</Alert>
+						) : null}
+						<Card className="h-fit xl:col-span-2">
 							<CardHeader>
-								<CardTitle>Managed By Stripe</CardTitle>
+								<CardTitle>Managed By Stripe </CardTitle>
 								<CardDescription>
 									All payments are fulfilled using Stripe. End-to-end
 									encryption, fully secure.
 								</CardDescription>
 							</CardHeader>
 						</Card>
-						<PlanSettingsForm cardProps={{ className: 'col-span-4' }} />
+						<PlanSettingsForm cardProps={{ className: 'xl:col-span-4' }} />
 						<PaymentMethodSettingsForm
-							cardProps={{ className: 'col-span-2' }}
+							cardProps={{ className: 'xl:col-span-2' }}
 							clientSecret={client_secret}
 							cards={cards}
 						/>
 						<BillingAddressSettingsForm
-							cardProps={{ className: 'col-span-2' }}
+							cardProps={{ className: 'xl:col-span-2' }}
 							billingAddresses={billingAddresses}
 						/>
 					</section>
