@@ -150,7 +150,7 @@ Once signed up and onboarded, users are fully authenticated and dropped into the
 
 ## Billing
 
-Billing isn’t included in the base repo so you can test it locally without Stripe keys or sandboxing. The starter assumes paid access only—no freemium or trial logic.
+Billing gating isn’t included in the base repo so you can test it locally without Stripe keys or sandboxing. But billing information is ready to be collected once Stripe is setup. The starter assumes paid access only—no freemium or trial logic.
 
 To add billing:
 
